@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\WisdomController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', [WisdomController::class, "index"]);
+Route::get('/id/{wisdom}', [WisdomController::class, "getOneWisdom"]);
+Route::get('/category/{id}', [WisdomController::class, "getWisdomsForCategory"]);
+Route::get('/search', [WisdomController::class, "searchForWisdom"]);
+Route::get('/الدكتور-عبدالعزيز-المطوع', function () {
+    return view("about");
 });
