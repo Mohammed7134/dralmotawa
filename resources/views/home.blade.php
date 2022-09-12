@@ -1,8 +1,6 @@
 @extends("layouts.app")
 @section("content")
-<div class="row shadow-lg p-3 mx-1 my-3 rounded blog_post_container short_container" id="current_wisdom">
-    @include("shared.blogPost", ["post"=>"post-1", "imageDisplay"=>"", "displayed"=>$wisdoms[0]->text, "wisdom"=>$wisdoms[0], "title"=>"المقولة المختارة"])
-</div>
+
 <div class="container-fluid shadow-lg p-3 mx-1 my-3 rounded first_son">
     <div class="row add_here">
         @foreach($wisdoms as $wisdom)

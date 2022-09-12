@@ -20,8 +20,15 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         function buttonPressed(e) {
+            const blogPostContainer = document.querySelectorAll(".blog_post_container");
             const displayedWisdom = document.querySelector(".displayed_wisdom");
+            for (post of blogPostContainer) {
+                post.style.display = "none";
+            }
             const wisdomId = e.id.split("-")[1];
+            const displayedWisdomDiv = document.querySelector(`.short_container_${wisdomId}`);
+            displayedWisdomDiv.style.display = "";
+            displayedWisdomDiv.scrollIntoView();
             const fullText = document.getElementById(wisdomId).innerHTML;
             displayedWisdom.innerHTML = fullText;
             const categoriesDiv = document.querySelector('.categories');
