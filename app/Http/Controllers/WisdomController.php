@@ -13,15 +13,19 @@ class WisdomController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    private function ajax($wisdoms)
+    {
+        $html = "";
+        foreach ($wisdoms->items() as $wisdom) {
+            $html .= view('shared.card')->with(compact('wisdom'))->render();
+        }
+        return $html;
+    }
     public function index()
     {
         $wisdoms = Wisdom::inRandomOrder()->paginate(7);
         if (request()->ajax()) {
-            $html = "";
-            foreach ($wisdoms->items() as $wisdom) {
-                $html .= view('shared.card')->with(compact('wisdom'))->render();
-            }
-            return $html;
+            return $this->ajax($wisdoms);
         }
         return view('home')->with(compact('wisdoms'));
     }
@@ -33,14 +37,19 @@ class WisdomController extends Controller
     {
         $id = '%' . $originalId . '%';
         $wisdoms = Wisdom::where('ids', 'LIKE', $id)->inRandomOrder()->paginate(9);
-
-        return view('results')->with(compact('wisdoms'))->with(compact('originalId'));
+        if (request()->ajax()) {
+            return $this->ajax($wisdoms);
+        }
+        return view('home')->with(compact('wisdoms'))->with(compact('originalId'));
     }
     public function searchForWisdom()
     {
         $q = '%' . request()->q . '%';
-        $wisdoms = Wisdom::where('text', 'LIKE', $q)->inRandomOrder()->paginate(9);
-        return view('results')->with(compact('wisdoms'))->with(compact('otherWisdoms'))->with('q', request()->q);
+        $wisdoms = Wisdom::where('text', 'LIKE', $q)->paginate(9);
+        if (request()->ajax()) {
+            return $this->ajax($wisdoms);
+        }
+        return view('home')->with(compact('wisdoms'))->with('q', request()->q);
     }
     /**
      * Show the form for creating a new resource.

@@ -78,7 +78,7 @@
                     <h1>فقه الحياة</h1>
                     <p>مقولات الدكتور عبدالعزيز فيصل المطوع</p>
                     @auth
-                    <a href="/add"><button class="new-wisdom-button" type="submit" style="margin:10px auto;">إضافة حكمة</button></a>
+                    <a href="/add"><button class="new-wisdom-button" type="submit" style="margin:5px auto;">إضافة حكمة</button></a>
                     @endauth
                 </div>
 
@@ -109,7 +109,7 @@
                 <div class="jumbotron text-center">
                     <a href="/الدكتور-عبدالعزيز-المطوع">عن الموقع</a>
                     @auth
-                    <form method="get" action=""><button class="logout-button" type="submit" style="margin:auto;">تسجيل الخروج</button></form>
+                    <form method="get" action="/signout"><button class="logout-button" type="submit" style="margin:auto;">تسجيل الخروج</button></form>
                     @else
                     <p><a href="https://www.instagram.com/dr.almotawa" target="_blank"><img src="{{asset('/images/Instagram-Dr-Abdulaziz.png')}}" alt="instagram.com " class="social-media-icon"></a><a href="https://www.twitter.com/dralmotawaa" target="_blank"><img src="{{asset('/images/Twitter-Dr-Abdulaziz.png')}}" alt="twitter.com" class="social-media-icon"></a></p>
                     <a href="https://rapidapi.com/mohammed7134/api/dr-almotawa-quotes" target="_blank">
