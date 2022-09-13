@@ -1,5 +1,11 @@
 @extends("layouts.app")
 @section("content")
+@if($errors->any())
+<script>
+    showSnackbar("{{$errors->all()[0]}}");
+</script>
+@endif
+
 <div class="row justify-content-center">
     <div class="container shadow-lg p-3 mx-1 my-3 rounded d-flex justify-content-center w-50">
         <form action="signin" method="post">

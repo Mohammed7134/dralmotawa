@@ -18,46 +18,19 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <!-- jQuery Library -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        function buttonPressed(e) {
-            const blogPostContainer = document.querySelectorAll(".blog_post_container");
-            const displayedWisdom = document.querySelector(".displayed_wisdom");
-            for (post of blogPostContainer) {
-                post.style.display = "none";
-            }
-            const wisdomId = e.id.split("-")[1];
-            const displayedWisdomDiv = document.querySelector(`.short_container_${wisdomId}`);
-            displayedWisdomDiv.style.display = "";
-            displayedWisdomDiv.scrollIntoView();
-            const fullText = document.getElementById(wisdomId).innerHTML;
-            displayedWisdom.innerHTML = fullText;
-            const categoriesDiv = document.querySelector('.categories');
-            const categories = e.id.split("-")[0];
-            let ConvertStringToHTML = function(str) {
-                let parser = new DOMParser();
-                let doc = parser.parseFromString(str, 'text/html');
-                return doc.body;
-            };
-            fetch('json/categories.json')
-                .then((res) => {
-                    return res.json();
-                })
-                .then((data) => {
-                    categoriesDiv.innerHTML = "";
-                    JSON.parse(categories).forEach(function(category) {
-                        categoriesDiv.append(ConvertStringToHTML(`<a class="btn_primary" href='/category/${category}'>${data[category]}</a>`));
-                    });
-                });
-        }
-    </script>
+    <script src="{{asset('js/snackbar.js')}}"></script>
+    <script src="{{asset('js/display.js')}}"></script>
     @vite(['resources/css/sidebar.css'])
     @vite(['resources/css/card.css'])
     @vite(['resources/css/app.css'])
     @vite(['resources/css/blogPost.css'])
+    @vite(['resources/css/snackbar.css'])
+
 </head>
 
 <body>
     <button id="btnScrollToTopId"><i class="fas fa-arrow-up"></i></button>
+    <div id="snackbar"></div>
     <div class="wrapper">
         <nav id="sidebar" class="inactive">
             <div class="sidebar-header">
@@ -122,9 +95,10 @@
             </footer>
         </div>
     </div>
+    @vite(['resources/js/app.js'])
+    @vite(['resources/js/sidebar.js'])
 </body>
-@vite(['resources/js/sidebar.js'])
-@vite(['resources/js/app.js'])
+
 
 <!-- jQuery CDN - from googleapis -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
