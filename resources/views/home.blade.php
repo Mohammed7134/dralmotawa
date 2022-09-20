@@ -25,7 +25,7 @@
         @endforeach
     </div>
 </div>
-<p class="text-center loading">يرجى الانتظار...</p>
+<p class="text-center loading"> يرجى الانتظار...</p>
 <script type="text/javascript">
     var paginate = 1;
     $(window).scroll(function() {
