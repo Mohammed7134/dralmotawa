@@ -8,7 +8,7 @@
         <h4>{{$q}}</h4>
         @endisset
         @isset($originalId)
-        <h1>التصنيف:</h1>
+        <h1>التصنيف: </h1>
         <h4>{{$categories[$originalId]}}</h4>
         @endisset
     </div>
