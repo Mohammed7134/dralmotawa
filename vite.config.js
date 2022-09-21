@@ -7,6 +7,7 @@ export default defineConfig({
         host: 'localhost',
     },
     plugins: [
+        basicSsl(),
         laravel({
             input: [
                 'resources/css/app.css',
