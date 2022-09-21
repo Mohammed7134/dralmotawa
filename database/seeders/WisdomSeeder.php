@@ -2,8 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\Wisdom;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class WisdomSeeder extends Seeder
 {
@@ -14,6 +17,9 @@ class WisdomSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Wisdom::factory()
+            ->count(50)
+            ->hasPosts(1)
+            ->create();
     }
 }

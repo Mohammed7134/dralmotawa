@@ -17,7 +17,8 @@ class WisdomFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'text' => fake()->name(),
+            'ids' => '["1429"]'
         ];
     }
 }
