@@ -20,11 +20,11 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{{asset('js/snackbar.js')}}"></script>
     <script src="{{asset('js/display.js')}}"></script>
-    @vite(['resources/css/sidebar.css'])
-    @vite(['resources/css/card.css'])
-    @vite(['resources/css/app.css'])
-    @vite(['resources/css/blogPost.css'])
-    @vite(['resources/css/snackbar.css'])
+    <link rel="stylesheet" href="{{asset('css/sidebar.css')}}">
+    <link rel="stylesheet" href="{{asset('css/card.css')}}">
+    <link rel="stylesheet" href="{{asset('css/app.css')}}">
+    <link rel="stylesheet" href="{{asset('css/blogPost.css')}}">
+    <link rel="stylesheet" href="{{asset('css/snackbar.css')}}">
 
 </head>
 
