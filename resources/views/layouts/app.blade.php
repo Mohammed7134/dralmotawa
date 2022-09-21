@@ -20,11 +20,11 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{{asset('js/snackbar.js')}}"></script>
     <script src="{{asset('js/display.js')}}"></script>
-    <link rel="stylesheet" href="{{asset('css/sidebar.css')}}">
-    <link rel="stylesheet" href="{{asset('css/card.css')}}">
-    <link rel="stylesheet" href="{{asset('css/app.css')}}">
-    <link rel="stylesheet" href="{{asset('css/blogPost.css')}}">
-    <link rel="stylesheet" href="{{asset('css/snackbar.css')}}">
+    @vite(['resources/css/sidebar.css'])
+    @vite(['resources/css/card.css'])
+    @vite(['resources/css/app.css'])
+    @vite(['resources/css/blogPost.css'])
+    @vite(['resources/css/snackbar.css'])
 
 </head>
 
@@ -95,9 +95,8 @@
             </footer>
         </div>
     </div>
-    <script src="{{asset('js/app.js')}}"></script>
-    <script src="{{asset('js/sidebar.js')}}"></script>
-
+    @vite(['resources/js/app.js'])
+    @vite(['resources/js/sidebar.js'])
 </body>
 
 
