@@ -95,8 +95,9 @@
             </footer>
         </div>
     </div>
-    @vite(['resources/js/app.js'])
-    @vite(['resources/js/sidebar.js'])
+    <script src="{{asset('js/app.js')}}"></script>
+    <script src="{{asset('js/sidebar.js')}}"></script>
+
 </body>
 
 
