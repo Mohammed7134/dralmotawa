@@ -30,9 +30,8 @@ class WisdomController extends Controller
             $wisdom->ids = json_encode($wis_ids);
 
             $wisdom->save();
-            return $wisdom->ids;
         }
-
+        return "done";
         $wisdoms = Wisdom::inRandomOrder()->paginate(7);
         if (request()->ajax()) {
             return $this->ajax($wisdoms);
