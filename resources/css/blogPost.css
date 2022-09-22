@@ -1,0 +1,112 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap");
+
+.blog_post_container {
+    display: flex;
+    height: fit-content;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    background: #ade2f8;
+    background: -webkit-linear-gradient(to right, #46a1ce, #ade2f8);
+    background: linear-gradient(to right, #46a1ce, #ade2f8);
+}
+
+.blog_post {
+    max-height: inherit;
+    height: fit-content;
+    background: #fff;
+    /* max-width: 500px; */
+    border-radius: 10px;
+    box-shadow: 1px 1px 2rem rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+.post-2 {
+    background: linear-gradient(45deg, #ecccf5, transparent);
+}
+
+.container_copy {
+    padding: 1rem;
+}
+
+.img_pod {
+    background: linear-gradient(90deg, #ff9966, #ff5e62);
+    z-index: 10;
+    box-shadow: 1px 1px 2rem rgba(0, 0, 0, 0.3);
+    border-radius: 100%;
+    position: absolute;
+    right: -40px;
+    top: -60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.img_post {
+    height: 5.3rem;
+    width: 5.3rem;
+    position: relative;
+    border-radius: 100%;
+    box-shadow: 1px 1px 2rem rgba(0, 0, 0, 0.3);
+    z-index: 1;
+    object-fit: cover;
+    object-position: 25% 55%;
+}
+
+h3 {
+    margin: 0 0 0.5rem 0;
+    color: #999;
+    font-size: 1.25rem;
+}
+
+h1.wisdom_title {
+    margin: 0 0 1rem 0;
+    font-size: 3.0rem;
+    letter-spacing: 0.5px;
+    color: #333;
+}
+
+.displayed_wisdom {
+    font-family: "Montserrat";
+    font-size: 5vw;
+    font-weight: 700;
+    line-height: 1.2;
+    background: white;
+}
+
+@media only screen and (min-width: 768px) {
+    .displayed_wisdom {
+        font-weight: 500;
+        font-size: 3vw;
+        /* max-height: 1500px; */
+        overflow: scroll;
+    }
+}
+
+p {
+    margin: 0 0 1.5rem 0;
+    font-size: 1.5rem;
+    line-height: 1.45;
+    color: #333;
+}
+
+.btn_primary {
+    border: none;
+    outline: none;
+    background: linear-gradient(90deg, #749fad, #9e00e436);
+    padding: 1rem 1.5rem;
+    border-radius: 50px;
+    color: white;
+    font-size: 0.7rem;
+    box-shadow: 1px 10px 2rem rgba(255, 94, 98, 0.5);
+    transition: all 0.2s ease-in;
+    text-decoration: none;
+}
+
+.btn_primary:hover {
+    box-shadow: 0px 5px 1rem rgba(255, 94, 98, 0.5);
+}
+
+@media only screen and (max-width: 650px) {
+    .img_pod {}
+}
