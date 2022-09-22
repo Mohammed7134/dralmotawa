@@ -24,10 +24,10 @@ class WisdomController extends Controller
     public function index()
     {
         $wisdoms = Wisdom::all();
-        return $wisdoms[0];
-
         $wis_ids = explode(",", $wisdoms[0]->ids);
+        return $wis_ids;
         $wisdoms[0]->ids = json_encode($wis_ids);
+        return $wisdoms[0];
         $wisdoms = Wisdom::inRandomOrder()->paginate(7);
         if (request()->ajax()) {
             return $this->ajax($wisdoms);
