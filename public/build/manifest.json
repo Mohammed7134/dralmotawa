@@ -7,13 +7,13 @@
       "assets/app.b4f7846d.css"
     ]
   },
-  "resources/js/app.css": {
-    "file": "assets/app.b4f7846d.css",
-    "src": "reso,urces/js/app.css"
-  },
   "resources/css/app.css": {
     "file": "assets/app.6cc30d58.css",
     "src": "resources/css/app.css",
     "isEntry": true
+  },
+  "resources/js/app.css": {
+    "file": "assets/app.b4f7846d.css",
+    "src": "resources/js/app.css"
   }
 }
