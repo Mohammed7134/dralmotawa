@@ -26,7 +26,7 @@ class WisdomController extends Controller
         $wisdoms = Wisdom::all();
         $wis_ids = explode(",", $wisdoms[0]->ids);
         $wisdoms[0]->ids = json_encode($wis_ids);
-        return view('about');
+        return $wisdoms[0];
         $wisdoms = Wisdom::inRandomOrder()->paginate(7);
         if (request()->ajax()) {
             return $this->ajax($wisdoms);
