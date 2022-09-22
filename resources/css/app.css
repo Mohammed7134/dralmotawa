@@ -1,3 +1,5 @@
+@charset "UTF-8";
+
 header {
     margin-bottom: 50px;
 }
@@ -105,4 +107,528 @@ li.page-item {
 
 #btnScrollToTopId:active {
     background: #c8bae9;
+}
+
+/* Blog Post */
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap");
+
+.blog_post_container {
+    display: flex;
+    height: fit-content;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    background: #ade2f8;
+    background: -webkit-linear-gradient(to right, #46a1ce, #ade2f8);
+    background: linear-gradient(to right, #46a1ce, #ade2f8);
+}
+
+.blog_post {
+    max-height: inherit;
+    height: fit-content;
+    background: #fff;
+    /* max-width: 500px; */
+    border-radius: 10px;
+    box-shadow: 1px 1px 2rem rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+.post-2 {
+    background: linear-gradient(45deg, #ecccf5, transparent);
+}
+
+.container_copy {
+    padding: 1rem;
+}
+
+.img_pod {
+    background: linear-gradient(90deg, #ff9966, #ff5e62);
+    z-index: 10;
+    box-shadow: 1px 1px 2rem rgba(0, 0, 0, 0.3);
+    border-radius: 100%;
+    position: absolute;
+    right: -40px;
+    top: -60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.img_post {
+    height: 5.3rem;
+    width: 5.3rem;
+    position: relative;
+    border-radius: 100%;
+    box-shadow: 1px 1px 2rem rgba(0, 0, 0, 0.3);
+    z-index: 1;
+    object-fit: cover;
+    object-position: 25% 55%;
+}
+
+h3 {
+    margin: 0 0 0.5rem 0;
+    color: #999;
+    font-size: 1.25rem;
+}
+
+h1.wisdom_title {
+    margin: 0 0 1rem 0;
+    font-size: 3.0rem;
+    letter-spacing: 0.5px;
+    color: #333;
+}
+
+.displayed_wisdom {
+    font-family: "Montserrat";
+    font-size: 5vw;
+    font-weight: 700;
+    line-height: 1.2;
+    background: white;
+}
+
+@media only screen and (min-width: 768px) {
+    .displayed_wisdom {
+        font-weight: 500;
+        font-size: 3vw;
+        /* max-height: 1500px; */
+        overflow: scroll;
+    }
+}
+
+p {
+    margin: 0 0 1.5rem 0;
+    font-size: 1.5rem;
+    line-height: 1.45;
+    color: #333;
+}
+
+.btn_primary {
+    border: none;
+    outline: none;
+    background: linear-gradient(90deg, #749fad, #9e00e436);
+    padding: 1rem 1.5rem;
+    border-radius: 50px;
+    color: white;
+    font-size: 0.7rem;
+    box-shadow: 1px 10px 2rem rgba(255, 94, 98, 0.5);
+    transition: all 0.2s ease-in;
+    text-decoration: none;
+}
+
+.btn_primary:hover {
+    box-shadow: 0px 5px 1rem rgba(255, 94, 98, 0.5);
+}
+
+@media only screen and (max-width: 650px) {
+    .img_pod {}
+}
+
+/* card */
+
+.card-body {
+    font-size: 1em;
+    font-family: "Lato";
+    font-weight: 400;
+    line-height: 1.5;
+    word-wrap: break-word;
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    hyphens: auto;
+}
+
+.card {
+    margin-bottom: 5%;
+}
+
+.card__image>img {
+    height: auto;
+    width: 100%;
+    max-width: 100%;
+}
+
+.card>a {
+    color: #29B6F6;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.grid {
+    float: none;
+    width: 100%;
+    padding-left: 0.2em;
+    padding-right: 0.2em;
+    padding-bottom: 0.4em;
+}
+
+@media screen and (min-width: 40.063em) {
+    .grid {
+        float: left;
+        width: 33.333%;
+    }
+}
+
+.card__image {
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    display: block;
+    min-height: 240px;
+    overflow: hidden;
+    position: relative;
+    /* min-width: 240px; */
+}
+
+.card__image>img {
+    display: block;
+    margin-bottom: 0;
+    -webkit-transition: all 0.25s ease-in-out;
+    -moz-transition: all 0.25s ease-in-out;
+    -ms-transition: all 0.25s ease-in-out;
+    -o-transition: all 0.25s ease-in-out;
+    transition: all 0.25s ease-in-out;
+}
+
+.card__image:hover>img {
+    -webkit-transform: scale(1.2);
+    -moz-transform: scale(1.2);
+    -ms-transform: scale(1.2);
+    -o-transform: scale(1.2);
+    transform: scale(1.2);
+}
+
+.card__title {
+    color: white;
+    display: inline-block;
+    font-family: "Montserrat";
+    font-size: 6vw;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 0.75em;
+    text-decoration: none;
+    -webkit-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+}
+
+@media only screen and (min-width: 768px) {
+
+    .card__title {
+        font-size: 1.9vw;
+    }
+}
+
+@media only screen and (min-width: 400px) and (max-width: 767px) {
+    .card__image {
+        min-height: 400px;
+    }
+}
+
+.card__title:hover {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+}
+
+.card__overlay {
+    content: "";
+    bottom: 0;
+    display: block;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+}
+
+.card__overlay--indigo {
+    background-image: linear-gradient(to bottom, rgba(92, 107, 192, 0.1), rgba(92, 107, 192, 0.8));
+    z-index: 2;
+}
+
+.card__overlay--blue {
+    /* background-image: linear-gradient(to bottom, rgba(41, 182, 246, 0.1), rgba(41, 182, 246, 0.8)); */
+    background: linear-gradient(to bottom, rgb(19 52 68 / 40%), rgb(41 182 246));
+    z-index: 2;
+}
+
+.card__overlay-content {
+    height: inherit;
+    position: absolute;
+    top: 0;
+    padding: 1.5em;
+    z-index: 3;
+}
+
+.card__meta {
+    margin: 0;
+    margin-right: -0.5em;
+    margin-bottom: 0.5em;
+}
+
+.card__meta.card__meta--last {
+    margin-bottom: 0;
+    padding-left: 1rem;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.card__meta li {
+    color: #f8f8f8;
+    display: inline;
+    list-style-type: none;
+    margin-bottom: 0;
+    padding-right: 0.5em;
+    font-size: 5vw;
+    font-variant: small-caps;
+    letter-spacing: 1px;
+}
+
+@media only screen and (min-width: 768px) {
+
+    .card__meta li {
+        font-size: 1.8vw;
+    }
+}
+
+.card__meta li:not(:last-child):after {
+    content: "●";
+    font-style: normal;
+    position: relative;
+    color: rgba(255, 255, 255, 0.25);
+    right: -0.6em;
+}
+
+.card__meta li>a {
+    color: #f8f8f8;
+}
+
+/* sidebar */
+/* ---------------------------------------------------
+  SIDEBAR STYLE
+  ----------------------------------------------------- */
+
+
+.wrapper {
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+}
+
+#sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    background: #98c8dc;
+    color: #fff;
+    transition: all 0.3s;
+    position: sticky;
+    top: 0px;
+    left: 0px;
+    overflow: scroll;
+    height: 100vh;
+    z-index: 3;
+}
+
+#sidebar.active {
+    margin-right: 0px;
+}
+
+#sidebar.inactive {
+    margin-right: -250px;
+}
+
+#sidebar .sidebar-header {
+    padding: 20px;
+    background: #9bafca;
+    text-align: right;
+}
+
+#sidebar div>h3 {
+    color: white;
+}
+
+#sidebar ul.components {
+    padding: 20px 0;
+    border-bottom: 1px solid #47748b;
+    text-align: right;
+}
+
+#sidebar ul p {
+    color: #fff;
+    padding: 10px;
+}
+
+#sidebar ul li a {
+    padding: 10px;
+    font-size: 1.1em;
+    display: block;
+}
+
+#sidebar ul li a:hover {
+    color: #7386D5;
+    background: #fff;
+}
+
+#sidebar ul li.active>a,
+a[aria-expanded="true"] {
+    color: #fff;
+    background: #6d7fcc;
+}
+
+a[data-toggle="collapse"] {
+    position: relative;
+}
+
+ul ul a {
+    font-size: 0.9em !important;
+    padding-left: 30px !important;
+    background: #6d7fcc;
+}
+
+/* ---------------------------------------------------
+  CONTENT STYLE
+  ----------------------------------------------------- */
+
+#content {
+    width: 100%;
+    padding: 20px;
+    transition: all 0.3s;
+}
+
+.search-form {
+    display: flex;
+}
+
+.social-media-icon {
+    height: 25px;
+    width: auto;
+}
+
+#xmark {
+    position: fixed;
+    top: 25px;
+    left: 25px;
+    visibility: hidden;
+}
+
+.sidebar-header {
+    position: sticky;
+    top: 0;
+    right: 0;
+}
+
+/* ---------------------------------------------------
+  MEDIAQUERIES
+  ----------------------------------------------------- */
+
+@media (max-width: 768px) {
+    body.scroll-disable {
+        overflow: hidden;
+    }
+
+    .navbar-brand {
+        margin-right: 0;
+    }
+
+    #sidebar.active {
+        margin-right: 0;
+    }
+
+    #sidebarCollapse span {
+        display: none;
+    }
+
+    .sidebar-header {
+        position: sticky;
+        top: 0;
+        right: 0;
+    }
+
+    #sidebar {
+        margin-right: -250px;
+        position: fixed;
+        top: 0;
+        right: 0;
+    }
+
+    #sidebar.active {
+        margin-right: 0;
+    }
+
+    #content.inactive {
+        opacity: 0.7;
+        pointer-events: none;
+        user-select: none;
+    }
+
+    #content {
+        width: 100%;
+        padding: 20px;
+        transition: all 0.3s;
+    }
+
+    .search-form {
+        display: flex;
+    }
+
+    .social-media-icon {
+        height: 25px;
+        width: auto;
+    }
+
+    #xmark.show {
+        padding: 3%;
+        visibility: visible;
+        z-index: 3;
+    }
+
+    #xmark {
+        position: fixed;
+        top: 25px;
+        left: 25px;
+        visibility: hidden;
+    }
+
+}
+
+/* snackbar */
+#snackbar {
+    visibility: hidden;
+    /* Hidden by default. Visible on click */
+    min-width: 250px;
+    /* Set a default minimum width */
+    margin-left: -125px;
+    /* Divide value of min-width by 2 */
+    background-color: #333;
+    /* Black background color */
+    color: #fff;
+    /* White text color */
+    text-align: center;
+    /* Centered text */
+    border-radius: 2px;
+    /* Rounded borders */
+    padding: 16px;
+    /* Padding */
+    position: fixed;
+    /* Sit on top of the screen */
+    z-index: 1;
+    /* Add a z-index if needed */
+    left: 50%;
+    /* Center the snackbar */
+    bottom: 30px;
+    /* 30px from the bottom */
+}
+
+/* Show the snackbar when clicking on a button (class added with JavaScript) */
+#snackbar.show {
+    visibility: visible;
+    /* Show the snackbar */
+    /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+      However, delay the fade out process for 2.5 seconds */
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2s;
+    animation: fadein 0.5s, fadeout 0.5s 2s;
 }
