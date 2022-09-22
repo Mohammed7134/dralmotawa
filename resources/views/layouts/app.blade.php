@@ -20,7 +20,6 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{{asset('js/snackbar.js')}}"></script>
     <script src="{{asset('js/display.js')}}"></script>
-    @vite(['resources/css/sidebar.css'])
     @vite(['resources/css/card.css'])
     @vite(['resources/css/app.css'])
     @vite(['resources/css/blogPost.css'])
