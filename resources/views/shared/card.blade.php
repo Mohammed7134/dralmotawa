@@ -1,7 +1,7 @@
 <div class="col-md-4">
     <div class="card">
         <div class="card__image">
-            <img src="https://unsplash.it/400/300?image={{rand(350, 400)}}" alt="" style="min-height:inherit;">
+            <img src="https://unsplash.it/400/300?image={{rand(170, 180)}}" alt="" style="min-height:inherit;">
             <div class="card__overlay card__overlay--blue">
                 <div class="card__overlay-content">
                     <ul class="card__meta">

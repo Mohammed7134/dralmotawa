@@ -5,9 +5,9 @@ function showSnackbar(message, wisId = null, time = 2400) {
     // Write the message
     x.innerText = message;
     if (wisId != null) {
-        let deleteBtn = document.createElement("button");
+        let deleteBtn = document.createElement("a");
         deleteBtn.classList.add("btn", "btn-danger");
-        deleteBtn.addEventListener("click", async () => { await deleteWisdom(wisId); });
+        deleteBtn.setAttribute('href', `/delete/${wisId}`);
         deleteBtn.innerText = "نعم";
         x.append(deleteBtn);
     }

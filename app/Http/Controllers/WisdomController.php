@@ -51,6 +51,42 @@ class WisdomController extends Controller
         }
         return view('home')->with(compact('wisdoms'))->with('q', request()->q);
     }
+
+    public function changeCategory()
+    {
+        $wisdom = Wisdom::where("id", "=", request()->wisdomId)->first();
+        $wisdom->ids = request()->newCategories;
+        if ($wisdom->save()) {
+            $result['error'] = false;
+            return json_encode($result);
+        } else {
+            $result['error'] = true;
+            return json_encode($result);
+        }
+    }
+    public function changeText()
+    {
+        return request();
+        $wisdom = Wisdom::where("id", "=", request()->wisdomId)->first();
+        $wisdom->text = request()->text;
+        if ($wisdom->save()) {
+            $result['error'] = false;
+            return json_encode($result);
+        } else {
+            $result['error'] = true;
+            return json_encode($result);
+        }
+    }
+    public function deleteWisdom(Wisdom $wisdom)
+    {
+        $wisdom->delete();
+        $result['error'] = false;
+        return back();
+    }
+    public function getRandomQuote()
+    {
+        return Wisdom::inRandomOrder()->first();
+    }
     /**
      * Show the form for creating a new resource.
      *
