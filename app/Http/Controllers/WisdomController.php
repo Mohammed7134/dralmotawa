@@ -91,7 +91,14 @@ class WisdomController extends Controller
         $response = array();
         if ($_SERVER['REQUEST_METHOD'] == 'GET' && $token === "ABJEDHOWS" && $rapidApi) {
             $response['status'] = 200;
-            $response['wisdom'] = Wisdom::inRandomOrder()->first();
+            $wisdom = Wisdom::inRandomOrder()->first();
+            $responseWisdom['id'] = $wisdom->id;
+            $responseWisdom['text'] = $wisdom->text;
+            $responseWisdom['categories'] = [];
+            foreach ($wisdom->ids as $id) {
+                $responseWisdom['categories'][] = $categories[$id];
+            }
+            $response['wisdom'] = $responseWisdom;
         } else {
             $response['status'] = 400;
             $response['message'] = "Invalid Request";
