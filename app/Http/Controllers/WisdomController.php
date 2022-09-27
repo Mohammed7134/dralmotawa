@@ -89,6 +89,9 @@ class WisdomController extends Controller
         $token = $headers['Token'];
         $rapidApi = $headers['X-RapidAPI-Proxy-Secret'] === "4e81b800-7e6a-11ec-bd3d-d70ef1ec455f";
         $response = array();
+        $path = public_path() . '/json/categories.json';
+        $file = file_get_contents($path);
+        $categories = json_decode($file, true);
         if ($_SERVER['REQUEST_METHOD'] == 'GET' && $token === "ABJEDHOWS" && $rapidApi) {
             $response['status'] = 200;
             $wisdom = Wisdom::inRandomOrder()->first();
