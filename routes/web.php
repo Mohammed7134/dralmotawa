@@ -26,7 +26,7 @@ Route::post('/signin', [UsersController::class, "signin"]);
 Route::post('/changeCategory', [WisdomController::class, "changeCategory"])->middleware("auth");
 Route::post('/changeText', [WisdomController::class, "changeText"])->middleware("auth");
 Route::get('/delete/{wisdom}', [WisdomController::class, "deleteWisdom"])->middleware("auth");
-Route::get('/getRandomQuote', [WisdomController::class, "getRandomQuote"])->middleware("auth");
+Route::get('/getRandomQuote', [WisdomController::class, "getRandomQuote"]);
 Route::get('/الدكتور-عبدالعزيز-المطوع', function () {
     return view("about");
 });
