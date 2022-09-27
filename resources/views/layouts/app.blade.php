@@ -22,6 +22,18 @@
     <script src="{{asset('js/snackbar.js')}}"></script>
     <script src="{{asset('js/display.js')}}"></script>
     <script src="{{asset('js/changeCategory.js')}}"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H598W69820"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-H598W69820');
+    </script>
     @vite(['resources/css/app.css'])
 
 </head>

@@ -90,15 +90,8 @@ class WisdomController extends Controller
         $rapidApi = $headers['X-RapidAPI-Proxy-Secret'] === "4e81b800-7e6a-11ec-bd3d-d70ef1ec455f";
         $response = array();
         if ($_SERVER['REQUEST_METHOD'] == 'GET' && $token === "ABJEDHOWS" && $rapidApi) {
-            require_once $_SERVER['DOCUMENT_ROOT'] . '/../etc/includes/DbOperations.php';
-            $result = $db->getAllWisdoms();
-            if ($result !== false) {
-                $response['status'] = 200;
-                $response['wisdom'] = Wisdom::inRandomOrder()->first();
-            } else {
-                $response['status'] = 400;
-                $response['message'] = "Something went wrong";
-            }
+            $response['status'] = 200;
+            $response['wisdom'] = Wisdom::inRandomOrder()->first();
         } else {
             $response['status'] = 400;
             $response['message'] = "Invalid Request";
