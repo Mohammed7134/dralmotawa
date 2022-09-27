@@ -98,7 +98,7 @@ class WisdomController extends Controller
             $responseWisdom['id'] = $wisdom->id;
             $responseWisdom['text'] = $wisdom->text;
             $responseWisdom['categories'] = [];
-            foreach ($wisdom->ids as $id) {
+            foreach (json_decode($wisdom->ids) as $id) {
                 $responseWisdom['categories'][] = $categories[$id];
             }
             $response['wisdom'] = $responseWisdom;
