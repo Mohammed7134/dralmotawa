@@ -24,12 +24,6 @@ class WisdomController extends Controller
     }
     public function index()
     {
-        $newUser = new User();
-        $newUser->name = "mohammed";
-        $newUser->email = "mohammed7134@gmail.com";
-        $newUser->password = bcrypt("Mohammed_n1");
-        $newUser->save();
-
         $wisdoms = Wisdom::inRandomOrder()->paginate(7);
         if (request()->ajax()) {
             return $this->ajax($wisdoms);
