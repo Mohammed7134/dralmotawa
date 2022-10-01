@@ -1,13 +1,27 @@
-<?php function limitStringLength($str, $limit = 100)
+<?php
+function limitStringLength($str, $limit = 110)
 {
     str_replace(['&nbsp;', '/\xc2\xa0/', '\\u00a0"'], " ", $str);
     str_replace(array("\r\n", "\r", "\n"), "<br />", $str);
-    if (mb_strlen($str) > $limit) {
+    str_replace("<br>", "<br />", $str);
+    $long = mb_strlen($str) > $limit;
+    if ($long) {
         $str = mb_substr($str, 0, $limit) . '...';
     }
-    return $str;
+    return [$str, $long];
 }
-function adjustLineBreaks($wisdom)
+function adjustLineBreaks($wisdom, $textarea)
 {
-    echo nl2br($wisdom, false);
+    if ($textarea) {
+        echo $wisdom;
+    } else {
+        str_replace(['&nbsp;', '/\xc2\xa0/', '\\u00a0"'], " ", $wisdom);
+        str_replace(array("\r\n", "\r", "\n"), "<br />", $wisdom);
+        str_replace("<br>", "<br />", $wisdom);
+        echo nl2br($wisdom, false);
+    }
+}
+function removeLineBr($text)
+{
+    echo str_replace("<br>", "\n", $text);
 }

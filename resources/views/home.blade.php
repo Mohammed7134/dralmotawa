@@ -4,7 +4,7 @@
 <div class="container-fluid shadow-lg p-3 mx-1 my-3 rounded d-flex justify-content-around">
     <div class="label">
         @isset($q)
-        <h1>كلمة البحث</h1>
+        <h1>نص البحث</h1>
         <h4>{{$q}}</h4>
         @endisset
         @isset($originalId)
@@ -19,12 +19,17 @@
 </div>
 @endif
 <div class="container-fluid shadow-lg p-3 mx-1 my-3 rounded first_son">
+    @if(count($wisdoms) > 0)
     <div class="row add_here">
         @foreach($wisdoms as $wisdom)
         @include("shared.card")
         @endforeach
     </div>
+    @else
+    <p class="text-center loading">لا توجد نتائج</p>
+    @endif
 </div>
+@if(count($wisdoms) > 6 && gettype($wisdoms) !== "array")
 <p class="text-center loading"> يرجى الانتظار...</p>
 <script type="text/javascript">
     var paginate = 1;
@@ -66,5 +71,5 @@
             });
     }
 </script>
-
+@endif
 @endsection

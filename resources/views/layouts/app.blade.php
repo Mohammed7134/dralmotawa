@@ -41,6 +41,7 @@
 <body>
     <button id="btnScrollToTopId"><i class="fas fa-arrow-up"></i></button>
     <div id="snackbar"></div>
+    @include("shared.message")
     <div class="wrapper">
         <nav id="sidebar" class="inactive">
             <div class="sidebar-header">

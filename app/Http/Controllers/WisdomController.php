@@ -24,7 +24,6 @@ class WisdomController extends Controller
     }
     public function index()
     {
-
         $wisdoms = Wisdom::inRandomOrder()->paginate(7);
         if (request()->ajax()) {
             return $this->ajax($wisdoms);
@@ -47,7 +46,64 @@ class WisdomController extends Controller
     public function searchForWisdom()
     {
         $q = '%' . request()->q . '%';
-        $wisdoms = Wisdom::where('text', 'LIKE', $q)->paginate(9);
+        $newSearchText = request()->q;
+        if (strpos(request()->q, "ه")) {
+            $newSearchText = str_replace('ه', '(ة|ه)', $newSearchText);
+        } elseif (strpos(request()->q, "ة")) {
+            $newSearchText = str_replace('ة', '(ة|ه)', $newSearchText);
+        } elseif (strpos(request()->q, "ا")) {
+            $newSearchText = str_replace('ا', '(إ|أ|ا|آ|ء|ئ|ؤ)', $newSearchText);
+        } elseif (strpos(request()->q, "أ")) {
+            $newSearchText = str_replace('أ', '(إ|أ|ا|آ|ء|ئ|ؤ)', $newSearchText);
+        } elseif (strpos(request()->q, "إ")) {
+            $newSearchText = str_replace('إ', '(إ|أ|ا|آ|ء|ئ)', $newSearchText);
+        } elseif (strpos(request()->q, "آ")) {
+            $newSearchText = str_replace('آ', '(إ|أ|ا|آ|ء)', $newSearchText);
+        } elseif (strpos(request()->q, "ء")) {
+            $newSearchText = str_replace('ء', '(أ|ا|آ|ء|ئ|ؤ)', $newSearchText);
+        } elseif (strpos(request()->q, "و")) {
+            $newSearchText = str_replace('و', '(و|ؤ)', $newSearchText);
+        } elseif (strpos(request()->q, "ي")) {
+            $newSearchText = str_replace('ي', '(ئ|ي|ى)', $newSearchText);
+        } elseif (strpos(request()->q, "ى")) {
+            $newSearchText = str_replace('ى', '(ئ|ي|ى)', $newSearchText);
+        } elseif (strpos(request()->q, "ئ")) {
+            $newSearchText = str_replace('ئ', '(ئ|ي|ى)', $newSearchText);
+        }
+
+        $regular_spaces = str_replace(' ', "\xc2\xa0", request()->q);
+        if (strpos(request()->q, "ه")) {
+            $regular_spaces = str_replace('ه', '(ة|ه)', $regular_spaces);
+        } elseif (strpos(request()->q, "ة")) {
+            $regular_spaces = str_replace('ة', '(ة|ه)', $regular_spaces);
+        } elseif (strpos(request()->q, "ا")) {
+            $regular_spaces = str_replace('ا', '(إ|أ|ا|آ|ء|ئ|ؤ)', $regular_spaces);
+        } elseif (strpos(request()->q, "أ")) {
+            $regular_spaces = str_replace('أ', '(إ|أ|ا|آ|ء|ئ|ؤ)', $regular_spaces);
+        } elseif (strpos(request()->q, "إ")) {
+            $regular_spaces = str_replace('إ', '(إ|أ|ا|آ|ء|ئ)', $regular_spaces);
+        } elseif (strpos(request()->q, "آ")) {
+            $regular_spaces = str_replace('آ', '(إ|أ|ا|آ|ء)', $regular_spaces);
+        } elseif (strpos(request()->q, "ء")) {
+            $regular_spaces = str_replace('ء', '(أ|ا|آ|ء|ئ|ؤ)', $regular_spaces);
+        } elseif (strpos(request()->q, "و")) {
+            $regular_spaces = str_replace('و', '(و|ؤ)', $regular_spaces);
+        } elseif (strpos(request()->q, "ي")) {
+            $regular_spaces = str_replace('ي', '(ئ|ي|ى)', $regular_spaces);
+        } elseif (strpos(request()->q, "ى")) {
+            $regular_spaces = str_replace('ى', '(ئ|ي|ى)', $regular_spaces);
+        } elseif (strpos(request()->q, "ئ")) {
+            $regular_spaces = str_replace('ئ', '(ئ|ي|ى)', $regular_spaces);
+        }
+        $newSearchText2 = $regular_spaces;
+        $wisdoms =
+            Wisdom::where("search_text", "LIKE", $q)
+            ->orWhere("search_text", "REGEXP", $newSearchText)
+            ->orWhere("search_text", "REGEXP", $newSearchText2)
+            ->where("text", "LIKE", $q)
+            ->orWhere("text", "REGEXP", $newSearchText)
+            ->orWhere("text", "REGEXP", $newSearchText2)
+            ->paginate(9);
         if (request()->ajax()) {
             return $this->ajax($wisdoms);
         }
@@ -68,15 +124,15 @@ class WisdomController extends Controller
     }
     public function changeText()
     {
-        return request();
         $wisdom = Wisdom::where("id", "=", request()->wisdomId)->first();
         $wisdom->text = request()->text;
         if ($wisdom->save()) {
             $result['error'] = false;
-            return json_encode($result);
+            return back()->with("success", "done");
         } else {
             $result['error'] = true;
-            return json_encode($result);
+            $wisdoms = Wisdom::where("id", "=", request()->wisdomId)->get();
+            return view('home')->with(compact('wisdoms'))->with("error", "fail");
         }
     }
     public function deleteWisdom(Wisdom $wisdom)
@@ -109,6 +165,19 @@ class WisdomController extends Controller
             $response['message'] = "Invalid Request";
         }
         return $response;
+    }
+    public function createWisdoms()
+    {
+        $texts = explode("||", request()->wisdoms);
+        $wisdoms = [];
+        foreach ($texts as $text) {
+            $wisdom = new Wisdom();
+            $wisdom->text = $text;
+            $wisdom->ids = json_encode(["1467"]);
+            $wisdom->save();
+            $wisdoms[] = $wisdom;
+        }
+        return view('home')->with(compact('wisdoms'));
     }
     /**
      * Show the form for creating a new resource.

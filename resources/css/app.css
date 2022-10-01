@@ -225,6 +225,10 @@ p {
 }
 
 /* card */
+.showMore:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
 
 .card-body {
     font-size: 1em;
@@ -623,6 +627,7 @@ ul ul a {
     /* Center the snackbar */
     bottom: 30px;
     /* 30px from the bottom */
+    z-index: 3;
 }
 
 /* Show the snackbar when clicking on a button (class added with JavaScript) */
@@ -633,4 +638,15 @@ ul ul a {
       However, delay the fade out process for 2.5 seconds */
     -webkit-animation: fadein 0.5s, fadeout 0.5s 2s;
     animation: fadein 0.5s, fadeout 0.5s 2s;
+}
+
+/* textarea add wisdom */
+#txtarea {
+    width: 100%;
+    text-align: right;
+    overflow: auto;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    box-shadow: 2px 2px 2px 2px #E0E0E0;
+    font-size: 30px;
 }

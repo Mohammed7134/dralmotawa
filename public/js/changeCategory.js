@@ -27,7 +27,7 @@ function logValue(element) {
                 return res.json();
             }).then(async data => {
                 if (data.error === false) {
-                    await showSnackbar("successText");
+                    await showSnackbar("تم تعديل التصنيف");
                     // for (let i = 0; i < hashtags.length; i++) {
                     //     hashtags[i].remove();
                     // }

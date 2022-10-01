@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('wisdoms', function (Blueprint $table) {
-            $table->id();
-            $table->text("text");
-            $table->text("ids");
-            $table->timestamps();
-        });
+        // Schema::create('wisdoms', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->text("text");
+        //     $table->text("ids");
+        //     $table->timestamps();
+        // });
     }
 
     /**
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('wisdoms');
+        // Schema::dropIfExists('wisdoms');
     }
 };
