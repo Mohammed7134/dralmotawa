@@ -159,7 +159,7 @@ class WisdomController extends Controller
             $response['status'] = 200;
             $wisdom = Wisdom::inRandomOrder()->first();
             $responseWisdom['id'] = $wisdom->id;
-            $responseWisdom['text'] = $wisdom->text;
+            $responseWisdom['text'] = nl2br($wisdom->text . "\n\n" . "د. عبدالعزيز فيصل المطوع");
             $responseWisdom['categories'] = [];
             foreach (json_decode($wisdom->ids) as $id) {
                 $responseWisdom['categories'][] = $categories[$id];
