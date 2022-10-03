@@ -24,6 +24,7 @@ class WisdomController extends Controller
     }
     public function index()
     {
+        //fixed
         $wisdoms = Wisdom::inRandomOrder()->paginate(7);
         if (request()->ajax()) {
             return $this->ajax($wisdoms);
