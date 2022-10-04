@@ -24,7 +24,6 @@ class WisdomController extends Controller
     }
     public function index()
     {
-        //fixed
         $wisdoms = Wisdom::inRandomOrder()->paginate(7);
         if (request()->ajax()) {
             return $this->ajax($wisdoms);
@@ -54,50 +53,70 @@ class WisdomController extends Controller
             $newSearchText = request()->q;
             if (strpos(request()->q, "ه")) {
                 $newSearchText = str_replace('ه', '(ة|ه)', $newSearchText);
-            } elseif (strpos(request()->q, "ة")) {
+            }
+            if (strpos(request()->q, "ة")) {
                 $newSearchText = str_replace('ة', '(ة|ه)', $newSearchText);
-            } elseif (strpos(request()->q, "ا")) {
+            }
+            if (strpos(request()->q, "ا")) {
                 $newSearchText = str_replace('ا', '(إ|أ|ا|آ|ء|ئ|ؤ)', $newSearchText);
-            } elseif (strpos(request()->q, "أ")) {
+            }
+            if (strpos(request()->q, "أ")) {
                 $newSearchText = str_replace('أ', '(إ|أ|ا|آ|ء|ئ|ؤ)', $newSearchText);
-            } elseif (strpos(request()->q, "إ")) {
+            }
+            if (strpos(request()->q, "إ")) {
                 $newSearchText = str_replace('إ', '(إ|أ|ا|آ|ء|ئ)', $newSearchText);
-            } elseif (strpos(request()->q, "آ")) {
+            }
+            if (strpos(request()->q, "آ")) {
                 $newSearchText = str_replace('آ', '(إ|أ|ا|آ|ء)', $newSearchText);
-            } elseif (strpos(request()->q, "ء")) {
+            }
+            if (strpos(request()->q, "ء")) {
                 $newSearchText = str_replace('ء', '(أ|ا|آ|ء|ئ|ؤ)', $newSearchText);
-            } elseif (strpos(request()->q, "و")) {
+            }
+            if (strpos(request()->q, "و")) {
                 $newSearchText = str_replace('و', '(و|ؤ)', $newSearchText);
-            } elseif (strpos(request()->q, "ي")) {
+            }
+            if (strpos(request()->q, "ي")) {
                 $newSearchText = str_replace('ي', '(ئ|ي|ى)', $newSearchText);
-            } elseif (strpos(request()->q, "ى")) {
+            }
+            if (strpos(request()->q, "ى")) {
                 $newSearchText = str_replace('ى', '(ئ|ي|ى)', $newSearchText);
-            } elseif (strpos(request()->q, "ئ")) {
+            }
+            if (strpos(request()->q, "ئ")) {
                 $newSearchText = str_replace('ئ', '(ئ|ي|ى)', $newSearchText);
             }
 
             $regular_spaces = str_replace(' ', "\xc2\xa0", request()->q);
             if (strpos(request()->q, "ه")) {
                 $regular_spaces = str_replace('ه', '(ة|ه)', $regular_spaces);
-            } elseif (strpos(request()->q, "ة")) {
+            }
+            if (strpos(request()->q, "ة")) {
                 $regular_spaces = str_replace('ة', '(ة|ه)', $regular_spaces);
-            } elseif (strpos(request()->q, "ا")) {
+            }
+            if (strpos(request()->q, "ا")) {
                 $regular_spaces = str_replace('ا', '(إ|أ|ا|آ|ء|ئ|ؤ)', $regular_spaces);
-            } elseif (strpos(request()->q, "أ")) {
+            }
+            if (strpos(request()->q, "أ")) {
                 $regular_spaces = str_replace('أ', '(إ|أ|ا|آ|ء|ئ|ؤ)', $regular_spaces);
-            } elseif (strpos(request()->q, "إ")) {
+            }
+            if (strpos(request()->q, "إ")) {
                 $regular_spaces = str_replace('إ', '(إ|أ|ا|آ|ء|ئ)', $regular_spaces);
-            } elseif (strpos(request()->q, "آ")) {
+            }
+            if (strpos(request()->q, "آ")) {
                 $regular_spaces = str_replace('آ', '(إ|أ|ا|آ|ء)', $regular_spaces);
-            } elseif (strpos(request()->q, "ء")) {
+            }
+            if (strpos(request()->q, "ء")) {
                 $regular_spaces = str_replace('ء', '(أ|ا|آ|ء|ئ|ؤ)', $regular_spaces);
-            } elseif (strpos(request()->q, "و")) {
+            }
+            if (strpos(request()->q, "و")) {
                 $regular_spaces = str_replace('و', '(و|ؤ)', $regular_spaces);
-            } elseif (strpos(request()->q, "ي")) {
+            }
+            if (strpos(request()->q, "ي")) {
                 $regular_spaces = str_replace('ي', '(ئ|ي|ى)', $regular_spaces);
-            } elseif (strpos(request()->q, "ى")) {
+            }
+            if (strpos(request()->q, "ى")) {
                 $regular_spaces = str_replace('ى', '(ئ|ي|ى)', $regular_spaces);
-            } elseif (strpos(request()->q, "ئ")) {
+            }
+            if (strpos(request()->q, "ئ")) {
                 $regular_spaces = str_replace('ئ', '(ئ|ي|ى)', $regular_spaces);
             }
             $newSearchText2 = $regular_spaces;
@@ -183,7 +202,13 @@ class WisdomController extends Controller
             $wisdom->save();
             $wisdoms[] = $wisdom;
         }
-        return view('home')->with(compact('wisdoms'));
+        session(['lastAddedWisdoms' => $wisdoms[0]->id]);
+        return redirect('lastAddedWisdoms');;
+    }
+    public function lastAddedWisdoms()
+    {
+        $wisdoms = Wisdom::where("id", ">=", session("lastAddedWisdoms"))->get();
+        return view('home')->with(compact('wisdoms'))->with("noajax", true);
     }
     /**
      * Show the form for creating a new resource.

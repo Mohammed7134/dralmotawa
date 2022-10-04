@@ -29,7 +29,7 @@
     <p class="text-center loading">لا توجد نتائج</p>
     @endif
 </div>
-@if(count($wisdoms) > 6 && gettype($wisdoms) !== "array")
+@if(count($wisdoms) > 6 && gettype($wisdoms) !== "array" && !isset($noajax))
 <p class="text-center loading"> يرجى الانتظار...</p>
 <script type="text/javascript">
     var paginate = 1;
