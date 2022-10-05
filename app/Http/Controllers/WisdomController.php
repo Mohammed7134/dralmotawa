@@ -56,7 +56,7 @@ class WisdomController extends Controller
                 Wisdom::where("search_text", "LIKE", $q)
                 ->orWhere("search_text", "REGEXP", $newSearchText)
                 ->orWhere("search_text", "REGEXP", $newSearchText2)
-                ->where("text", "LIKE", $q)
+                ->orWhere("text", "LIKE", $q)
                 ->orWhere("text", "REGEXP", $newSearchText)
                 ->orWhere("text", "REGEXP", $newSearchText2)
                 ->paginate(9);
