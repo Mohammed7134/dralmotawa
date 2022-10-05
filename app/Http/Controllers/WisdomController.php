@@ -50,76 +50,8 @@ class WisdomController extends Controller
             $wisdoms = Wisdom::where('id', '=', $id)->paginate(9);;
         } else {
             $q = '%' . request()->q . '%';
-            $newSearchText = request()->q;
-            if (strpos(request()->q, "ه")) {
-                $newSearchText = str_replace('ه', '(ة|ه)', $newSearchText);
-            }
-            if (strpos(request()->q, "ة")) {
-                $newSearchText = str_replace('ة', '(ة|ه)', $newSearchText);
-            }
-            if (strpos(request()->q, "ا")) {
-                $newSearchText = str_replace('ا', '(إ|أ|ا|آ|ء|ئ|ؤ)', $newSearchText);
-            }
-            if (strpos(request()->q, "أ")) {
-                $newSearchText = str_replace('أ', '(إ|أ|ا|آ|ء|ئ|ؤ)', $newSearchText);
-            }
-            if (strpos(request()->q, "إ")) {
-                $newSearchText = str_replace('إ', '(إ|أ|ا|آ|ء|ئ)', $newSearchText);
-            }
-            if (strpos(request()->q, "آ")) {
-                $newSearchText = str_replace('آ', '(إ|أ|ا|آ|ء)', $newSearchText);
-            }
-            if (strpos(request()->q, "ء")) {
-                $newSearchText = str_replace('ء', '(أ|ا|آ|ء|ئ|ؤ)', $newSearchText);
-            }
-            if (strpos(request()->q, "و")) {
-                $newSearchText = str_replace('و', '(و|ؤ)', $newSearchText);
-            }
-            if (strpos(request()->q, "ي")) {
-                $newSearchText = str_replace('ي', '(ئ|ي|ى)', $newSearchText);
-            }
-            if (strpos(request()->q, "ى")) {
-                $newSearchText = str_replace('ى', '(ئ|ي|ى)', $newSearchText);
-            }
-            if (strpos(request()->q, "ئ")) {
-                $newSearchText = str_replace('ئ', '(ئ|ي|ى)', $newSearchText);
-            }
-
-            $regular_spaces = str_replace(' ', "\xc2\xa0", request()->q);
-            if (strpos(request()->q, "ه")) {
-                $regular_spaces = str_replace('ه', '(ة|ه)', $regular_spaces);
-            }
-            if (strpos(request()->q, "ة")) {
-                $regular_spaces = str_replace('ة', '(ة|ه)', $regular_spaces);
-            }
-            if (strpos(request()->q, "ا")) {
-                $regular_spaces = str_replace('ا', '(إ|أ|ا|آ|ء|ئ|ؤ)', $regular_spaces);
-            }
-            if (strpos(request()->q, "أ")) {
-                $regular_spaces = str_replace('أ', '(إ|أ|ا|آ|ء|ئ|ؤ)', $regular_spaces);
-            }
-            if (strpos(request()->q, "إ")) {
-                $regular_spaces = str_replace('إ', '(إ|أ|ا|آ|ء|ئ)', $regular_spaces);
-            }
-            if (strpos(request()->q, "آ")) {
-                $regular_spaces = str_replace('آ', '(إ|أ|ا|آ|ء)', $regular_spaces);
-            }
-            if (strpos(request()->q, "ء")) {
-                $regular_spaces = str_replace('ء', '(أ|ا|آ|ء|ئ|ؤ)', $regular_spaces);
-            }
-            if (strpos(request()->q, "و")) {
-                $regular_spaces = str_replace('و', '(و|ؤ)', $regular_spaces);
-            }
-            if (strpos(request()->q, "ي")) {
-                $regular_spaces = str_replace('ي', '(ئ|ي|ى)', $regular_spaces);
-            }
-            if (strpos(request()->q, "ى")) {
-                $regular_spaces = str_replace('ى', '(ئ|ي|ى)', $regular_spaces);
-            }
-            if (strpos(request()->q, "ئ")) {
-                $regular_spaces = str_replace('ئ', '(ئ|ي|ى)', $regular_spaces);
-            }
-            $newSearchText2 = $regular_spaces;
+            $newSearchText = $this->arabicSearch(request()->q, false);
+            $newSearchText2 = $this->arabicSearch(request()->q, true);
             $wisdoms =
                 Wisdom::where("search_text", "LIKE", $q)
                 ->orWhere("search_text", "REGEXP", $newSearchText)
@@ -274,5 +206,46 @@ class WisdomController extends Controller
     public function destroy(Wisdom $wisdom)
     {
         //
+    }
+    private function arabicSearch($originalText, $regularSpace)
+    {
+        $newSearchText = $originalText;
+        if ($regularSpace) {
+            $newSearchText = str_replace(' ', "\xc2\xa0", $originalText);
+        }
+        if (strpos($originalText, "ه")) {
+            $newSearchText = str_replace('ه', '(ة|ه)', $newSearchText);
+        }
+        if (strpos($originalText, "ة")) {
+            $newSearchText = str_replace('ة', '(ة|ه)', $newSearchText);
+        }
+        if (strpos($originalText, "ا")) {
+            $newSearchText = str_replace('ا', '(إ|أ|ا|آ|ء|ئ|ؤ)', $newSearchText);
+        }
+        if (strpos($originalText, "أ")) {
+            $newSearchText = str_replace('أ', '(إ|أ|ا|آ|ء|ئ|ؤ)', $newSearchText);
+        }
+        if (strpos($originalText, "إ")) {
+            $newSearchText = str_replace('إ', '(إ|أ|ا|آ|ء|ئ)', $newSearchText);
+        }
+        if (strpos($originalText, "آ")) {
+            $newSearchText = str_replace('آ', '(إ|أ|ا|آ|ء)', $newSearchText);
+        }
+        if (strpos($originalText, "ء")) {
+            $newSearchText = str_replace('ء', '(أ|ا|آ|ء|ئ|ؤ)', $newSearchText);
+        }
+        if (strpos($originalText, "و")) {
+            $newSearchText = str_replace('و', '(و|ؤ)', $newSearchText);
+        }
+        if (strpos($originalText, "ي")) {
+            $newSearchText = str_replace('ي', '(ئ|ي|ى)', $newSearchText);
+        }
+        if (strpos($originalText, "ى")) {
+            $newSearchText = str_replace('ى', '(ئ|ي|ى)', $newSearchText);
+        }
+        if (strpos(request()->q, "ئ")) {
+            $newSearchText = str_replace('ئ', '(ئ|ي|ى)', $newSearchText);
+        }
+        return $newSearchText;
     }
 }
