@@ -213,37 +213,37 @@ class WisdomController extends Controller
         if ($regularSpace) {
             $newSearchText = str_replace(' ', "\xc2\xa0", $originalText);
         }
-        if (strpos($originalText, "ه")) {
+        if (str_contains($originalText, "ه")) {
             $newSearchText = str_replace('ه', '(ة|ه)', $newSearchText);
         }
-        if (strpos($originalText, "ة")) {
+        if (str_contains($originalText, "ة")) {
             $newSearchText = str_replace('ة', '(ة|ه)', $newSearchText);
         }
-        if (strpos($originalText, "ا")) {
+        if (str_contains($originalText, "ا")) {
             $newSearchText = str_replace('ا', '(إ|أ|ا|آ|ء|ئ|ؤ)', $newSearchText);
         }
-        if (strpos($originalText, "أ")) {
+        if (str_contains($originalText, "أ")) {
             $newSearchText = str_replace('أ', '(إ|أ|ا|آ|ء|ئ|ؤ)', $newSearchText);
         }
-        if (strpos($originalText, "إ")) {
+        if (str_contains($originalText, "إ")) {
             $newSearchText = str_replace('إ', '(إ|أ|ا|آ|ء|ئ)', $newSearchText);
         }
-        if (strpos($originalText, "آ")) {
+        if (str_contains($originalText, "آ")) {
             $newSearchText = str_replace('آ', '(إ|أ|ا|آ|ء)', $newSearchText);
         }
-        if (strpos($originalText, "ء")) {
+        if (str_contains($originalText, "ء")) {
             $newSearchText = str_replace('ء', '(أ|ا|آ|ء|ئ|ؤ)', $newSearchText);
         }
-        if (strpos($originalText, "و")) {
+        if (str_contains($originalText, "و")) {
             $newSearchText = str_replace('و', '(و|ؤ)', $newSearchText);
         }
-        if (strpos($originalText, "ي")) {
+        if (str_contains($originalText, "ي")) {
             $newSearchText = str_replace('ي', '(ئ|ي|ى)', $newSearchText);
         }
-        if (strpos($originalText, "ى")) {
+        if (str_contains($originalText, "ى")) {
             $newSearchText = str_replace('ى', '(ئ|ي|ى)', $newSearchText);
         }
-        if (strpos(request()->q, "ئ")) {
+        if (str_contains($originalText, "ئ")) {
             $newSearchText = str_replace('ئ', '(ئ|ي|ى)', $newSearchText);
         }
         return $newSearchText;
