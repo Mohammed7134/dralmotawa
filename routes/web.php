@@ -26,6 +26,7 @@ Route::post('/signin', [UsersController::class, "signin"]);
 Route::post('/changeCategory', [WisdomController::class, "changeCategory"])->middleware("auth");
 Route::post('/changeText', [WisdomController::class, "changeText"])->middleware("auth");
 Route::get('/delete/{wisdom}', [WisdomController::class, "deleteWisdom"])->middleware("auth");
+Route::get('/lastAddedWisdom', [WisdomController::class, "lastAddedWisdom"]);
 Route::get('/changeView', [WisdomController::class, "changeView"]);
 Route::get('/add', function () {
     return view("add");

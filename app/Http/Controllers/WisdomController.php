@@ -39,7 +39,7 @@ class WisdomController extends Controller
     public function getWisdomsForCategory(int $originalId)
     {
         $id = '%' . $originalId . '%';
-        $wisdoms = Wisdom::where('ids', 'LIKE', $id)->inRandomOrder()->paginate(9);
+        $wisdoms = Wisdom::where('ids', 'LIKE', $id)->paginate(9);
         if (request()->ajax()) {
             return $this->ajax($wisdoms);
         }
@@ -49,7 +49,7 @@ class WisdomController extends Controller
     {
         $id = (int)request()->q;
         if ($id) {
-            $wisdoms = Wisdom::where('id', '=', $id)->paginate(9);;
+            $wisdoms = Wisdom::where('id', '=', $id)->paginate(9);
         } else {
             if (strlen(request()->q) > 4) {
                 $q = '%' . request()->q . '%';
@@ -151,6 +151,14 @@ class WisdomController extends Controller
         } else {
             back();
         }
+    }
+    public function lastAddedWisdom()
+    {
+        $wisdoms = Wisdom::latest()->paginate(5);
+        if (request()->ajax()) {
+            return $this->ajax($wisdoms);
+        }
+        return view('home')->with(compact('wisdoms'));
     }
     public function changeView()
     {

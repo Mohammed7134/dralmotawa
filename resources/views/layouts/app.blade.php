@@ -65,7 +65,6 @@
                     <a href="/add"><button class="new-wisdom-button" type="submit" style="margin:5px auto;">إضافة حكمة</button></a>
                     @else
                     <a href="/changeView"><button class="new-wisdom-button" type="submit" style="margin:5px auto;">تغيير المظهر</button></a>
-
                     @endauth
                 </div>
 
@@ -82,7 +81,7 @@
                                 </li>
                             </ul>
                             <form class="form-inline me-2 me-lg-0" action="/search" method="GET" name="search">
-                                <div class="search-form"><input class="form-control ms-sm-2" type="search" placeholder="أدخل كلمة البحث" aria-label="بحث" name="q"><button class="btn btn-outline-primary " type="submit">بحث</button></div>
+                                <div class="search-form"><input class="form-control ms-sm-2" type="search" placeholder="أدخل كلمة البحث" aria-label="بحث" name="q"><button class="btn btn-outline-primary " type="submit">بحث</button>@auth <a href="/lastAddedWisdom" class="btn btn-outline-secondary">آخر حكمة</a> @endauth</div>
                             </form>
                         </div>
                     </div>
