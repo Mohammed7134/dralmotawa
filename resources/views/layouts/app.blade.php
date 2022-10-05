@@ -63,6 +63,9 @@
                     <p>مقولات الدكتور عبدالعزيز فيصل المطوع</p>
                     @auth
                     <a href="/add"><button class="new-wisdom-button" type="submit" style="margin:5px auto;">إضافة حكمة</button></a>
+                    @else
+                    <a href="/changeView"><button class="new-wisdom-button" type="submit" style="margin:5px auto;">تغيير المظهر</button></a>
+
                     @endauth
                 </div>
 

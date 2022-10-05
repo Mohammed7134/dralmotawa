@@ -6,6 +6,8 @@ use App\Http\Requests\StoreWisdomRequest;
 use App\Http\Requests\UpdateWisdomRequest;
 use App\Models\User;
 use App\Models\Wisdom;
+use GuzzleHttp\Psr7\Response;
+use Illuminate\Support\Facades\Cookie;
 
 class WisdomController extends Controller
 {
@@ -49,17 +51,21 @@ class WisdomController extends Controller
         if ($id) {
             $wisdoms = Wisdom::where('id', '=', $id)->paginate(9);;
         } else {
-            $q = '%' . request()->q . '%';
-            $newSearchText = $this->arabicSearch(request()->q, false);
-            $newSearchText2 = $this->arabicSearch(request()->q, true);
-            $wisdoms =
-                Wisdom::where("search_text", "LIKE", $q)
-                ->orWhere("search_text", "REGEXP", $newSearchText)
-                ->orWhere("search_text", "REGEXP", $newSearchText2)
-                ->orWhere("text", "LIKE", $q)
-                ->orWhere("text", "REGEXP", $newSearchText)
-                ->orWhere("text", "REGEXP", $newSearchText2)
-                ->paginate(9);
+            if (strlen(request()->q) > 4) {
+                $q = '%' . request()->q . '%';
+                $newSearchText = $this->arabicSearch(request()->q, false);
+                $newSearchText2 = $this->arabicSearch(request()->q, true);
+                $wisdoms =
+                    Wisdom::where("search_text", "LIKE", $q)
+                    ->orWhere("search_text", "REGEXP", $newSearchText)
+                    ->orWhere("search_text", "REGEXP", $newSearchText2)
+                    ->orWhere("text", "LIKE", $q)
+                    ->orWhere("text", "REGEXP", $newSearchText)
+                    ->orWhere("text", "REGEXP", $newSearchText2)
+                    ->paginate(9);
+            } else {
+                return false;
+            }
         }
         if (request()->ajax()) {
             return $this->ajax($wisdoms);
@@ -82,7 +88,7 @@ class WisdomController extends Controller
     public function changeText()
     {
         $wisdom = Wisdom::where("id", "=", request()->wisdomId)->first();
-        $wisdom->text = request()->text;
+        $wisdom->text = $this->cleanText(request()->text);
         if ($wisdom->save()) {
             $result['error'] = false;
             return back()->with("success", "done");
@@ -129,7 +135,7 @@ class WisdomController extends Controller
         $wisdoms = [];
         foreach ($texts as $text) {
             $wisdom = new Wisdom();
-            $wisdom->text = $text;
+            $wisdom->text = $this->cleanText($text);
             $wisdom->ids = json_encode(["1467"]);
             $wisdom->save();
             $wisdoms[] = $wisdom;
@@ -139,8 +145,28 @@ class WisdomController extends Controller
     }
     public function lastAddedWisdoms()
     {
-        $wisdoms = Wisdom::where("id", ">=", session("lastAddedWisdoms"))->get();
-        return view('home')->with(compact('wisdoms'))->with("noajax", true);
+        if (session("lastAddedWisdoms")) {
+            $wisdoms = Wisdom::where("id", ">=", session("lastAddedWisdoms"))->get();
+            return view('home')->with(compact('wisdoms'))->with("noajax", true);
+        } else {
+            back();
+        }
+    }
+    public function changeView()
+    {
+        if (request()->cookie('appearance') != null) {
+            if (request()->cookie('appearance') == "modern") {
+                $minutes = 600000;
+                Cookie::queue('appearance', 'classic', $minutes);
+            } else {
+                $minutes = 600000;
+                Cookie::queue('appearance', 'modern', $minutes);
+            }
+        } else {
+            $minutes = 600000;
+            Cookie::queue('appearance', 'classic', $minutes);
+        }
+        return back();
     }
     /**
      * Show the form for creating a new resource.
@@ -247,5 +273,24 @@ class WisdomController extends Controller
             $newSearchText = str_replace('ئ', '(ئ|ي|ى)', $newSearchText);
         }
         return $newSearchText;
+    }
+    private function cleanText($text)
+    {
+        if (str_contains($text, "  ")) {
+            $text = str_replace('  ', ' ', $text);
+        }
+        if (str_contains($text, " :")) {
+            $text = str_replace(' :', ':', $text);
+        }
+        if (str_contains($text, " ،")) {
+            $text = str_replace(' ،', '،', $text);
+        }
+        if (str_contains($text, " .")) {
+            $text = str_replace(' .', '.', $text);
+        }
+        if (str_contains($text, " ؟")) {
+            $text = str_replace(' ؟', '؟', $text);
+        }
+        return $text;
     }
 }
