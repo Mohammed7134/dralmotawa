@@ -17,6 +17,13 @@
         <h4>{{$wisdoms->total()}}</h4>
     </div>
 </div>
+
+@endif
+@if($wisdoms->total() > 1000)
+<div class="love_counter d-flex align-items-center justify-content-between">
+    <p>مجموع الحكم: </p>
+    <div class="love_count"> {{$wisdoms->total()}}</div>
+</div>
 @endif
 <div class="container-fluid shadow-lg p-3 mx-1 my-3 rounded first_son">
     @if(count($wisdoms) > 0)

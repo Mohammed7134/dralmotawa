@@ -695,3 +695,10 @@ blockquote {
     font-weight: 400;
     text-decoration: none;
 }
+
+/* counter styles */
+.love_count {
+    font-size: 65px;
+    color: #3D7CB1;
+    font-weight: 300;
+}
