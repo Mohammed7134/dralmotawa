@@ -19,7 +19,7 @@
 </div>
 
 @endif
-@if($wisdoms->total() > 30000)
+@if( !isset($noajax) && $wisdoms->total() > 30000)
 <div class="love_counter d-flex align-items-center justify-content-between">
     <p>مجموع الحكم: </p>
     <div class="love_count"> {{$wisdoms->total()}}</div>
