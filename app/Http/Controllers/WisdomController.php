@@ -164,14 +164,14 @@ class WisdomController extends Controller
     {
         if (request()->cookie('appearance') != null) {
             if (request()->cookie('appearance') == "modern") {
-                $minutes = 600000;
+                $minutes = 7390374;
                 Cookie::queue('appearance', 'classic', $minutes);
             } else {
-                $minutes = 600000;
+                $minutes = 7390374;
                 Cookie::queue('appearance', 'modern', $minutes);
             }
         } else {
-            $minutes = 600000;
+            $minutes = 7390374;
             Cookie::queue('appearance', 'classic', $minutes);
         }
         return back();
