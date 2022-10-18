@@ -682,10 +682,11 @@ blockquote {
     }
 
     .share-icon,
-    .add-button {
+    .add-button,
+    .share-link,
+    .number-of-messages {
         display: none;
     }
-
 }
 
 .quotation-mark {
