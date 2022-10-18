@@ -28,7 +28,7 @@
                 <div class="card__overlay-content">
                     <a onclick="buttonPressed(this)" id="{{$wisdom->ids}}-{{$wisdom->id}}" class="card__title">{{limitStringLength($wisdom->text)[0]}}</a>
                     @if(limitStringLength($wisdom->text)[1])
-                    <p onclick="buttonPressed(this)" id="{{$wisdom->ids}}-{{$wisdom->id}}" class="showMore" style="font-size: 1.2rem;color:white;">أظهر المزيد</p>
+                    <p onclick="buttonPressed(this)" id="{{$wisdom->ids}}-{{$wisdom->id}}" class="showMore">أظهر المزيد</p>
                     @endif
                     <p style="display:none;" id="{{$wisdom->id}}">{{adjustLineBreaks($wisdom->text, true)}}</p>
                     <div class="d-flex justify-content-between">
