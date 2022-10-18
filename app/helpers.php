@@ -1,5 +1,5 @@
 <?php
-function limitStringLength($str, $limit = 110)
+function limitStringLength($str, $limit = 80)
 {
     str_replace(['&nbsp;', '/\xc2\xa0/', '\\u00a0"'], " ", $str);
     str_replace(array("\r\n", "\r", "\n"), "<br />", $str);

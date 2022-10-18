@@ -51,7 +51,7 @@ class WisdomController extends Controller
         if ($id) {
             $wisdoms = Wisdom::where('id', '=', $id)->paginate(9);
         } else {
-            if (strlen(request()->q) > 4) {
+            if (mb_strlen(request()->q) > 3) {
                 $q = '%' . request()->q . '%';
                 $newSearchText = $this->arabicSearch(request()->q, false);
                 $newSearchText2 = $this->arabicSearch(request()->q, true);
@@ -64,7 +64,7 @@ class WisdomController extends Controller
                     ->orWhere("text", "REGEXP", $newSearchText2)
                     ->paginate(9);
             } else {
-                return false;
+                return back()->with("message", "يجب أن يكون نص البحث أكبر من ٣ أحرف");
             }
         }
         if (request()->ajax()) {
@@ -91,11 +91,11 @@ class WisdomController extends Controller
         $wisdom->text = $this->cleanText(request()->text);
         if ($wisdom->save()) {
             $result['error'] = false;
-            return back()->with("success", "done");
+            return back()->with("message", "تم تعديل النص");
         } else {
             $result['error'] = true;
             $wisdoms = Wisdom::where("id", "=", request()->wisdomId)->get();
-            return view('home')->with(compact('wisdoms'))->with("error", "fail");
+            return view('home')->with(compact('wisdoms'))->with("message", "حدث خطأ");
         }
     }
     public function deleteWisdom(Wisdom $wisdom)
@@ -175,6 +175,17 @@ class WisdomController extends Controller
             Cookie::queue('appearance', 'classic', $minutes);
         }
         return back();
+    }
+    public function getWisdomById()
+    {
+        $response = array();
+        $wisdoms = [];
+        foreach (request()->wisdomsIds as $id) {
+            $wisdoms[] = Wisdom::where('id', '=', $id)->first();
+        }
+        $response['error'] = false;
+        $response['wisdoms'] = $wisdoms;
+        return json_encode($response);
     }
     /**
      * Show the form for creating a new resource.

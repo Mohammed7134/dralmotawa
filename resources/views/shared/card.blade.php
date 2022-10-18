@@ -8,14 +8,14 @@
         @endif
         <p style="display:none;" id="{{$wisdom->id}}">{{adjustLineBreaks($wisdom->text, true)}}</p>
         <hr style="margin-top:auto;">
-        <div class="blog-post-actions d-flex justify-content-end">
-            <div style="display: flex; align-items: flex-start;">
-                @foreach(json_decode($wisdom->ids) as $category_id)
-                <a type="button" href="/category/{{$category_id}}" class="hashtag {{$category_id}} {{$wisdom->id . '-' . $category_id}} w{{$wisdom->id}}" style="padding: 0vw 3vw;font-size: 18px;">
-                    {{$categories[$category_id]}}
-                </a>
-                @endforeach
-            </div>
+        <div class="blog-post-actions d-flex justify-content-between">
+            <button class="add-button"><i id="add-{{$wisdom->id;}}" class="fas far fa-share-square share-icon black" aria-hidden="true" style="color:black;"></i></button>
+            @foreach(json_decode($wisdom->ids) as $category_id)
+            <a type="button" href="/category/{{$category_id}}" class="hashtag {{$category_id}} {{$wisdom->id . '-' . $category_id}} w{{$wisdom->id}}" style="padding: 0vw 3vw;font-size: 18px;">
+                {{$categories[$category_id]}}
+            </a>
+            @break
+            @endforeach
         </div>
     </blockquote>
 </div>
@@ -26,19 +26,19 @@
             <img src="https://unsplash.it/400/300?image={{rand(170, 180)}}" alt="" style="min-height:inherit;">
             <div class="card__overlay card__overlay--blue">
                 <div class="card__overlay-content">
-                    <!-- <ul class="card__meta">
-                        <li><a href="#0">عدد الأحرف</a></li>
-                        <li><a href="#0">{{mb_strlen($wisdom->text)}}</a></li>
-                    </ul> -->
                     <a onclick="buttonPressed(this)" id="{{$wisdom->ids}}-{{$wisdom->id}}" class="card__title">{{limitStringLength($wisdom->text)[0]}}</a>
                     @if(limitStringLength($wisdom->text)[1])
-                    <p onclick="buttonPressed(this)" id="{{$wisdom->ids}}-{{$wisdom->id}}" class="showMore" style="font-size: 1rem;color:white;">أظهر المزيد</p>
+                    <p onclick="buttonPressed(this)" id="{{$wisdom->ids}}-{{$wisdom->id}}" class="showMore" style="font-size: 1.2rem;color:white;">أظهر المزيد</p>
                     @endif
                     <p style="display:none;" id="{{$wisdom->id}}">{{adjustLineBreaks($wisdom->text, true)}}</p>
-                    <div class="card__meta card__meta--last">
-                        @foreach(json_decode($wisdom->ids) as $category_id)
-                        <li><a href="/category/{{$category_id}}">{{$categories[$category_id]}}</a></li>
-                        @endforeach
+                    <div class="d-flex justify-content-between">
+                        <button class="add-button"><i id="add-{{$wisdom->id;}}" class="fas far fa-share-square share-icon white" aria-hidden="true"></i></button>
+                        <div class="card__meta card__meta--last">
+                            @foreach(json_decode($wisdom->ids) as $category_id)
+                            <li><a href="/category/{{$category_id}}">{{$categories[$category_id]}}</a></li>
+                            @break
+                            @endforeach
+                        </div>
                     </div>
                 </div>
             </div>

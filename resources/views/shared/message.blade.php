@@ -1,9 +1,6 @@
-@if(session()->has('success'))
+@if(session()->has('message'))
 <script>
-    showSnackbar("تم تعديل النص", );
-</script>
-@elseif(session()->has('error'))
-<script>
-    showSnackbar("حدث خطأ");
+    var message = "{{session('message')}}";
+    showSnackbar(message);
 </script>
 @endif

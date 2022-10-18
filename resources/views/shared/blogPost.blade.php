@@ -37,7 +37,7 @@
         <p class="displayed_wisdom">{{adjustLineBreaks($displayed, false)}}</p>
         <div class="d-flex categories">
             @foreach(json_decode($wisdom->ids) as $category_id)
-            <a class="btn_primary" href="/category/{{$category_id}}">{{$categories[$category_id]}}</a>
+            <a class="btn_primary" href="/category/{{$category_id}}" style="font-size:0.8rem;">{{$categories[$category_id]}}</a>
             @endforeach
         </div>
 

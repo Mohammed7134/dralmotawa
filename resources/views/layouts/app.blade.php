@@ -40,6 +40,8 @@
 
 <body>
     <button id="btnScrollToTopId"><i class="fas fa-arrow-up"></i></button>
+    <a class="floating share-link me-3" data-action="share/whatsapp/share"><i class="fab fa-whatsapp fa-2x" style="color:black" aria-hidden="true"></i></a>
+    <p class="number-of-messages" style="display:none"></p>
     <div id="snackbar"></div>
     @include("shared.message")
     <div class="wrapper">
@@ -64,7 +66,7 @@
                     @auth
                     <a href="/add"><button class="new-wisdom-button" type="submit" style="margin:5px auto;">إضافة حكمة</button></a>
                     @else
-                    <a href="/changeView"><button class="new-wisdom-button" type="submit" style="margin:5px auto;">تغيير المظهر</button></a>
+                    <a href="/changeView"><button class="new-wisdom-button" type="submit" style="margin:5px auto;font-size:1rem;">تغيير طريقة العرض</button></a>
                     @endauth
                 </div>
 
@@ -118,6 +120,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
 <!-- Bootstrap JS -->
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
-
+<!-- basket -->
+<script src="{{asset('js/basket.js')}}"></script>
 
 </html>
