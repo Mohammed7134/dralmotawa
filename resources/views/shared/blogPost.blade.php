@@ -35,12 +35,11 @@
         <h3></h3>
         <h1 class="wisdom_title">{{$title}}</h1>
         <p class="displayed_wisdom">{{adjustLineBreaks($displayed, false)}}</p>
-        <div class="d-flex categories">
+        <div class="d-flex categories" style="white-space:nowrap;width:70vw;overflow:scroll;">
             @foreach(json_decode($wisdom->ids) as $category_id)
-            <a class="btn_primary" href="/category/{{$category_id}}" style="font-size:0.8rem;">{{$categories[$category_id]}}</a>
+            <a href="/category/{{$category_id}}" style="font-size:1rem;padding:10px">{{$categories[$category_id]}}</a>
             @endforeach
         </div>
-
     </div>
 </div>
 @endauth

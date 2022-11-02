@@ -41,7 +41,7 @@
 <body>
     <button id="btnScrollToTopId"><i class="fas fa-arrow-up"></i></button>
     <a class="floating share-link me-3" data-action="share/whatsapp/share"><i class="fab fa-whatsapp fa-2x" style="color:black" aria-hidden="true"></i></a>
-    <p class="number-of-messages" style="display:none"></p>
+    <p class="number-of-messages"></p>
     <div id="snackbar"></div>
     @include("shared.message")
     <div class="wrapper">
@@ -59,7 +59,6 @@
 
         <div id="content">
             <header>
-
                 <div class="jumbotron text-center" style="margin-bottom: 0px;">
                     <h1>فقه الحياة</h1>
                     <p>مقولات الدكتور عبدالعزيز فيصل المطوع</p>
@@ -95,7 +94,7 @@
             @show
             <footer>
                 <div class="jumbotron text-center">
-                    <a href="/الدكتور-عبدالعزيز-المطوع">عن الموقع</a>
+                    <a style="font-size:20px;" href="/الدكتور-عبدالعزيز-المطوع">عن الموقع</a>
                     @auth
                     <form method="get" action="/signout"><button class="logout-button" type="submit" style="margin:auto;">تسجيل الخروج</button></form>
                     @else

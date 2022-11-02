@@ -52,7 +52,9 @@ let logStatus = false;
 let wisdomsText = [];
 let numberOfMessages = document.querySelector(".number-of-messages");
 let allText = "";
-
+function deleteWisdom(wisId) {
+    window.location = `/delete/${wisId}`;
+}
 //Snackbar function
 async function showSnackbar(message, wisId = null, time = 2400) {
     // Get the snackbar DIV
@@ -63,7 +65,7 @@ async function showSnackbar(message, wisId = null, time = 2400) {
     if (wisId != null) {
         let deleteBtn = document.createElement("button");
         deleteBtn.classList.add("btn", "btn-danger");
-        deleteBtn.addEventListener("click", async () => { await deleteWisdom(wisId); });
+        deleteBtn.addEventListener("click", async () => { deleteWisdom(wisId); });
         deleteBtn.innerText = "نعم";
         x.append(deleteBtn);
     }
@@ -82,35 +84,34 @@ const textarea = document.querySelector("textarea");
 const innerContent = document.querySelector(".inner-content");
 const btnScrollToTopId = document.querySelector("#btnScrollToTopId");
 const menu = document.querySelector("#categories");
-if (myStorage.getItem("wisdoms")) {
-    wisdomsIds = JSON.parse(myStorage.getItem("wisdoms"));
-    if (wisdomsIds.length > 0) {
-        shareButton.innerHTML = spinnerTag;
-        let data = {
-            '_token': $('meta[name=csrf-token]').attr('content'),
-            wisdomsIds: wisdomsIds
-        }
-        fetch('/getWisdomById', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', },
-            body: JSON.stringify(data),
-        }).then(res => {
-            return res.json();
-        }).then(async data => {
-            console.dir(data);
-            if (data.error === false) {
-                wisdomsText = data.wisdoms;
-            } else {
-                await showSnackbar(errorText);
-            }
-        }).then(() => {
-            shareButton.innerHTML = shareButtonTag;
-            numberOfMessages.innerText = wisdomsIds.length;
-            numberOfMessages.style.display = "flex";
-            setNumberVisibility();
-        })
-    }
-}
+// if (myStorage.getItem("wisdoms")) {
+//     wisdomsIds = JSON.parse(myStorage.getItem("wisdoms"));
+//     if (wisdomsIds.length > 0) {
+//         shareButton.innerHTML = spinnerTag;
+//         let data = {
+//             '_token': $('meta[name=csrf-token]').attr('content'),
+//             wisdomsIds: wisdomsIds
+//         }
+//         fetch('/getWisdomById', {
+//             method: 'POST',
+//             headers: { 'Content-Type': 'application/json', },
+//             body: JSON.stringify(data),
+//         }).then(res => {
+//             return res.json();
+//         }).then(async data => {
+//             if (data.error === false) {
+//                 wisdomsText = data.wisdoms;
+//             } else {
+//                 await showSnackbar(errorText);
+//             }
+//         }).then(() => {
+//             shareButton.innerHTML = shareButtonTag;
+//             numberOfMessages.innerText = wisdomsIds.length;
+//             numberOfMessages.style.display = "flex";
+//             setNumberVisibility();
+//         })
+//     }
+// }
 checkColor();
 shareButton.style["-webkit-user-select"] = "none";
 numberOfMessages.style["-webkit-user-select"] = "none";
@@ -177,6 +178,7 @@ setNumberVisibility();
 
 
 //Making the wisdomsIds array empty and reflecting this in the interface;
+let pressTimer;
 const emptyingWisdomsIds = async function () {
     wisdomsIds = [];
     wisdomsText = [];
@@ -190,7 +192,6 @@ const emptyingWisdomsIds = async function () {
 }
 
 //This function is to call emptyingWisdomsIds array by the user by touching the WhatsApp icon for 1 sec
-let pressTimer;
 shareButton.addEventListener('touchstart', function () {
     shareButton.style.transform = "scale(1.5)";
     pressTimer = setTimeout(emptyingWisdomsIds, 1000);

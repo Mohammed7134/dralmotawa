@@ -1,10 +1,10 @@
 @extends("layouts.app")
 @section("content")
 @if(isset($q) || isset($originalId))
-<div class="container-fluid shadow-lg p-3 mx-1 my-3 rounded d-flex justify-content-around">
+<div class="container-fluid shadow-lg p-3 mx-1 my-3 rounded">
     <div class="label">
         @isset($q)
-        <h1>نص البحث</h1>
+        <h1>نص البحث: </h1>
         <h4>{{$q}}</h4>
         @endisset
         @isset($originalId)

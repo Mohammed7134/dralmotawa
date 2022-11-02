@@ -102,7 +102,7 @@ class WisdomController extends Controller
     {
         $wisdom->delete();
         $result['error'] = false;
-        return back();
+        return back()->with("message", "تم حذف الحكمة");
     }
     public function getRandomQuote()
     {
@@ -141,7 +141,7 @@ class WisdomController extends Controller
             $wisdoms[] = $wisdom;
         }
         session(['lastAddedWisdoms' => $wisdoms[0]->id]);
-        return redirect('lastAddedWisdoms');;
+        return redirect('lastAddedWisdoms');
     }
     public function lastAddedWisdoms()
     {
