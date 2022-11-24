@@ -115,7 +115,11 @@ class WisdomController extends Controller
         $categories = json_decode($file, true);
         if ($_SERVER['REQUEST_METHOD'] == 'GET' && $token === "ABJEDHOWS" && $rapidApi) {
             $response['status'] = 200;
-            $wisdom = Wisdom::inRandomOrder()->first();
+            if (isset($_GET['limit'])) {
+                $wisdom = Wisdom::whereRaw('CHAR_LENGTH(text) <= ?', [$_GET['limit']])->inRandomOrder()->first();
+            } else {
+                $wisdom = Wisdom::inRandomOrder()->first();
+            }
             $responseWisdom['id'] = $wisdom->id;
             $responseWisdom['text'] = nl2br($wisdom->text . "\n\n" . "د. عبدالعزيز فيصل المطوع");
             $responseWisdom['categories'] = [];
@@ -129,6 +133,7 @@ class WisdomController extends Controller
         }
         return $response;
     }
+
     public function createWisdoms()
     {
         $texts = explode("||", request()->wisdoms);
