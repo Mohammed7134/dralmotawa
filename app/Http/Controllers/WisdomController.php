@@ -107,13 +107,12 @@ class WisdomController extends Controller
     public function getRandomQuote()
     {
         $headers = apache_request_headers();
-        $token = $headers['Token'];
         $rapidApi = $headers['X-RapidAPI-Proxy-Secret'] === "4e81b800-7e6a-11ec-bd3d-d70ef1ec455f";
         $response = array();
         $path = public_path() . '/json/categories.json';
         $file = file_get_contents($path);
         $categories = json_decode($file, true);
-        if ($_SERVER['REQUEST_METHOD'] == 'GET' && $token === "ABJEDHOWS" && $rapidApi) {
+        if ($_SERVER['REQUEST_METHOD'] == 'GET' && $rapidApi) {
             $response['status'] = 200;
             if (isset($_GET['limit'])) {
                 $wisdom = Wisdom::whereRaw('CHAR_LENGTH(text) <= ?', [$_GET['limit']])->inRandomOrder()->first();
