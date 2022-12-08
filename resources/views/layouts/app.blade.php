@@ -61,7 +61,7 @@
             <header>
                 <div class="jumbotron text-center" style="margin-bottom: 0px;">
                     <h1>فقه الحياة</h1>
-                    <p>مقولات الدكتور عبدالعزيز فيصل المطوع</p>
+                    <p>مقولات وحكم الدكتور عبدالعزيز فيصل المطوع</p>
                     @auth
                     <a href="/add"><button class="new-wisdom-button" type="submit" style="margin:5px auto;">إضافة حكمة</button></a>
                     @else
