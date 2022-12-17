@@ -655,6 +655,7 @@ blockquote {
     font-size: 2rem;
     background: none;
     border: none;
+    padding: 0px 10px;
 }
 
 .number-of-messages {
@@ -720,7 +721,9 @@ blockquote {
     white-space: nowrap;
     width: 70vw;
     overflow: scroll;
+    /* IE and Edge */
     -ms-overflow-style: none;
+    /* Firefox */
     scrollbar-width: none;
 }
 
