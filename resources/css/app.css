@@ -720,9 +720,7 @@ blockquote {
     white-space: nowrap;
     width: 70vw;
     overflow: scroll;
-    /* IE and Edge */
     -ms-overflow-style: none;
-    /* Firefox */
     scrollbar-width: none;
 }
 
