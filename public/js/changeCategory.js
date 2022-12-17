@@ -9,8 +9,6 @@ function logValue(element) {
                 selectedNames[option.value.split("-")[1]] = option.innerText;
             }
         }
-        // var hashtags = document.querySelectorAll(`.hashtag.w${element.value.split("-")[0]}`);
-        // var hashtagArea = document.querySelector(`.hashtags-area-${element.value.split("-")[0]}`)
         if (element.value) {
             data = {
                 '_token': $('meta[name=csrf-token]').attr('content'),
@@ -28,12 +26,6 @@ function logValue(element) {
             }).then(async data => {
                 if (data.error === false) {
                     await showSnackbar("تم تعديل التصنيف");
-                    // for (let i = 0; i < hashtags.length; i++) {
-                    //     hashtags[i].remove();
-                    // }
-                    // for (const [key, value] of Object.entries(selectedNames)) {
-                    //     hashtagArea.innerHTML += `<a type="button" href="/exploring?categoryId=${key}" class="hashtag ${key} ${element.value.split("-")[0]}-${key} w${element.value.split("-")[0]}" style="padding: 0vw 3vw;font-size: 18px;">${value}</a>`
-                    // }
                 } else {
                     await showSnackbar("data.message");
                 }

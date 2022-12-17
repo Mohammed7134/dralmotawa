@@ -20,6 +20,7 @@
     <!-- jQuery Library -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{{asset('js/snackbar.js')}}"></script>
+    <script src="{{asset('js/truncate.js')}}"></script>
     <script src="{{asset('js/display.js')}}"></script>
     <script src="{{asset('js/changeCategory.js')}}"></script>
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -61,11 +62,9 @@
             <header>
                 <div class="jumbotron text-center" style="margin-bottom: 0px;">
                     <h1>فقه الحياة</h1>
-                    <p>مقولات وحكم الدكتور عبدالعزيز فيصل المطوع</p>
+                    <p>مقولات الدكتور عبدالعزيز فيصل المطوع</p>
                     @auth
                     <a href="/add"><button class="new-wisdom-button" type="submit" style="margin:5px auto;">إضافة حكمة</button></a>
-                    @else
-                    <a href="/changeView"><button class="new-wisdom-button" type="submit" style="margin:5px auto;font-size:1rem;">تغيير طريقة العرض</button></a>
                     @endauth
                 </div>
 
@@ -87,9 +86,7 @@
                         </div>
                     </div>
                 </nav>
-
             </header>
-
             @yield("content")
             @show
             <footer>
@@ -121,5 +118,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
 <!-- basket -->
 <script src="{{asset('js/basket.js')}}"></script>
+<script src="{{asset('js/likes.js')}}"></script>
+
 
 </html>

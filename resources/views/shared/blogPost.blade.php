@@ -1,44 +1,23 @@
 @auth
-<div class="blog_post {{$post}}">
-    <div class="img_pod" style="display: {{$imageDisplay}};">
-        <img class="img_post" src="{{asset('/images/DrAbdulazizAlmutawaPicture.jpeg')}}" alt="image">
-    </div>
-    <div class="container_copy" style="overflow:hidden;">
-        <h3></h3>
-        <h1 class="wisdom_title">{{$title}}</h1>
-        <form action="/changeText" method="post">
-            @csrf
-            <input type="text" value="{{$wisdom->id}}" name="wisdomId" hidden>
-            <textarea name="text" class="displayed_wisdom displayed_wisdom_{{$wisdom->id}}" rows="5"></textarea>
-            <div class="d-flex justify-content-between">
-                <div class="d-flex">
-                    <select id="categories" class="selectMenu-{{$wisdom->id}}" onchange="logValue(this);" multiple>
-                        @foreach($categories as $id => $name)
-                        <option {{in_array($id, json_decode($wisdom->ids)) ? "selected" : "";}} value="{{$wisdom->id . "-" . $id}}">{{$name}}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div>
-                    <input value="تأكيد" class="btn btn-primary" type="submit">
-                    <a class="btn btn-danger" onclick="showSnackbar('متأكد؟', {{$wisdom->id}})">مسح</a>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
+@include("shared.edit")
 @else
-<div class="blog_post {{$post}}">
-    <div class="img_pod" style="display: {{$imageDisplay}};">
-        <img class="img_post" src="{{asset('/images/DrAbdulazizAlmutawaPicture.jpeg')}}" alt="image">
-    </div>
-    <div class="container_copy" style="overflow:hidden;">
-        <h3></h3>
-        <h1 class="wisdom_title">{{$title}}</h1>
-        <p class="displayed_wisdom">{{adjustLineBreaks($displayed, false)}}</p>
-        <div class="d-flex categories" style="white-space:nowrap;width:70vw;overflow:scroll;">
+<div class="blog_post">
+    <div>
+        {{-- main text --}}
+        <p onclick="buttonPressed(this)" class="displayed_wisdom" id="wisdom-{{$wisdom->id}}">{{adjustLineBreaks($displayed, false)}}</p> {{-- show the main wisdom --}}
+        <p id="{{$wisdom->id}}" style="display: none">{{$displayed}}</p> {{-- full wisdom text hidden here --}}
+        <script>document.querySelectorAll(".displayed_wisdom").forEach(element => {element.innerText = text_truncate(element.innerText);});</script> {{-- adjust first element to show only part of the text in big screen --}}
+        {{-- categories --}}
+        <div class="d-flex categories">
             @foreach(json_decode($wisdom->ids) as $category_id)
-            <a href="/category/{{$category_id}}" style="font-size:1rem;padding:10px">{{$categories[$category_id]}}</a>
+            <a href="/category/{{$category_id}}" class="category">{{$categories[$category_id]}}</a>
             @endforeach
+        </div>
+        {{-- toolbar --}}
+        <div class="d-flex justify-content-end" style="padding: 10px">
+            <button class="add-button"><i id="add-{{$wisdom->id;}}" class="fas far fa-share-square share-icon black" style="color:black;"></i></button>
+            <button class="like-button"><i id="like-{{$wisdom->id;}}" class="fa-regular fa-heart like-icon"></i></button>
+            <a class="twitter-button" href="https://twitter.com/intent/tweet?text={{adjustLineBreaks($displayed,false)}}%0A@dralmotawaa%0Awww.dralmutawa.com"><i class="fa-brands fa-twitter" style="color:black;"></i></a>
         </div>
     </div>
 </div>

@@ -25,7 +25,7 @@
     <div class="love_count"> {{$wisdoms->total()}}</div>
 </div>
 @endif
-<div class="container-fluid shadow-lg p-3 mx-1 my-3 rounded first_son">
+<div class="container-fluid shadow-lg p-3 mx-1 my-3 rounded">
     @if(count($wisdoms) > 0)
     <div class="row add_here">
         @foreach($wisdoms as $wisdom)
@@ -37,11 +37,11 @@
     @endif
 </div>
 @if(count($wisdoms) > 6 && gettype($wisdoms) !== "array" && !isset($noajax))
-<p class="text-center loading"> يرجى الانتظار...</p>
+<p class="text-center loading" style="display: none"> يرجى الانتظار...</p>
 <script type="text/javascript">
     var paginate = 1;
     $(window).scroll(function() {
-        if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
+        if ($(window).scrollTop() + $(window).height() + 100 >= $(document).height()) {
             paginate++;
             loadMoreData(paginate);
         }
@@ -69,6 +69,8 @@
                 if (data.length > 0) {
                     $('.loading').hide();
                     $('.add_here').append(data);
+                    likeColorCheck();
+                    checkColor();
                 } else {
                     document.querySelector(".loading").innerText = "لا يوجد نتائج أكثر";
                 }

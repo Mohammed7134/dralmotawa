@@ -18,7 +18,7 @@
     </div>
 </div>
 @endif
-<div class="container-fluid shadow-lg p-3 mx-1 my-3 rounded first_son">
+<div class="container-fluid shadow-lg p-3 mx-1 my-3 rounded">
     <form method="post" action="/createWisdoms">
         @csrf
         <textarea name="wisdoms" id="txtarea" spellcheck="false" style="height:70vh" placeholder="نص الحكمة الجديد..."></textarea>

@@ -36,7 +36,7 @@ var checkColor = function () {
 String.prototype.removeNBSP = function () {
     return this.replace(/&nbsp;/g, ' ').replace(/&#160;/g, ' ').replace(/\u00a0/g, ' ').replace("</ br>", "");
 };
-const author = " "; //"د.&nbsp;عبدالعزيز&nbsp;فيصل&nbsp;المطوع";
+const website = "www.dralmutawa.com";
 const authorWhats = "د. عبدالعزيز فيصل المطوع";
 const successText = "تم التعديل بنجاح";
 const successDeleteText = "تم الحذف بنجاح";
@@ -47,11 +47,8 @@ const noWisdoms = "لا يوجد حكم بالسلة";
 const longPressRequired = "اضغط مطولا لمسح الحكم بالسلة";
 const baseUrl = "/v1/php/"
 const myStorage = window.sessionStorage;
-const spinnerTag = '<wisdomFoote class="spinner-border" role="status"></wisdomFoote>';
-let logStatus = false;
 let wisdomsText = [];
 let numberOfMessages = document.querySelector(".number-of-messages");
-let allText = "";
 function deleteWisdom(wisId) {
     window.location = `/delete/${wisId}`;
 }
@@ -84,34 +81,33 @@ const textarea = document.querySelector("textarea");
 const innerContent = document.querySelector(".inner-content");
 const btnScrollToTopId = document.querySelector("#btnScrollToTopId");
 const menu = document.querySelector("#categories");
-// if (myStorage.getItem("wisdoms")) {
-//     wisdomsIds = JSON.parse(myStorage.getItem("wisdoms"));
-//     if (wisdomsIds.length > 0) {
-//         shareButton.innerHTML = spinnerTag;
-//         let data = {
-//             '_token': $('meta[name=csrf-token]').attr('content'),
-//             wisdomsIds: wisdomsIds
-//         }
-//         fetch('/getWisdomById', {
-//             method: 'POST',
-//             headers: { 'Content-Type': 'application/json', },
-//             body: JSON.stringify(data),
-//         }).then(res => {
-//             return res.json();
-//         }).then(async data => {
-//             if (data.error === false) {
-//                 wisdomsText = data.wisdoms;
-//             } else {
-//                 await showSnackbar(errorText);
-//             }
-//         }).then(() => {
-//             shareButton.innerHTML = shareButtonTag;
-//             numberOfMessages.innerText = wisdomsIds.length;
-//             numberOfMessages.style.display = "flex";
-//             setNumberVisibility();
-//         })
-//     }
-// }
+if (myStorage.getItem("wisdoms")) {
+    wisdomsIds = JSON.parse(myStorage.getItem("wisdoms"));
+    if (wisdomsIds.length > 0) {
+        let data = {
+            '_token': $('meta[name=csrf-token]').attr('content'),
+            wisdomsIds: wisdomsIds
+        }
+        fetch('/getWisdomById', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', },
+            body: JSON.stringify(data),
+        }).then(res => {
+            return res.json();
+        }).then(async data => {
+            if (data.error === false) {
+                wisdomsText = data.wisdoms;
+            } else {
+                await showSnackbar(errorText);
+            }
+        }).then(() => {
+            shareButton.innerHTML = shareButtonTag;
+            numberOfMessages.innerText = wisdomsIds.length;
+            numberOfMessages.style.display = "flex";
+            setNumberVisibility();
+        })
+    }
+}
 checkColor();
 shareButton.style["-webkit-user-select"] = "none";
 numberOfMessages.style["-webkit-user-select"] = "none";
@@ -138,6 +134,7 @@ const addRemoveWisdomTest = async (wisId, remove = false) => {
                 const shareBt = document.getElementById("add-" + wisId);
                 if (shareBt) {
                     shareBt.style.color = shareBt.classList[4];
+                    showSnackbar("تم ازالة المقولة من السلة");
                 }
             }
         }
@@ -146,6 +143,7 @@ const addRemoveWisdomTest = async (wisId, remove = false) => {
             wisdomsIds.push(parseInt(wisId));
             wisdomsText.push(wisText.innerText);
             shareBt.style.color = "gray";
+            showSnackbar("تم اضافة المقولة الى السلة");
         }
     }
 
@@ -167,11 +165,10 @@ const setNumberVisibility = async () => {
     if (wisdomsIds.length === 0) {
         disableWhatsAppIcon();
     } else {
-        shareButton.innerHTML = spinnerTag;
         numberOfMessages.innerText = wisdomsIds.length;
         numberOfMessages.style.display = "flex";
         shareButton.innerHTML = shareButtonTag;
-        shareButton.setAttribute("href", `whatsapp://send?text=${encodeURI(wisdomsText.join("\n ___________ \n") + '\n\n' + authorWhats)}`);
+        shareButton.setAttribute("href", `whatsapp://send?text=${encodeURI(wisdomsText.join("\n ___________ \n") + '\n\n' + authorWhats + '\n\n' + website)}`);
     }
 }
 setNumberVisibility();
@@ -189,12 +186,18 @@ const emptyingWisdomsIds = async function () {
     for (let i = 0; i < addButtons.length; i++) {
         addButtons[i].style.color = addButtons[i].classList[4];
     }
+    showSnackbar("تم إفراغ السلة");
 }
 
 //This function is to call emptyingWisdomsIds array by the user by touching the WhatsApp icon for 1 sec
 shareButton.addEventListener('touchstart', function () {
     shareButton.style.transform = "scale(1.5)";
     pressTimer = setTimeout(emptyingWisdomsIds, 1000);
+    if (wisdomsIds.length === 0) {
+        showSnackbar(noWisdoms);
+    } else {
+        showSnackbar(longPressRequired);
+    }
     return false;
 });
 shareButton.addEventListener('touchend', function () {

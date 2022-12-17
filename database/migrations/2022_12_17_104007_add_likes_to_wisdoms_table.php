@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('wisdoms', function (Blueprint $table) {
-            $table->integer('shared');
+            $table->integer('likes');
         });
     }
 
@@ -26,7 +26,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('wisdoms', function (Blueprint $table) {
-            $table->dropColumn('shared');
+            $table->dropColumn('likes');
         });
     }
 };

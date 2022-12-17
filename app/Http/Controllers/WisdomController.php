@@ -51,20 +51,24 @@ class WisdomController extends Controller
         if ($id) {
             $wisdoms = Wisdom::where('id', '=', $id)->paginate(9);
         } else {
-            if (mb_strlen(request()->q) > 3) {
-                $q = '%' . request()->q . '%';
-                $newSearchText = $this->arabicSearch(request()->q, false);
-                $newSearchText2 = $this->arabicSearch(request()->q, true);
-                $wisdoms =
-                    Wisdom::where("search_text", "LIKE", $q)
-                    ->orWhere("search_text", "REGEXP", $newSearchText)
-                    ->orWhere("search_text", "REGEXP", $newSearchText2)
-                    ->orWhere("text", "LIKE", $q)
-                    ->orWhere("text", "REGEXP", $newSearchText)
-                    ->orWhere("text", "REGEXP", $newSearchText2)
-                    ->paginate(9);
+            if (!str_contains(request()->q, ")") && !str_contains(request()->q, "(")) {
+                if (mb_strlen(request()->q) > 3) {
+                    $q = '%' . request()->q . '%';
+                    $newSearchText = $this->arabicSearch(request()->q, false);
+                    $newSearchText2 = $this->arabicSearch(request()->q, true);
+                    $wisdoms =
+                        Wisdom::where("search_text", "LIKE", $q)
+                        ->orWhere("search_text", "REGEXP", $newSearchText)
+                        ->orWhere("search_text", "REGEXP", $newSearchText2)
+                        ->orWhere("text", "LIKE", $q)
+                        ->orWhere("text", "REGEXP", $newSearchText)
+                        ->orWhere("text", "REGEXP", $newSearchText2)
+                        ->paginate(9);
+                } else {
+                    return back()->with("message", "يجب أن يكون نص البحث أكبر من ٣ أحرف");
+                }
             } else {
-                return back()->with("message", "يجب أن يكون نص البحث أكبر من ٣ أحرف");
+                return back()->with("message", "يرجى عدم إدخال رموز في البحث");
             }
         }
         if (request()->ajax()) {
@@ -164,22 +168,6 @@ class WisdomController extends Controller
         }
         return view('home')->with(compact('wisdoms'));
     }
-    public function changeView()
-    {
-        if (request()->cookie('appearance') != null) {
-            if (request()->cookie('appearance') == "modern") {
-                $minutes = 7390374;
-                Cookie::queue('appearance', 'classic', $minutes);
-            } else {
-                $minutes = 7390374;
-                Cookie::queue('appearance', 'modern', $minutes);
-            }
-        } else {
-            $minutes = 7390374;
-            Cookie::queue('appearance', 'classic', $minutes);
-        }
-        return back();
-    }
     public function getWisdomById()
     {
         $response = array();
@@ -190,6 +178,13 @@ class WisdomController extends Controller
         $response['error'] = false;
         $response['wisdoms'] = $wisdoms;
         return json_encode($response);
+    }
+    public function likeWisdom(Wisdom $wisdom)
+    {
+        $wisdom->likes += 1;
+        $wisdom->save();
+        $result['error'] = false;
+        return json_encode($result);
     }
     /**
      * Show the form for creating a new resource.

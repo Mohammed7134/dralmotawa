@@ -31,12 +31,6 @@ li.page-item {
     height: inherit;
 }
 
-
-.displayed_wisdom {
-    padding: 20px;
-    border-radius: 10px
-}
-
 .jumbotron {
     padding-top: 30px;
     padding-bottom: 30px;
@@ -103,6 +97,7 @@ li.page-item {
 /* Blog Post */
 
 .blog_post_container {
+    max-width: inherit;
     display: flex;
     height: fit-content;
     justify-content: center;
@@ -117,7 +112,7 @@ li.page-item {
     max-height: inherit;
     height: fit-content;
     background: #fff;
-    /* max-width: 500px; */
+    max-width: inherit;
     border-radius: 10px;
     box-shadow: 1px 1px 2rem rgba(0, 0, 0, 0.3);
     position: relative;
@@ -127,9 +122,6 @@ li.page-item {
     background: linear-gradient(45deg, #ecccf5, transparent);
 }
 
-.container_copy {
-    padding: 1rem;
-}
 
 .img_pod {
     background: linear-gradient(90deg, #ff9966, #ff5e62);
@@ -137,7 +129,7 @@ li.page-item {
     box-shadow: 1px 1px 2rem rgba(0, 0, 0, 0.3);
     border-radius: 100%;
     position: absolute;
-    right: -40px;
+    left: -40px;
     top: -60px;
     display: flex;
     align-items: center;
@@ -169,11 +161,11 @@ h1.wisdom_title {
 }
 
 .displayed_wisdom {
-    font-family: "Montserrat";
-    font-size: 5vw;
     font-weight: 700;
     line-height: 1.2;
     background: white;
+    padding: 20px;
+    border-radius: 10px;
 }
 
 
@@ -290,29 +282,10 @@ a:hover {
     transform: scale(1.2);
 }
 
-.card__title {
-    color: white;
-    display: inline-block;
-    font-family: "Montserrat";
-    font-size: 6vw;
-    font-weight: 700;
-    line-height: 1.2;
-    margin-bottom: 0.75em;
-    text-decoration: none;
-    -webkit-transition: all 0.3s ease-out;
-    -moz-transition: all 0.3s ease-out;
-    transition: all 0.3s ease-out;
-}
-
 @media only screen and (min-width: 400px) and (max-width: 767px) {
     .card__image {
         min-height: 400px;
     }
-}
-
-.card__title:hover {
-    color: rgba(255, 255, 255, 0.7);
-    text-decoration: none;
 }
 
 .card__overlay {
@@ -653,14 +626,17 @@ blockquote {
     font-family: "Times New Roman", Georgia, Serif;
 }
 
-.quote-text,
-.quote-text:hover {
+.quote-text {
     margin: -0px 5% 5% 5%;
     margin-top: -90px;
+    margin-bottom: 0.75em;
     color: black;
+    text-decoration: none;
+    display: inline-block;
+    font-family: "Montserrat";
     font-size: 30px;
     font-weight: 400;
-    text-decoration: none;
+    line-height: 1.2;
 }
 
 
@@ -673,9 +649,10 @@ blockquote {
 
 /* share icon */
 .share-icon,
-.add-button {
+.add-button,
+.like-button,
+.twitter-button {
     font-size: 2rem;
-    color: white;
     background: none;
     border: none;
 }
@@ -717,29 +694,13 @@ blockquote {
         height: 30%;
     }
 
-    .first_son {
-        max-height: fit-content;
-        min-height: fit-content;
-        height: fit-content;
-    }
-
     .displayed_wisdom {
         font-weight: 500;
         font-size: 3vw;
-        /* max-height: 1500px; */
-        overflow: scroll;
-    }
-
-    .card__title {
-        font-size: 1.9vw;
     }
 
     .card__meta li {
         font-size: 1.8vw;
-    }
-
-    .quote-box {
-        min-height: 420px;
     }
 
     .share-icon,
@@ -756,8 +717,16 @@ blockquote {
 
 /* Hide scrollbar for IE, Edge and Firefox */
 .categories {
-    -ms-overflow-style: none;
+    white-space: nowrap;
+    width: 70vw;
+    overflow: scroll;
     /* IE and Edge */
-    scrollbar-width: none;
+    -ms-overflow-style: none;
     /* Firefox */
+    scrollbar-width: none;
+}
+
+.category {
+    padding: 1vw 3vw;
+    font-size: 1.2rem;
 }
