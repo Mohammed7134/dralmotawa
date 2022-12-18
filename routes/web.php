@@ -35,6 +35,7 @@ Route::post('/getWisdomById', [WisdomController::class, "getWisdomById"]);
 Route::post('/createWisdoms', [WisdomController::class, "createWisdoms"])->middleware("auth");
 Route::get('/lastAddedWisdoms', [WisdomController::class, "lastAddedWisdoms"]);
 Route::get('/likeWisdom/{wisdom}', [WisdomController::class, "likeWisdom"]);
+Route::get('/removeLike/{wisdom}', [WisdomController::class, "removeLike"]);
 Route::get('/getRandomQuote', [WisdomController::class, "getRandomQuote"]);
 Route::get('/الدكتور-عبدالعزيز-المطوع', function () {
     return view("about");

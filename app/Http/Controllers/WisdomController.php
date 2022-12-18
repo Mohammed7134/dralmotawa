@@ -186,6 +186,13 @@ class WisdomController extends Controller
         $result['error'] = false;
         return json_encode($result);
     }
+    public function removeLike(Wisdom $wisdom)
+    {
+        $wisdom->likes -= 1;
+        $wisdom->save();
+        $result['error'] = false;
+        return json_encode($result);
+    }
     /**
      * Show the form for creating a new resource.
      *
