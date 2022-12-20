@@ -3,7 +3,7 @@
         <form action="/changeText" method="post">
             @csrf
             <input type="text" value="{{$wisdom->id}}" name="wisdomId" hidden>
-            <textarea name="text" class="displayed_wisdom" rows="10">{{$displayed}}</textarea>
+            <textarea name="text" class="displayed_wisdom" rows="10" style="max-width: -webkit-fill-available;">{{$displayed}}</textarea>
             <div class="d-flex justify-content-between">
                 <div class="d-flex">
                     <select id="categories" class="selectMenu-{{$wisdom->id}}" onchange="logValue(this);" multiple>
