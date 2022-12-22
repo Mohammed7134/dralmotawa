@@ -721,6 +721,7 @@ blockquote {
 .categories {
     white-space: nowrap;
     width: 70vw;
+    width: inherit;
     overflow: scroll;
     /* IE and Edge */
     -ms-overflow-style: none;
