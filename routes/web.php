@@ -32,6 +32,7 @@ Route::get('/add', function () {
     return view("add");
 });
 Route::post('/getWisdomById', [WisdomController::class, "getWisdomById"]);
+Route::get('/getWisdomById/{wisdom}', [WisdomController::class, "getWisdomById"]);
 Route::post('/createWisdoms', [WisdomController::class, "createWisdoms"])->middleware("auth");
 Route::get('/lastAddedWisdoms', [WisdomController::class, "lastAddedWisdoms"]);
 Route::get('/likeWisdom/{wisdom}', [WisdomController::class, "likeWisdom"]);

@@ -1,4 +1,5 @@
 @extends("layouts.app")
+@section('title', 'اضافة حكمة')
 @section("content")
 @if(isset($q) || isset($originalId))
 <div class="container-fluid shadow-lg p-3 mx-1 my-3 rounded d-flex justify-content-around">

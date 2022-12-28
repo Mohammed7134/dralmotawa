@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateWisdomRequest;
 use App\Models\User;
 use App\Models\Wisdom;
 use GuzzleHttp\Psr7\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 
 class WisdomController extends Controller
@@ -27,6 +28,9 @@ class WisdomController extends Controller
     public function index()
     {
         $wisdoms = Wisdom::inRandomOrder()->paginate(7);
+        if (Auth::check()) {
+            $wisdoms = $this->getSimilarWisdoms($wisdoms);
+        }
         if (request()->ajax()) {
             return $this->ajax($wisdoms);
         }
@@ -145,6 +149,7 @@ class WisdomController extends Controller
             $wisdom = new Wisdom();
             $wisdom->text = $this->cleanText($text);
             $wisdom->ids = json_encode(["1467"]);
+            $wisdom->likes = 0;
             $wisdom->save();
             $wisdoms[] = $wisdom;
         }
@@ -168,16 +173,24 @@ class WisdomController extends Controller
         }
         return view('home')->with(compact('wisdoms'));
     }
-    public function getWisdomById()
+    public function getWisdomById(Wisdom $wisdom)
     {
-        $response = array();
         $wisdoms = [];
-        foreach (request()->wisdomsIds as $id) {
-            $wisdoms[] = Wisdom::where('id', '=', $id)->first();
+        if (request()->wisdomsIds) {
+            $response = array();
+            foreach (request()->wisdomsIds as $id) {
+                $wisdoms[] = Wisdom::where('id', '=', $id)->first();
+            }
+            $response['error'] = false;
+            $response['wisdoms'] = $wisdoms;
+            return json_encode($response);
+        } else {
+            $similars = $this->getSimilarWisdoms([$wisdom])[0]->similars;
+            foreach ($similars as $key => $value) {
+                $wisdoms[] = Wisdom::where('id', '=', $key)->first();
+            }
+            return view('home')->with(compact('wisdoms'))->with("noajax", true);
         }
-        $response['error'] = false;
-        $response['wisdoms'] = $wisdoms;
-        return json_encode($response);
     }
     public function likeWisdom(Wisdom $wisdom)
     {
@@ -192,6 +205,33 @@ class WisdomController extends Controller
         $wisdom->save();
         $result['error'] = false;
         return json_encode($result);
+    }
+    //use search functions or similar to them
+    public function getSimilarWisdoms($wisdoms)
+    {
+        foreach ($wisdoms as $wisdom) {
+            $result = array();
+            $words = array_unique(explode(" ", $wisdom->search_text, 15));
+            $similars = [];
+            foreach ($words as $word) {
+                if (mb_strlen($word) > 3) {
+                    $simlarIds = Wisdom::where("search_text", 'LIKE', '% ' . $word . ' %')->get()->pluck('id')->toArray();
+                    $similars = array_merge($simlarIds, $similars);
+                }
+            }
+            // $similars = array_diff($similars, array($wisdom->id));
+            $similars = array_count_values($similars);
+            arsort($similars);
+            foreach (array_slice($similars, 0, 10, true) as $key => $val) {
+                if ($val >= 4) {
+                    $result[$key] = $val;
+                }
+            }
+            if (count($result) > 1) {
+                $wisdom->similars = $result;
+            }
+        }
+        return $wisdoms;
     }
     /**
      * Show the form for creating a new resource.

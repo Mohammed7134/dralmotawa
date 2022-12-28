@@ -652,7 +652,8 @@ blockquote {
 .share-icon,
 .add-button,
 .like-button,
-.twitter-button {
+.twitter-button,
+.similar-button {
     font-size: 2rem;
     background: none;
     border: none;

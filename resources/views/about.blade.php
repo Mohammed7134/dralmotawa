@@ -1,4 +1,6 @@
 @extends("layouts.app")
+@section('title', 'عن الدكتور')
+
 @section("content")
 <div class="division0">
     <h1> د. عبدالعزيز فيصل المطوع </h1>
