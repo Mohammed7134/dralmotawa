@@ -6,6 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ Session::token() }}">
+    @auth
+    <script>
+        dataLayer.push({
+            'event':'login',
+            'userId' : '123abd'
+        });
+    </script>
+    @endauth
     <!-- Google Tag Manager -->
     <script>
         (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -38,14 +46,6 @@
 </head>
 
 <body>
-    @auth
-        <script>
-            dataLayer.push({
-                'event':'login',
-                'userId' : '123abc'
-            });
-        </script>
-    @endauth
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MT2XGKM"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
