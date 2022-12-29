@@ -38,6 +38,14 @@
 </head>
 
 <body>
+    @auth
+        <script>
+            dataLayer.push({
+                'event':'login',
+                'userId' : '123abc'
+            });
+        </script>
+    @endauth
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MT2XGKM"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>

@@ -653,6 +653,9 @@ blockquote {
 .add-button,
 .like-button,
 .twitter-button,
+.before-button,
+.after-button,
+.twitter-button,
 .similar-button {
     font-size: 2rem;
     background: none;
@@ -714,12 +717,14 @@ blockquote {
     }
 }
 
-.categories::-webkit-scrollbar {
+.categories::-webkit-scrollbar,
+.toolbar::-webkit-scrollbar {
     display: none;
 }
 
 /* Hide scrollbar for IE, Edge and Firefox */
-.categories {
+.categories,
+.toolbar {
     white-space: nowrap;
     width: 70vw;
     width: inherit;

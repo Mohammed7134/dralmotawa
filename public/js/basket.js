@@ -88,7 +88,7 @@ if (myStorage.getItem("wisdoms")) {
             '_token': $('meta[name=csrf-token]').attr('content'),
             wisdomsIds: wisdomsIds
         }
-        fetch('/getWisdomById', {
+        fetch('/getWisdomsByIds', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', },
             body: JSON.stringify(data),

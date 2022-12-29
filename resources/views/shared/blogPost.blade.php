@@ -17,12 +17,12 @@
         <div class="d-flex justify-content-end" style="padding: 10px">
             @auth
                 @isset($wisdom->similars)
-                    <a href="/getWisdomById/{{$wisdom->id}}" class="similar-button"><i class="fa-solid fa-plus" style="color:black;"></i></a>
+                    <a href="/getRelatedWisdoms/{{$wisdom->id}}" class="similar-button"><i class="fa-solid fa-plus" style="color:black;"></i></a>
                 @endisset
             @endauth
             <button class="add-button"><i id="add-{{$wisdom->id;}}" class="fas far fa-share-square share-icon black" style="color:black;"></i></button>
             <button class="like-button"><i id="like-{{$wisdom->id;}}" class="fa-regular fa-heart like-icon" style="color:black;"></i></button>
-            <a class="twitter-button" href="https://twitter.com/intent/tweet?text={{adjustLineBreaks($displayed,false)}}%0A@dralmotawaa%0Awww.dralmutawa.com"><i class="fa-brands fa-twitter" style="color:black;"></i></a>
+            <a class="twitter-button" href="https://twitter.com/intent/tweet?text={{adjustLineBreaks($displayed,false)}}%0A@dralmotawaa"><i class="fa-brands fa-twitter" style="color:black;"></i></a>
         </div>
     </div>
 </div>

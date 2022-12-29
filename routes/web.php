@@ -17,7 +17,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [WisdomController::class, "index"]);
-Route::get('/id/{wisdom}', [WisdomController::class, "getOneWisdom"]);
 Route::get('/category/{id}', [WisdomController::class, "getWisdomsForCategory"]);
 Route::get('/search', [WisdomController::class, "searchForWisdom"]);
 Route::get('/login', [UsersController::class, "login"]);
@@ -31,8 +30,12 @@ Route::get('/changeView', [WisdomController::class, "changeView"]);
 Route::get('/add', function () {
     return view("add");
 });
-Route::post('/getWisdomById', [WisdomController::class, "getWisdomById"]);
-Route::get('/getWisdomById/{wisdom}', [WisdomController::class, "getWisdomById"]);
+Route::post('/getWisdomsByIds', [WisdomController::class, "retrieveWisdoms"]);
+Route::get('/getRelatedWisdoms/{wisdom}', [WisdomController::class, "retrieveWisdoms"]);
+Route::get('/id/{wisdom}', [WisdomController::class, "getOneWisdom"]);
+Route::get('after/id/{wisdom}', [WisdomController::class, "getAfterWisdom"]);
+Route::get('before/id/{wisdom}', [WisdomController::class, "getBeforeWisdom"]);
+
 Route::post('/createWisdoms', [WisdomController::class, "createWisdoms"])->middleware("auth");
 Route::get('/lastAddedWisdoms', [WisdomController::class, "lastAddedWisdoms"]);
 Route::get('/likeWisdom/{wisdom}', [WisdomController::class, "likeWisdom"]);

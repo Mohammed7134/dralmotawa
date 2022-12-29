@@ -38,7 +38,25 @@ class WisdomController extends Controller
     }
     public function getOneWisdom(Wisdom $wisdom)
     {
-        return $wisdom->text;
+        return view('home')->with('wisdoms', [$wisdom])->with("noajax", true);
+    }
+    public function getAfterWisdom(Wisdom $wisdom)
+    {
+        $id = $wisdom->id;
+        do {
+            $id += 1;
+            $afterWisdom = Wisdom::where('id', "=", $id)->first();
+        } while (!$afterWisdom);
+        return redirect('/id/' . $afterWisdom->id);
+    }
+    public function getBeforeWisdom(Wisdom $wisdom)
+    {
+        $id = $wisdom->id;
+        do {
+            $id -= 1;
+            $beforeWisdom = Wisdom::where('id', "=", $id)->first();
+        } while (!$beforeWisdom);
+        return redirect('/id/' . $beforeWisdom->id);
     }
     public function getWisdomsForCategory(int $originalId)
     {
@@ -173,7 +191,7 @@ class WisdomController extends Controller
         }
         return view('home')->with(compact('wisdoms'));
     }
-    public function getWisdomById(Wisdom $wisdom)
+    public function retrieveWisdoms(Wisdom $wisdom)
     {
         $wisdoms = [];
         if (request()->wisdomsIds) {
