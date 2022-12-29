@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ Session::token() }}">
+
     <!-- Google Tag Manager -->
     <script>
         (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -15,7 +16,14 @@
         })(window,document,'script','dataLayer','GTM-MT2XGKM');
     </script>
     <!-- End Google Tag Manager -->
-    
+    @auth
+    <script>
+        dataLayer.push({
+            'event':'login',
+            'userId' : '123abd'
+        });
+    </script>
+    @endauth
     <title>فقه الحياة | @yield('title')</title>
     <link href='https://fonts.googleapis.com/css?family=Montserrat:700|Lato:400' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
