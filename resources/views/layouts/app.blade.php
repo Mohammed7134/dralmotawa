@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-
+    @auth
+    <script>
+        dataLayer.push({
+            'event':'login',
+            'userId' : '123abd'
+        });
+    </script>
+    @endauth
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -41,14 +48,6 @@
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MT2XGKM"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    @auth
-    <script>
-        dataLayer.push({
-            'event':'login',
-            'userId' : '123abd'
-        });
-    </script>
-    @endauth
     <!-- End Google Tag Manager (noscript) -->
     <button id="btnScrollToTopId"><i class="fas fa-arrow-up"></i></button>
     <a class="floating share-link me-3" data-action="share/whatsapp/share"><i class="fab fa-whatsapp fa-2x" style="color:black" aria-hidden="true"></i></a>
