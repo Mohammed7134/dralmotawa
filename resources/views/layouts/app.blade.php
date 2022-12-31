@@ -16,14 +16,6 @@
         })(window,document,'script','dataLayer','GTM-MT2XGKM');
     </script>
     <!-- End Google Tag Manager -->
-    @auth
-    <script>
-        dataLayer.push({
-            'event':'login',
-            'userId' : '123abd'
-        });
-    </script>
-    @endauth
     <title>فقه الحياة | @yield('title')</title>
     <link href='https://fonts.googleapis.com/css?family=Montserrat:700|Lato:400' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -49,6 +41,14 @@
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MT2XGKM"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    @auth
+    <script>
+        dataLayer.push({
+            'event':'login',
+            'userId' : '123abd'
+        });
+    </script>
+    @endauth
     <!-- End Google Tag Manager (noscript) -->
     <button id="btnScrollToTopId"><i class="fas fa-arrow-up"></i></button>
     <a class="floating share-link me-3" data-action="share/whatsapp/share"><i class="fab fa-whatsapp fa-2x" style="color:black" aria-hidden="true"></i></a>
