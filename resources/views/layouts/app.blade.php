@@ -27,6 +27,7 @@
     @vite(['resources/css/app.css'])
     @auth
     <script>
+        dataLayer = [];
         dataLayer.push({
             'event':'login',
             'userId' : '125abd'
