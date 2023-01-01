@@ -3,7 +3,7 @@ text_truncate = function (str, length, ending) {
         length = 100;
     }
     if (ending == null) {
-        ending = '...';
+        ending = '....المزيد';
     }
     if (str.length > length && window.innerWidth >= 768) {
         str = str.replace(/\n/g, " ");

@@ -22,7 +22,7 @@
             @endauth
             <button class="add-button"><i id="add-{{$wisdom->id;}}" class="fas far fa-share-square share-icon black" style="color:black;"></i></button>
             <button class="like-button"><i id="like-{{$wisdom->id;}}" class="fa-regular fa-heart like-icon" style="color:black;"></i></button>
-            <a class="twitter-button" href="https://twitter.com/intent/tweet?text={{adjustLineBreaks($displayed,false)}}%0A@dralmotawaa"><i class="fa-brands fa-twitter" style="color:black;"></i></a>
+            <a class="twitter-button" href='https://twitter.com/intent/tweet?text={{adjustLineBreaks($displayed,false)}}%0A@dralmotawaa'><i class="fa-brands fa-twitter" style="color:black;"></i></a>
         </div>
     </div>
 </div>
