@@ -9,6 +9,7 @@ class UsersController extends Controller
 {
     function login()
     {
+        session(['url.intended' => url()->previous()]);
         return view("users.login");
     }
     function signout()
@@ -24,7 +25,7 @@ class UsersController extends Controller
             'password' => 'required|min:5'
         ]);
         if (auth()->attempt(['name' => request()->name,  'password' => request()->password])) {
-            return redirect("/");
+            return redirect()->intended();
         } else {
             return back();
         }
