@@ -24,7 +24,7 @@ class UsersController extends Controller
             'name' => 'required',
             'password' => 'required|min:5'
         ]);
-        if (auth()->attempt(['name' => request()->name,  'password' => request()->password])) {
+        if (auth()->attempt(['name' => request()->name,  'password' => request()->password], true)) {
             return redirect()->intended();
         } else {
             return back();
