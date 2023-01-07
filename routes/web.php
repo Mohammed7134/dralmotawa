@@ -41,6 +41,7 @@ Route::get('/lastAddedWisdoms', [WisdomController::class, "lastAddedWisdoms"]);
 Route::get('/likeWisdom/{wisdom}', [WisdomController::class, "likeWisdom"]);
 Route::get('/removeLike/{wisdom}', [WisdomController::class, "removeLike"]);
 Route::get('/getRandomQuote', [WisdomController::class, "getRandomQuote"]);
+Route::get('/blogs', [WisdomController::class, "blogs"]);
 Route::get('/الدكتور-عبدالعزيز-المطوع', function () {
     return view("about");
 });

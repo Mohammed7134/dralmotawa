@@ -43,6 +43,18 @@ li.page-item {
     margin-right: 1rem;
 }
 
+.content {
+    padding: 16px;
+}
+
+.sticky {
+    position: fixed !important;
+    top: 0;
+    right: 0;
+    width: 100%;
+    z-index: 1;
+}
+
 .nav-item {
     padding-right: 10px;
 }
@@ -739,3 +751,5 @@ blockquote {
     padding: 1vw 3vw;
     font-size: 1.4rem;
 }
+
+/* stick */

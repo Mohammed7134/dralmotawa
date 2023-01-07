@@ -36,6 +36,17 @@ class WisdomController extends Controller
         }
         return view('home')->with(compact('wisdoms'));
     }
+    public function blogs()
+    {
+        $wisdoms = Wisdom::whereRaw("LENGTH(search_text) > 1000")->inRandomOrder()->paginate(7);
+        if (Auth::check()) {
+            $wisdoms = $this->getSimilarWisdoms($wisdoms);
+        }
+        if (request()->ajax()) {
+            return $this->ajax($wisdoms);
+        }
+        return view('home')->with(compact('wisdoms'));
+    }
     public function getOneWisdom(Wisdom $wisdom)
     {
         return view('home')->with('wisdoms', [$wisdom])->with("noajax", true);

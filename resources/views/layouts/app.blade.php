@@ -78,7 +78,7 @@
                     @endauth
                 </div>
 
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <nav class="navbar navbar-expand-sm navbar-light bg-light">
                     <div class="container-fluid">
                         <button class="btn " type="button" id="sidebarCollapse" style="background-color: #9bafca; "><i class="fas fa-align-left" aria-hidden="true"></i></button>
                         <a class="navbar-brand" href="/">الرئيسية</a>
@@ -119,7 +119,20 @@
     @vite(['resources/js/app.js'])
 </body>
 
+<script>
+window.onscroll = function() {myFunction()};
 
+var navbar = document.querySelector(".navbar");
+var sticky = navbar.offsetTop;
+
+function myFunction() {
+  if (window.pageYOffset >= sticky) {
+    navbar.classList.add("sticky")
+  } else {
+    navbar.classList.remove("sticky");
+  }
+}
+</script>
 <!-- jQuery CDN - from googleapis -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <!-- Popper.JS -->

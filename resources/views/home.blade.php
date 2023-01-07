@@ -1,9 +1,9 @@
 @extends("layouts.app")
 @section('title', isset($q) ? "البحث" : (isset($originalId) ? $categories[$originalId] : "الرئيسية"))
 @section("content")
-@if(isset($q) || isset($originalId))
+{{-- @if(isset($q) || isset($originalId)) --}}
 <div class="container-fluid shadow-lg p-3 mx-1 my-3 rounded">
-    <div class="label">
+    {{-- <div class="label">
         @isset($q)
         <h1>نص البحث: </h1>
         <h4>{{$q}}</h4>
@@ -12,14 +12,14 @@
         <h1>التصنيف: </h1>
         <h4>{{$categories[$originalId]}}</h4>
         @endisset
-    </div>
+    </div> --}}
     <div class="total">
         <h1>عدد النتائج:</h1>
         <h4>{{$wisdoms->total()}}</h4>
     </div>
-</div>
+{{-- </div> --}}
 
-@endif
+{{-- @endif --}}
 @if( !isset($noajax) && $wisdoms->total() > 30000)
 <div class="love_counter d-flex align-items-center justify-content-between">
     <p>مجموع الحكم: </p>
