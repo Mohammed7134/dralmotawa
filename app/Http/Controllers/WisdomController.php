@@ -38,7 +38,7 @@ class WisdomController extends Controller
     }
     public function blogs()
     {
-        $wisdoms = Wisdom::whereRaw("LENGTH(search_text) > 1000")->inRandomOrder()->paginate(7);
+        $wisdoms = Wisdom::whereRaw("LENGTH(search_text) >= 2000")->inRandomOrder()->paginate(7);
         if (Auth::check()) {
             $wisdoms = $this->getSimilarWisdoms($wisdoms);
         }
@@ -126,6 +126,8 @@ class WisdomController extends Controller
     {
         $wisdom = Wisdom::where("id", "=", request()->wisdomId)->first();
         $wisdom->text = $this->cleanText(request()->text);
+        $remove = array('ِ', 'ُ', 'ٓ', 'ٰ', 'ْ', 'ٌ', 'ٍ', 'ً', 'ّ', 'َ');
+        $wisdom->search_text = str_replace($remove, '', request()->text);
         if ($wisdom->save()) {
             $result['error'] = false;
             return back()->with("message", "تم تعديل النص");
