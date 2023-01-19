@@ -8,7 +8,7 @@
 
 
     <title>فقه الحياة | @yield('title')</title>
-    <meta name="description" content="{{@yield('description')}}">
+    <meta name="description" content="@yield('description')">
     <link href='https://fonts.googleapis.com/css?family=Montserrat:700|Lato:400' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
