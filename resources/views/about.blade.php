@@ -1,6 +1,6 @@
 @extends("layouts.app")
-@section('title', 'عن الدكتور')
-
+@section('title', 'الدكتور عبدالعزيز فيصل المطوع')
+@section('description', 'نبذة مختصرة عن من هو الدكتور عبدالعزيز فيصل المطوع')
 @section("content")
 <div class="division0">
     <h1> د. عبدالعزيز فيصل المطوع </h1>

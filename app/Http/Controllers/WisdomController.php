@@ -114,16 +114,20 @@ class WisdomController extends Controller
     public function changeText()
     {
         $wisdom = Wisdom::where("id", "=", request()->wisdomId)->first();
-        $wisdom->text = $this->cleanText(request()->text);
-        $remove = array('ِ', 'ُ', 'ٓ', 'ٰ', 'ْ', 'ٌ', 'ٍ', 'ً', 'ّ', 'َ');
-        $wisdom->search_text = str_replace($remove, '', request()->text);
-        if ($wisdom->save()) {
-            $result['error'] = false;
-            return back()->with("message", "تم تعديل النص");
+        if (request()->text != $wisdom->text) {
+            $wisdom->text = $this->cleanText(request()->text);
+            $remove = array('ِ', 'ُ', 'ٓ', 'ٰ', 'ْ', 'ٌ', 'ٍ', 'ً', 'ّ', 'َ');
+            $wisdom->search_text = str_replace($remove, '', request()->text);
+            if ($wisdom->save()) {
+                $result['error'] = false;
+                return back()->with("message", "تم تعديل النص");
+            } else {
+                $result['error'] = true;
+                $wisdoms = Wisdom::where("id", "=", request()->wisdomId)->get();
+                return view('home')->with(compact('wisdoms'))->with("message", "حدث خطأ");
+            }
         } else {
-            $result['error'] = true;
-            $wisdoms = Wisdom::where("id", "=", request()->wisdomId)->get();
-            return view('home')->with(compact('wisdoms'))->with("message", "حدث خطأ");
+            return back()->with("message", "لم يتغير شيء");
         }
     }
     public function deleteWisdom(Wisdom $wisdom)
