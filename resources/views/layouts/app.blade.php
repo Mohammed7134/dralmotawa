@@ -8,6 +8,23 @@
 
 
     <title>فقه الحياة | @yield('title')</title>
+    @isset($originalId)
+    <script type="application/ld+json">
+        {
+          "@context": "http://schema.org/",
+          "@type": "Article",
+          "author": [
+            {
+              "@type": "Person",
+              "name":"د. عبدالعزيز المطوع",
+              "jobTitle":"دكتور",
+              "url": "https://dralmutawa.com/الدكتور-عبدالعزيز-المطوع"
+            }
+          ],
+          "headline": "@yield('title')"
+        }
+    </script>
+    @endisset
     <meta name="description" content="@yield('description')">
     <link href='https://fonts.googleapis.com/css?family=Montserrat:700|Lato:400' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
