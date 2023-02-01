@@ -30,4 +30,12 @@ class UsersController extends Controller
             return back();
         }
     }
+    function newSubscriber()
+    {
+        // Validate the form data
+        $validatedData = request()->validate([
+            'name' => 'required',
+            'telephone' => 'required|numeric|min:6',
+        ]);
+    }
 }

@@ -44,3 +44,7 @@ Route::get('/getRandomQuote', [WisdomController::class, "getRandomQuote"]);
 Route::get('/الدكتور-عبدالعزيز-المطوع', function () {
     return view("about");
 });
+Route::get('/subscribe', function () {
+    return view("subscribe");
+});
+Route::post('/new-subscriber', [UsersController::class, "newSubscriber"]);
