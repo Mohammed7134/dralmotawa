@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Subscriber;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -37,5 +38,11 @@ class UsersController extends Controller
             'name' => 'required',
             'telephone' => 'required|numeric|min:6',
         ]);
+        $subscriber = new Subscriber();
+        $subscriber->name = request()->name;
+        $subscriber->country_code = request()->countryCode;
+        $subscriber->telephone = request()->telephone;
+        $subscriber->save();
+        return $subscriber;
     }
 }
