@@ -16,8 +16,7 @@ return new class extends Migration
         Schema::create('whatsapp_subscribers', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('country_code');
-            $table->integer('telephone');
+            $table->string('telephone');
             $table->timestamps();
         });
     }

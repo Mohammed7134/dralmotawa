@@ -38,11 +38,15 @@ class UsersController extends Controller
             'name' => 'required',
             'telephone' => 'required|numeric|min:6',
         ]);
-        $subscriber = new Subscriber();
-        $subscriber->name = request()->name;
-        $subscriber->country_code = request()->countryCode;
-        $subscriber->telephone = request()->telephone;
-        $subscriber->save();
-        return $subscriber;
+        $exists = Subscriber::where('telephone', '=', request()->countryCode . request()->telephone)->get();
+        if (!$exists) {
+            $subscriber = new Subscriber();
+            $subscriber->name = request()->name;
+            $subscriber->telephone = request()->countryCode .  request()->telephone;
+            $subscriber->save();
+            return back()->with("message", "تم الاشتراك بنجاح");
+        } else {
+            return back()->with("message", "الرقم مسجل مسبقا");
+        }
     }
 }
