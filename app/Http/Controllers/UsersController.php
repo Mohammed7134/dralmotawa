@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Twilio\Rest\Client;
 use App\Models\Subscriber;
-use App\Models\User;
-use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
@@ -39,11 +38,14 @@ class UsersController extends Controller
             'telephone' => 'required|numeric|min:6',
         ]);
         $exists = Subscriber::where('telephone', '=', request()->countryCode . request()->telephone)->get();
-        if (!$exists) {
+        if (count($exists) == 0) {
+
             $subscriber = new Subscriber();
             $subscriber->name = request()->name;
             $subscriber->telephone = request()->countryCode .  request()->telephone;
             $subscriber->save();
+
+
             return back()->with("message", "تم الاشتراك بنجاح");
         } else {
             return back()->with("message", "الرقم مسجل مسبقا");
