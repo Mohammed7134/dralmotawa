@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Twilio\Rest\Client;
 use App\Models\Subscriber;
 
 class UsersController extends Controller

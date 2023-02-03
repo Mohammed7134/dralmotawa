@@ -2,8 +2,11 @@
 
 namespace App\Console\Commands;
 
+
 use App\Models\Subscriber;
+use App\Models\Wisdom;
 use Illuminate\Console\Command;
+use Twilio\Rest\Client;
 
 class dailyWisdom extends Command
 {
@@ -28,8 +31,22 @@ class dailyWisdom extends Command
      */
     public function handle()
     {
-        $user = Subscriber::all()->first();
-        $user->name = date("Y-m-d H:i:s");
-        $user->save();
+        $sid    = getenv('TWILIO_SID');
+        $token  = getenv('TWILIO_TOKEN');
+        $twilio = new Client($sid, $token);
+
+        $subscriber = Subscriber::all()->first();
+        $subscriber->name = "Mohammed Almutawa";
+        $subscriber->save();
+
+        $wisdom = Wisdom::inRandomOrder()->first()->text;
+
+        $message = $twilio->messages->create(
+            "whatsapp:+" . $subscriber->telephone, // to 
+            array(
+                "from" => "whatsapp:+14155238886",
+                "body" => $wisdom
+            )
+        );
     }
 }
