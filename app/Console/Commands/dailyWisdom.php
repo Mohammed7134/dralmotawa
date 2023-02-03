@@ -36,8 +36,6 @@ class dailyWisdom extends Command
         $twilio = new Client($sid, $token);
 
         $subscriber = Subscriber::all()->first();
-        $subscriber->name = "Mohammed Almutawa";
-        $subscriber->save();
 
         $wisdom = Wisdom::inRandomOrder()->first()->text;
 
