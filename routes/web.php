@@ -48,4 +48,4 @@ Route::get('/subscribe', function () {
     return view("subscribe");
 });
 Route::post('/new-subscriber', [UsersController::class, "newSubscriber"]);
-Route::post('/messageFromTwilio', [UsersController::class, "messageFromTwilio"]);
+Route::get('/messageFromTwilio', [UsersController::class, "messageFromTwilio"]);
