@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Subscriber;
+use Illuminate\Support\Facades\Validator;
 
 class UsersController extends Controller
 {
@@ -49,5 +50,27 @@ class UsersController extends Controller
         } else {
             return back()->with("message", "الرقم مسجل مسبقا");
         }
+    }
+    function messageFromTwilio()
+    {
+        // validate that the request is coming from Twilio
+        $validator = Validator::make(request()->all(), [
+            'AccountSid' => 'required',
+            'MessageSid' => 'required',
+            'Body' => 'required',
+            'To' => 'required',
+            'From' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response('Invalid request', 400);
+        }
+
+        // handle the incoming message
+        $messageBody = request()->input('Body');
+
+        // return a response
+        return response('<Response><Message>Thanks for sending: ' . $messageBody . '</Message></Response>', 200)
+            ->header('Content-Type', 'text/xml');
     }
 }
