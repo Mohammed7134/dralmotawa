@@ -69,9 +69,10 @@ class UsersController extends Controller
         // handle the incoming message
         $messageBody = request()->input('Body');
         if ($messageBody == 'أوقف الخدمة') {
-            $customer = Subscriber::where('telephone', '=', request()->from)->first();
+            $customer = Subscriber::where('telephone', '=', request()->From)->first();
             $customer->telephone = "0";
-            return response('<Response><Message>تم إيقاف الخدمة</Message></Response>', 200)
+            $customer->save();
+            return response('<Response><Message>تم إيقاف الخدمة' . request()->From . '</Message></Response>', 200)
                 ->header('Content-Type', 'text/xml');
         } else {
             return response('<Response><Message>لإيقاف الخدمة أرسل: أوقف الخدمة</Message></Response>', 200)
