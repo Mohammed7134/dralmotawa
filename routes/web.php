@@ -26,7 +26,6 @@ Route::post('/changeCategory', [WisdomController::class, "changeCategory"])->mid
 Route::post('/changeText', [WisdomController::class, "changeText"])->middleware("auth");
 Route::get('/delete/{wisdom}', [WisdomController::class, "deleteWisdom"])->middleware("auth");
 Route::get('/lastAddedWisdom', [WisdomController::class, "lastAddedWisdom"]);
-Route::get('/changeView', [WisdomController::class, "changeView"]);
 Route::get('/add', function () {
     return view("add");
 });
@@ -41,11 +40,12 @@ Route::get('/lastAddedWisdoms', [WisdomController::class, "lastAddedWisdoms"]);
 Route::get('/likeWisdom/{wisdom}', [WisdomController::class, "likeWisdom"]);
 Route::get('/removeLike/{wisdom}', [WisdomController::class, "removeLike"]);
 Route::get('/getRandomQuote', [WisdomController::class, "getRandomQuote"]);
+Route::post('/new-subscriber', [UsersController::class, "newSubscriber"]);
+Route::post('/messageFromTwilio', [UsersController::class, "messageFromTwilio"]);
+
 Route::get('/الدكتور-عبدالعزيز-المطوع', function () {
     return view("about");
 });
 Route::get('/subscribe', function () {
     return view("subscribe");
 });
-Route::post('/new-subscriber', [UsersController::class, "newSubscriber"]);
-Route::get('/messageFromTwilio', [UsersController::class, "messageFromTwilio"]);
