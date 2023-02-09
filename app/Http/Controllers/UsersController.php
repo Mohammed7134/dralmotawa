@@ -144,13 +144,13 @@ class UsersController extends Controller
             $request = $request->withBody($stream);
             $response = $client->send($request);
         }
-        $mode = $_GET['hub.mode'];
-        $challenge = $_GET['hub.challenge'];
-        if ($mode === 'subscribe') {
-            header('Content-Type: text/plain');
-            echo $challenge;
-            exit;
-        }
+        // $mode = $_GET['hub.mode'];
+        // $challenge = $_GET['hub.challenge'];
+        // if ($mode === 'subscribe') {
+        //     header('Content-Type: text/plain');
+        //     echo $challenge;
+        //     exit;
+        // }
         // return response()->json(['success' => true]);
 
         // if ($verify = "Verify") {
