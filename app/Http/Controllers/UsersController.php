@@ -127,6 +127,7 @@ class UsersController extends Controller
     }
     function messageFromTwilio()
     {
+        return;
         $data = json_decode(request()->getContent(), true);
         if ($data['field'] === 'messages') {
             $client = new Client();
