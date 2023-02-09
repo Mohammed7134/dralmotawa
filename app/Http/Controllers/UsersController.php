@@ -129,7 +129,7 @@ class UsersController extends Controller
     function messageFromTwilio()
     {
 
-        $data = json_decode(request()->getContent(), true);
+        $data = json_decode(request(), true);
         Log::info('This is an informational message.' . $data);
         return;
         if ($data['field'] === 'messages') {
