@@ -45,7 +45,7 @@ class dailyWisdom extends Command
         $message = $twilio->messages->create(
             "whatsapp:+" . $subscriber->telephone, // to 
             array(
-                "from" => "whatsapp:+14155238886",
+                "from" => "whatsapp:+96597132849",
                 "body" => $wisdom
             )
         );
