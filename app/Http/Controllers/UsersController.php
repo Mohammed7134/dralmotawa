@@ -125,10 +125,18 @@ class UsersController extends Controller
     function messageFromTwilio()
     {
         $key = $_GET['hub_challenge'];
-        $response = [
-            'hub_challenge' => $key,
-            'message' => 'Hello, World!',
-        ];
+        $verify = $_GET['hub_verify_token'];
+        if ($verify = "Verify") {
+            $response = [
+                'hub_challenge' => $key,
+                'message' => 'Hello, World!',
+            ];
+        } else {
+            $response = [
+                'hub_challenge' => $key,
+                'message' => 'Error',
+            ];
+        }
 
         return json_encode($response);
 
