@@ -6,6 +6,7 @@ use App\Models\Subscriber;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Stream;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 // use Twilio\Rest\Client;
 
@@ -127,8 +128,10 @@ class UsersController extends Controller
     }
     function messageFromTwilio()
     {
-        return;
+
         $data = json_decode(request()->getContent(), true);
+        Log::info('This is an informational message.');
+        return;
         if ($data['field'] === 'messages') {
             $client = new Client();
             $uri = 'https://graph.facebook.com/v15.0/100375426320424/messages';
