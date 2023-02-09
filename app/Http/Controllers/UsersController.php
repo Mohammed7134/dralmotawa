@@ -130,7 +130,7 @@ class UsersController extends Controller
     {
 
         $data = json_decode(request()->getContent(), true);
-        Log::info('This is an informational message.');
+        Log::info('This is an informational message.' . $data);
         return;
         if ($data['field'] === 'messages') {
             $client = new Client();
