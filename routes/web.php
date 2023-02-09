@@ -41,7 +41,12 @@ Route::get('/likeWisdom/{wisdom}', [WisdomController::class, "likeWisdom"]);
 Route::get('/removeLike/{wisdom}', [WisdomController::class, "removeLike"]);
 Route::get('/getRandomQuote', [WisdomController::class, "getRandomQuote"]);
 Route::post('/new-subscriber', [UsersController::class, "newSubscriber"]);
-Route::post('/messageFromTwilio', [UsersController::class, "messageFromTwilio"]);
+Route::get('/messageFromTwilio', [UsersController::class, "messageFromTwilio"]);
+Route::post('/enteredOTP', [UsersController::class, "enteredOTP"]);
+Route::post('/resendOTP', [UsersController::class, "resendOTP"]);
+Route::get('/new-subscriber', function () {
+    return view("subscribe")->with('message', "يرجى إعادة إدخال البيانات");
+});
 
 Route::get('/الدكتور-عبدالعزيز-المطوع', function () {
     return view("about");

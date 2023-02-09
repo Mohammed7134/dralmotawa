@@ -6,7 +6,9 @@ namespace App\Console\Commands;
 use App\Models\Subscriber;
 use App\Models\Wisdom;
 use Illuminate\Console\Command;
-use Twilio\Rest\Client;
+use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Stream;
 
 class dailyWisdom extends Command
 {
@@ -31,6 +33,7 @@ class dailyWisdom extends Command
      */
     public function handle()
     {
+
         $sid    = getenv('TWILIO_SID');
         $token  = getenv('TWILIO_TOKEN');
         $twilio = new Client($sid, $token);
@@ -46,5 +49,19 @@ class dailyWisdom extends Command
                 "body" => $wisdom
             )
         );
+        $client = new Client();
+        $uri = 'https://graph.facebook.com/v15.0/116169031385897/messages';
+        $headers = array(
+            'Content-Type' => 'application/json',
+            'Authorization' => 'Bearer EABR9lTePtecBABRLMiYHsajFAZB1vOmb2MykRoReAeQNGWkSZCuRIZAUFaLx0BG0I1ZArEKYi04y0KY5ZAyq75gQLYDzFrxD6VZCcgxb4qLRbmJzj13xroj6BZAXajbwLx6lLHmpE4FNZB6wmsqngxGUdCcBQKn1WgtQQcIsShAcN4wOyzfocptuHUhvKR2reSkA0p59aM1JyBIe5rIbhfcI'
+        );
+        $body = ["messaging_product" => "whatsapp", "to" => "96597134776", "type" => "template", "template" => ["name" => "hello_world", "language" => ["code" => "en_US"]]];
+
+        $request = new Request('POST', $uri, $headers);
+        $stream = new Stream(fopen('php://temp', 'r+'));
+        $stream->write(json_encode($body));
+        $stream->rewind();
+        $request = $request->withBody($stream);
+        $response = $client->send($request);
     }
 }
