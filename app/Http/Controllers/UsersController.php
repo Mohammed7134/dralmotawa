@@ -124,7 +124,7 @@ class UsersController extends Controller
     }
     function messageFromTwilio()
     {
-        $_GET['hub_challenge'];
+        $key = $_GET['hub_challenge'];
         $response = [
             'key' => $key,
             'message' => 'Hello, World!',
