@@ -127,7 +127,6 @@ class UsersController extends Controller
     }
     function messageFromTwilio()
     {
-
         $data = json_decode(request()->getContent(), true);
         if ($data['field'] === 'messages') {
             $client = new Client();
@@ -145,7 +144,14 @@ class UsersController extends Controller
             $request = $request->withBody($stream);
             $response = $client->send($request);
         }
-        return response()->json(['success' => true]);
+        $mode = $_GET['hub.mode'];
+        $challenge = $_GET['hub.challenge'];
+        if ($mode === 'subscribe') {
+            header('Content-Type: text/plain');
+            echo $challenge;
+            exit;
+        }
+        // return response()->json(['success' => true]);
 
         // if ($verify = "Verify") {
         //     $response = [
