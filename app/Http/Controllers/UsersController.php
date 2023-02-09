@@ -130,7 +130,7 @@ class UsersController extends Controller
     {
 
         $data = json_decode(request()->getContent(), true);
-        if ($data['entry'][0]['changes'][0]['field'] === 'messages') {
+        if ($data['entry'][0]['changes'][0]['field'] === 'dd') {
             $client = new Client();
             $uri = 'https://graph.facebook.com/v15.0/100375426320424/messages';
             $headers = array(
