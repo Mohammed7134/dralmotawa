@@ -124,8 +124,9 @@ class UsersController extends Controller
     }
     function messageFromTwilio()
     {
-        $mode = $_GET['hub_mode'];
-        $challenge = $_GET['hub_challenge'];
+        return request();
+        $mode = $_GET['hub.mode'];
+        $challenge = $_GET['hub.challenge'];
         if ($mode === 'subscribe') {
             header('Content-Type: text/plain');
             echo $challenge;
