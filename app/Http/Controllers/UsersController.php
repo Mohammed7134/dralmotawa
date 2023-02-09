@@ -124,21 +124,26 @@ class UsersController extends Controller
     }
     function messageFromTwilio()
     {
-        $key = $_GET['hub_challenge'];
-        $verify = $_GET['hub_verify_token'];
-        if ($verify = "Verify") {
-            $response = [
-                'hub_challenge' => $key,
-                'message' => 'Hello, World!',
-            ];
-        } else {
-            $response = [
-                'hub_challenge' => $key,
-                'message' => 'Error',
-            ];
+        $mode = $_GET['hub.mode'];
+        $challenge = $_GET['hub.challenge'];
+        if ($mode === 'subscribe') {
+            header('Content-Type: text/plain');
+            echo $challenge;
+            exit;
         }
+        // if ($verify = "Verify") {
+        //     $response = [
+        //         'hub_challenge' => $challenge,
+        //         'message' => 'Hello, World!',
+        //     ];
+        // } else {
+        //     $response = [
+        //         'hub_challenge' => $key,
+        //         'message' => 'Error',
+        //     ];
+        // }
 
-        return json_encode($response);
+        // return json_encode($response);
 
         //     // validate that the request is coming from Twilio
         //     $validator = Validator::make(request()->all(), [
