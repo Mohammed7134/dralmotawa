@@ -128,7 +128,6 @@ class UsersController extends Controller
     }
     function messageFromTwilio()
     {
-
         $data = json_decode(request()->getContent(), true);
         Log::debug(print_r($data['entry'][0]['changes'][0]['field'], true));
         return;
