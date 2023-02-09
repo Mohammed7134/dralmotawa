@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Subscriber;
+use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Stream;
 use Illuminate\Support\Facades\Validator;
-use Twilio\Rest\Client;
+// use Twilio\Rest\Client;
 
 class UsersController extends Controller
 {
@@ -128,7 +129,7 @@ class UsersController extends Controller
     {
 
         $data = json_decode(request()->getContent(), true);
-        if ($data['event'] === 'message') {
+        if ($data['field'] === 'messages') {
             $client = new Client();
             $uri = 'https://graph.facebook.com/v15.0/100375426320424/messages';
             $headers = array(
