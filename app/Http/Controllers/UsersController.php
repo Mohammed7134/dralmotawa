@@ -126,35 +126,36 @@ class UsersController extends Controller
     {
         $key = $_GET['hub_challenge'];
         $response = [
-            'key' => $key,
+            'hub_challenge' => $key,
             'message' => 'Hello, World!',
         ];
-        
-        echo json_encode($response);
-    //     // validate that the request is coming from Twilio
-    //     $validator = Validator::make(request()->all(), [
-    //         'AccountSid' => 'required',
-    //         'MessageSid' => 'required',
-    //         'Body' => 'required',
-    //         'To' => 'required',
-    //         'From' => 'required',
-    //     ]);
 
-    //     if ($validator->fails()) {
-    //         return response('Invalid request', 400);
-    //     }
+        return json_encode($response);
 
-    //     // handle the incoming message
-    //     $messageBody = request()->input('Body');
-    //     if ($messageBody == 'أوقف الخدمة') {
-    //         $customer = Subscriber::where('telephone', '=', explode('+', request()->From)[1])->first();
-    //         $customer->telephone = "0";
-    //         $customer->save();
-    //         return response('<Response><Message>تم إيقاف الخدمة</Message></Response>', 200)
-    //             ->header('Content-Type', 'text/xml');
-    //     } else {
-    //         return response('<Response><Message>لإيقاف الخدمة أرسل: أوقف الخدمة</Message></Response>', 200)
-    //             ->header('Content-Type', 'text/xml');
-    //     }
-    // }
+        //     // validate that the request is coming from Twilio
+        //     $validator = Validator::make(request()->all(), [
+        //         'AccountSid' => 'required',
+        //         'MessageSid' => 'required',
+        //         'Body' => 'required',
+        //         'To' => 'required',
+        //         'From' => 'required',
+        //     ]);
+
+        //     if ($validator->fails()) {
+        //         return response('Invalid request', 400);
+        //     }
+
+        //     // handle the incoming message
+        //     $messageBody = request()->input('Body');
+        //     if ($messageBody == 'أوقف الخدمة') {
+        //         $customer = Subscriber::where('telephone', '=', explode('+', request()->From)[1])->first();
+        //         $customer->telephone = "0";
+        //         $customer->save();
+        //         return response('<Response><Message>تم إيقاف الخدمة</Message></Response>', 200)
+        //             ->header('Content-Type', 'text/xml');
+        //     } else {
+        //         return response('<Response><Message>لإيقاف الخدمة أرسل: أوقف الخدمة</Message></Response>', 200)
+        //             ->header('Content-Type', 'text/xml');
+        //     }
+    }
 }
