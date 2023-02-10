@@ -166,7 +166,7 @@ class UsersController extends Controller
                 $response = $client->send($request);
             }
         } else {
-            $data = json_decode(request()->getContent(), false);
+            $data = json_decode(request()->getContent(), true);
             Log::debug(print_r($data), true);
         }
         // $mode = $_GET['hub.mode'];
