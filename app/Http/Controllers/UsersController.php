@@ -167,7 +167,7 @@ class UsersController extends Controller
             }
         } else {
             $data = json_decode(request()->getContent(), true);
-            Log::debug(print_r($data), true);
+            Log::debug(print_r($data->entry), true);
         }
         // $mode = $_GET['hub.mode'];
         // $challenge = $_GET['hub.challenge'];
