@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Subscriber;
 use App\Services\MyService;
+use Illuminate\Support\Facades\Log;
 
 class UsersController extends Controller
 {
@@ -132,6 +133,7 @@ class UsersController extends Controller
         $inboundNotification = isset($data->entry[0]->changes[0]->value->messages[0]);
         if ($inboundNotification) {
             $to = $data->entry[0]->changes[0]->value->messages[0]->from;
+            Log::debug(print_r($to, true));
             $subscriber = Subscriber::where('telephone', '=', $to);
             if ($data->entry[0]->changes[0]->value->messages[0]->text->body === 'أوقف الخدمة') {
                 $myservice = new MyService;
