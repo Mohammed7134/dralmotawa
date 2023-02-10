@@ -128,9 +128,8 @@ class UsersController extends Controller
     }
     function messageFromTwilio()
     {
-        $data = json_decode(request()->getContent(), true);
+        $data = json_decode(request()->getContent());
         Log::debug(print_r($data['entry'][0]['changes'][0]['value']['messages'][0]['text']['body'], true));
-        return header("ok", true, 200);
         if ($data['entry'][0]['changes'][0]['value']['messages'][0]['text']['body'] === 'abc') {
             $client = new Client();
             $uri = 'https://graph.facebook.com/v15.0/100375426320424/messages';
@@ -138,7 +137,8 @@ class UsersController extends Controller
                 'Content-Type' => 'application/json',
                 'Authorization' => 'Bearer EABR9lTePtecBAOdjMOitf7hCPOXXDbPZBN06O8GJ0Wy87wdLLJV1ZBo5ygIEgeo0ZC2ev3a4J264gRaLKcncRTSDqMbGpu1Ic81x7SPR4YGo8feeB8y0MVFstadl2TX6qoHi6HZBxvPqScIBTkcbiJPEuxmJmEVk8bxkTDIfGJvlphZC5szmD1RzXzq6xpZCOADZCt2UmIVfCuMCFJFrxG3'
             );
-            $body = ["messaging_product" => "whatsapp", "to" => "96597134776", "type" => "template", "template" => ["name" => "hello_world", "language" => ["code" => "en_US"]]];
+            $to = $data['entry'][0]['changes'][0]['value']['messages'][0]['text']['from'];
+            $body = ["messaging_product" => "whatsapp", "to" => $to, "type" => "template", "template" => ["name" => "hello_world", "language" => ["code" => "en_US"]]];
 
             $request = new Request('POST', $uri, $headers);
             $stream = new Stream(fopen('php://temp', 'r+'));
