@@ -128,8 +128,22 @@ class UsersController extends Controller
     }
     function messageFromTwilio()
     {
+
+        // validate that the request is coming from Twilio
+        // $validator = Validator::make(request()->all(), [
+        //     'AccountSid' => 'required',
+        //     'MessageSid' => 'required',
+        //     'Body' => 'required',
+        //     'To' => 'required',
+        //     'From' => 'required',
+        // ]);
+
+        // if ($validator->fails()) {
+        //     return response('Invalid request', 400);
+        // }
         $data = json_decode(request()->getContent());
-        if ($data->entry[0]->changes[0]->value->messages[0]->text->body === 'abc') {
+        $inboundNotification = isset($data->entry[0]->changes[0]->value->messages[0]);
+        if ($inboundNotification) {
             $client = new Client();
             $uri = 'https://graph.facebook.com/v15.0/100375426320424/messages';
             $headers = array(
@@ -137,14 +151,23 @@ class UsersController extends Controller
                 'Authorization' => 'Bearer EABR9lTePtecBAOdjMOitf7hCPOXXDbPZBN06O8GJ0Wy87wdLLJV1ZBo5ygIEgeo0ZC2ev3a4J264gRaLKcncRTSDqMbGpu1Ic81x7SPR4YGo8feeB8y0MVFstadl2TX6qoHi6HZBxvPqScIBTkcbiJPEuxmJmEVk8bxkTDIfGJvlphZC5szmD1RzXzq6xpZCOADZCt2UmIVfCuMCFJFrxG3'
             );
             $to = $data->entry[0]->changes[0]->value->messages[0]->from;
-            $body = ["messaging_product" => "whatsapp", "to" => $to, "type" => "template", "template" => ["name" => "hello_world", "language" => ["code" => "en_US"]]];
-
             $request = new Request('POST', $uri, $headers);
             $stream = new Stream(fopen('php://temp', 'r+'));
-            $stream->write(json_encode($body));
-            $stream->rewind();
-            $request = $request->withBody($stream);
-            $response = $client->send($request);
+            if ($data->entry[0]->changes[0]->value->messages[0]->text->body === 'أوقف الخدمة') {
+                $body = ["messaging_product" => "whatsapp", "to" => $to, "type" => "template", "template" => ["name" => "hello_world", "language" => ["code" => "en_US"]]];
+                $stream->write(json_encode($body));
+                $stream->rewind();
+                $request = $request->withBody($stream);
+                $response = $client->send($request);
+            } else {
+                $body = ["messaging_product" => "whatsapp", "to" => $to, "type" => "template", "template" => ["name" => "hello_world", "language" => ["code" => "en_US"]]];
+                $stream->write(json_encode($body));
+                $stream->rewind();
+                $request = $request->withBody($stream);
+                $response = $client->send($request);
+            }
+        } else {
+            Log::debug(print_r($data), true);
         }
         // $mode = $_GET['hub.mode'];
         // $challenge = $_GET['hub.challenge'];
@@ -169,18 +192,6 @@ class UsersController extends Controller
 
         // return json_encode($response);
 
-        //     // validate that the request is coming from Twilio
-        //     $validator = Validator::make(request()->all(), [
-        //         'AccountSid' => 'required',
-        //         'MessageSid' => 'required',
-        //         'Body' => 'required',
-        //         'To' => 'required',
-        //         'From' => 'required',
-        //     ]);
-
-        //     if ($validator->fails()) {
-        //         return response('Invalid request', 400);
-        //     }
 
         //     // handle the incoming message
         //     $messageBody = request()->input('Body');
