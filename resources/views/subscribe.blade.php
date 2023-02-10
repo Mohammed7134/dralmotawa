@@ -11,6 +11,7 @@
 
 <div class="row justify-content-center">
     <p>coming soon - قريبا</p>
+    <p>الاشتراك في خدمة رسائل الواتساب اليومية</p>
     <div class="container shadow-lg p-3 mx-1 my-3 rounded d-flex justify-content-center w-50">
         <form action="new-subscriber" method="post">
             @csrf
@@ -239,7 +240,13 @@
 
             <label for="telephone" class="required">رقم الهاتف</label>
             <input id="telephone" type="number" name="telephone" class="form-control" required>
-            <button class="btn btn-primary m-2" >الاشتراك</button>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="termsCheckbox" name="agree" style="float: right;" required>
+                <label class="form-check-label" for="termsCheckbox">
+                  الموافقة على <a href="/terms" target="_blank">الشروط والأحكام</a>
+                </label>
+              </div>
+            <button class="btn btn-primary m-2" >ارسال رمز التحقق</button>
         </form>
     </div>
 </div>

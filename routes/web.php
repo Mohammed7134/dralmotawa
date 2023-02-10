@@ -44,6 +44,9 @@ Route::post('/new-subscriber', [UsersController::class, "newSubscriber"]);
 Route::post('/messageFromTwilio', [UsersController::class, "messageFromTwilio"]);
 Route::post('/enteredOTP', [UsersController::class, "enteredOTP"]);
 Route::post('/resendOTP', [UsersController::class, "resendOTP"]);
+Route::get('/terms', function () {
+    return view("terms");
+});
 Route::get('/new-subscriber', function () {
     return view("subscribe")->with('message', "يرجى إعادة إدخال البيانات");
 });

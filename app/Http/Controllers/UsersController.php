@@ -37,25 +37,30 @@ class UsersController extends Controller
         $validatedData = request()->validate([
             'name' => 'required',
             'telephone' => 'required|numeric|min:6',
+            'agree' => 'required',
         ]);
         $exists = Subscriber::where('telephone', '=', request()->countryCode . request()->telephone)->get();
-        if (count($exists) == 0) {
-            $subscriber = new Subscriber();
-            $subscriber->name = request()->name;
-            $subscriber->telephone = request()->countryCode .  request()->telephone;
-            $subscriber->otp = mt_rand(100000, 999999);
-            $subscriber->otp_expiry = time() + 60;
-            $parameter1 = json_encode(array(
-                "type" => "text",
-                "text" => $subscriber->otp
-            ));
-            $myservice = new MyService;
-            $myservice->sendWhatsApp($subscriber, $parameter1, 'otp_message');
-            $subscriber->save();
+        if (request()->agree) {
+            if (count($exists) == 0) {
+                $subscriber = new Subscriber();
+                $subscriber->name = request()->name;
+                $subscriber->telephone = request()->countryCode .  request()->telephone;
+                $subscriber->otp = mt_rand(100000, 999999);
+                $subscriber->otp_expiry = time() + 60;
+                $parameter1 = json_encode(array(
+                    "type" => "text",
+                    "text" => $subscriber->otp
+                ));
+                $myservice = new MyService;
+                $myservice->sendWhatsApp($subscriber, $parameter1, 'otp_message');
+                $subscriber->save();
 
-            return view('OTP')->with('telephone', request()->countryCode .  request()->telephone)->with('timer', $subscriber->otp_expiry)->with('name', request()->name);
+                return view('OTP')->with('telephone', request()->countryCode .  request()->telephone)->with('timer', $subscriber->otp_expiry)->with('name', request()->name);
+            } else {
+                return back()->with("message", "الرقم مسجل مسبقا");
+            }
         } else {
-            return back()->with("message", "الرقم مسجل مسبقا");
+            return back()->with("message", "يجب الموافقة على الشروط");
         }
     }
     function resendOTP()
