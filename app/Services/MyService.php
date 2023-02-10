@@ -15,7 +15,7 @@ class MyService
         $uri = getenv('WHATSAPP_URI');
         $headers = array(
             'Content-Type' => 'application/json',
-            'User-Access-Token' => getenv('WHATSAPP_TOKEN')
+            'Authorization' => getenv('WHATSAPP_TOKEN')
         );
         $component1 = json_encode(array(
             "type" => "body",
