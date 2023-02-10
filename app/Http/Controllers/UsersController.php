@@ -134,14 +134,18 @@ class UsersController extends Controller
         if ($inboundNotification) {
             $to = $data->entry[0]->changes[0]->value->messages[0]->from;
             $subscriber = Subscriber::where('telephone', '=', $to)->first();
-            if ($data->entry[0]->changes[0]->value->messages[0]->text->body === 'أوقف الخدمة') {
-                $myservice = new MyService;
-                $myservice->sendWhatsApp($subscriber, '', 'stop_service');
-                $subscriber = Subscriber::where('telephone', '=', $to);
-                $subscriber->delete();
+            if ($subscriber) {
+                if ($data->entry[0]->changes[0]->value->messages[0]->text->body === 'أوقف الخدمة') {
+                    $myservice = new MyService;
+                    $myservice->sendWhatsApp($subscriber, '', 'stop_service');
+                    $subscriber = Subscriber::where('telephone', '=', $to);
+                    $subscriber->delete();
+                } else {
+                    $myservice = new MyService;
+                    $myservice->sendWhatsApp($subscriber, '', 'to_stop_service');
+                }
             } else {
-                $myservice = new MyService;
-                $myservice->sendWhatsApp($subscriber, '', 'to_stop_service');
+                // user no longer a subscriber
             }
         } else {
             // Log::debug(print_r($data, true));

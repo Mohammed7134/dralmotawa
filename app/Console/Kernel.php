@@ -15,7 +15,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('Wisdom:day')->everyThirtyMinutes();
+        $schedule->command('Wisdom:day')->dailyAt('17:20')->timezone('Asia/Kuwait');
     }
 
     /**
