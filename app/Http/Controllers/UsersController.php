@@ -137,6 +137,8 @@ class UsersController extends Controller
             if ($data->entry[0]->changes[0]->value->messages[0]->text->body === 'أوقف الخدمة') {
                 $myservice = new MyService;
                 $myservice->sendWhatsApp($subscriber, '', 'stop_service');
+                $subscriber = Subscriber::where('telephone', '=', $to);
+                $subscriber->delete();
             } else {
                 $myservice = new MyService;
                 $myservice->sendWhatsApp($subscriber, '', 'to_stop_service');
