@@ -44,10 +44,10 @@ class dailyWisdom extends Command
             );
             $component1 = json_encode(array(
                 "type" => "body",
-                "parameters" => ['{
+                "parameters" => [json_encode('{
                         "type": "text",
                         "text":' . $wisdom . '
-                    }']
+                    }')]
             ));
             $body = ["messaging_product" => "whatsapp", "to" => $subscriber->telephone, "type" => "template", "template" => ["name" => "wisdom", "language" => ["code" => "ar"], "components" => [$component1]]];
 
