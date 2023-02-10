@@ -49,16 +49,29 @@ class UsersController extends Controller
             $subscriber->telephone = request()->countryCode .  request()->telephone;
             $subscriber->otp = mt_rand(100000, 999999);
             $subscriber->otp_expiry = time() + 60;
-            $sid    = getenv('TWILIO_SID');
-            $token  = getenv('TWILIO_TOKEN');
-            $twilio = new Client($sid, $token);
-            $message = $twilio->messages->create(
-                "whatsapp:+" . $subscriber->telephone, // to 
-                array(
-                    "from" => "whatsapp:+14155238886",
-                    "body" => $subscriber->otp
-                )
+            $client = new Client();
+            $uri = 'https://graph.facebook.com/v15.0/100375426320424/messages';
+            $headers = array(
+                'Content-Type' => 'application/json',
+                'Authorization' => 'Bearer EABR9lTePtecBAOdjMOitf7hCPOXXDbPZBN06O8GJ0Wy87wdLLJV1ZBo5ygIEgeo0ZC2ev3a4J264gRaLKcncRTSDqMbGpu1Ic81x7SPR4YGo8feeB8y0MVFstadl2TX6qoHi6HZBxvPqScIBTkcbiJPEuxmJmEVk8bxkTDIfGJvlphZC5szmD1RzXzq6xpZCOADZCt2UmIVfCuMCFJFrxG3'
             );
+            $to = $subscriber->telephone;
+            $request = new Request('POST', $uri, $headers);
+            $stream = new Stream(fopen('php://temp', 'r+'));
+            $body = ["messaging_product" => "whatsapp", "to" => $to, "type" => "template", "template" => ["name" => "otp_message", "language" => ["code" => "ar"], "components" => [
+                [
+                    "type" => "body",
+                    "parameters" => [
+                        "type" => "text",
+                        "text" => $subscriber->otp
+                    ]
+                ]
+            ]]];
+            $stream->write(json_encode($body));
+            $stream->rewind();
+            $request = $request->withBody($stream);
+            $response = $client->send($request);
+
             $subscriber->save();
 
             return view('OTP')->with('telephone', request()->countryCode .  request()->telephone)->with('timer', $subscriber->otp_expiry)->with('name', request()->name);
@@ -77,16 +90,29 @@ class UsersController extends Controller
             $user->otp = mt_rand(100000, 999999);
             $user->otp_expiry = time() + 60;
             $user->save();
-            $sid    = getenv('TWILIO_SID');
-            $token  = getenv('TWILIO_TOKEN');
-            $twilio = new Client($sid, $token);
-            $message = $twilio->messages->create(
-                "whatsapp:+" . $user->telephone, // to 
-                array(
-                    "from" => "whatsapp:+14155238886",
-                    "body" => $user->otp
-                )
+            $client = new Client();
+            $uri = 'https://graph.facebook.com/v15.0/100375426320424/messages';
+            $headers = array(
+                'Content-Type' => 'application/json',
+                'Authorization' => 'Bearer EABR9lTePtecBAOdjMOitf7hCPOXXDbPZBN06O8GJ0Wy87wdLLJV1ZBo5ygIEgeo0ZC2ev3a4J264gRaLKcncRTSDqMbGpu1Ic81x7SPR4YGo8feeB8y0MVFstadl2TX6qoHi6HZBxvPqScIBTkcbiJPEuxmJmEVk8bxkTDIfGJvlphZC5szmD1RzXzq6xpZCOADZCt2UmIVfCuMCFJFrxG3'
             );
+            $to = $user->telephone;
+            $request = new Request('POST', $uri, $headers);
+            $stream = new Stream(fopen('php://temp', 'r+'));
+            $body = ["messaging_product" => "whatsapp", "to" => $to, "type" => "template", "template" => ["name" => "otp_message", "language" => ["code" => "ar"], "components" => [
+                [
+                    "type" => "body",
+                    "parameters" => [
+                        "type" => "text",
+                        "text" => $user->otp
+                    ]
+                ]
+            ]]];
+            $stream->write(json_encode($body));
+            $stream->rewind();
+            $request = $request->withBody($stream);
+            $response = $client->send($request);
+
             $result['error'] = false;
             $result['message'] = "تم الإرسال";
         } else {
@@ -153,57 +179,20 @@ class UsersController extends Controller
             $request = new Request('POST', $uri, $headers);
             $stream = new Stream(fopen('php://temp', 'r+'));
             if ($data->entry[0]->changes[0]->value->messages[0]->text->body === 'أوقف الخدمة') {
-                $body = ["messaging_product" => "whatsapp", "to" => $to, "type" => "template", "template" => ["name" => "hello_world", "language" => ["code" => "en_US"]]];
+                $body = ["messaging_product" => "whatsapp", "to" => $to, "type" => "template", "template" => ["name" => "stop_service", "language" => ["code" => "ar"]]];
                 $stream->write(json_encode($body));
                 $stream->rewind();
                 $request = $request->withBody($stream);
                 $response = $client->send($request);
             } else {
-                $body = ["messaging_product" => "whatsapp", "to" => $to, "type" => "template", "template" => ["name" => "hello_world", "language" => ["code" => "en_US"]]];
+                $body = ["messaging_product" => "whatsapp", "to" => $to, "type" => "template", "template" => ["name" => "to_stop_service", "language" => ["code" => "ar"]]];
                 $stream->write(json_encode($body));
                 $stream->rewind();
                 $request = $request->withBody($stream);
                 $response = $client->send($request);
             }
         } else {
-            // $data = json_decode(request()->getContent(), true);
-            Log::debug(print_r($data, true));
+            // Log::debug(print_r($data, true));
         }
-        // $mode = $_GET['hub.mode'];
-        // $challenge = $_GET['hub.challenge'];
-        // if ($mode === 'subscribe') {
-        //     header('Content-Type: text/plain');
-        //     echo $challenge;
-        //     exit;
-        // }
-        // return response()->json(['success' => true]);
-
-        // if ($verify = "Verify") {
-        //     $response = [
-        //         'hub_challenge' => $challenge,
-        //         'message' => 'Hello, World!',
-        //     ];
-        // } else {
-        //     $response = [
-        //         'hub_challenge' => $key,
-        //         'message' => 'Error',
-        //     ];
-        // }
-
-        // return json_encode($response);
-
-
-        //     // handle the incoming message
-        //     $messageBody = request()->input('Body');
-        //     if ($messageBody == 'أوقف الخدمة') {
-        //         $customer = Subscriber::where('telephone', '=', explode('+', request()->From)[1])->first();
-        //         $customer->telephone = "0";
-        //         $customer->save();
-        //         return response('<Response><Message>تم إيقاف الخدمة</Message></Response>', 200)
-        //             ->header('Content-Type', 'text/xml');
-        //     } else {
-        //         return response('<Response><Message>لإيقاف الخدمة أرسل: أوقف الخدمة</Message></Response>', 200)
-        //             ->header('Content-Type', 'text/xml');
-        //     }
     }
 }
