@@ -31,7 +31,7 @@
         $('#resendOTP').prop("disabled", true);
         interval = setInterval(function() {
             var seconds = expirationTime--;
-            document.getElementById("timer").innerHTML = seconds + " الثواني المتبقية";
+            document.getElementById("timer").innerHTML = seconds + "الثواني المتبقية";
             if (seconds <= 0) {
                 clearInterval(interval);
                 $('#resendOTP').prop("disabled", false);
