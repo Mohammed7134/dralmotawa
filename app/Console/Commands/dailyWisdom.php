@@ -48,7 +48,7 @@ class dailyWisdom extends Command
                 "type" => "body",
                 "parameters" => [
                     "type" => "text",
-                    "text" => $wisdom->text
+                    "text" => $wisdom
                 ]
             ]
         ]]];
