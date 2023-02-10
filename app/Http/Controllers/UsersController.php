@@ -129,7 +129,7 @@ class UsersController extends Controller
     function messageFromTwilio()
     {
         $data = json_decode(request()->getContent());
-        Log::debug(print_r($data['entry'][0]['changes'][0]['value']['messages'][0]['text']['body'], true));
+        Log::debug(print_r($data->entry, true));
         if ($data['entry'][0]['changes'][0]['value']['messages'][0]['text']['body'] === 'abc') {
             $client = new Client();
             $uri = 'https://graph.facebook.com/v15.0/100375426320424/messages';
