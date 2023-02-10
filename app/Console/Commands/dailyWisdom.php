@@ -49,7 +49,7 @@ class dailyWisdom extends Command
                     "text" => "text here"
                 )
             );
-            $body = ["messaging_product" => "whatsapp", "to" => $subscriber->telephone, "type" => "template", "template" => ["name" => "wisdom", "language" => ["code" => "ar"], "components" => [$component1]]];
+            $body = ["messaging_product" => "whatsapp", "to" => $subscriber->telephone, "type" => "template", "template" => ["name" => "wisdom", "language" => ["code" => "ar"], "components" => [json_encode($component1)]]];
 
             $request = new Request('POST', $uri, $headers);
             $stream = new Stream(fopen('php://temp', 'r+'));
