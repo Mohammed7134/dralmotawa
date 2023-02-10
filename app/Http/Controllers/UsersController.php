@@ -128,7 +128,6 @@ class UsersController extends Controller
     }
     function messageFromTwilio()
     {
-
         // validate that the request is coming from Twilio
         // $validator = Validator::make(request()->all(), [
         //     'AccountSid' => 'required',
