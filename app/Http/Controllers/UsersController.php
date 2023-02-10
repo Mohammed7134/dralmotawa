@@ -133,8 +133,7 @@ class UsersController extends Controller
         $inboundNotification = isset($data->entry[0]->changes[0]->value->messages[0]);
         if ($inboundNotification) {
             $to = $data->entry[0]->changes[0]->value->messages[0]->from;
-            Log::debug(print_r($to, true));
-            $subscriber = Subscriber::where('telephone', '=', $to);
+            $subscriber = Subscriber::where('telephone', '=', $to)->first();
             if ($data->entry[0]->changes[0]->value->messages[0]->text->body === 'أوقف الخدمة') {
                 $myservice = new MyService;
                 $myservice->sendWhatsApp($subscriber, '', 'stop_service');
