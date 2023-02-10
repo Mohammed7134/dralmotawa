@@ -37,10 +37,10 @@ class dailyWisdom extends Command
         $wisdom = Wisdom::inRandomOrder()->first()->text;
         foreach ($subscribers as $subscriber) {
             $client = new Client();
-            $uri = 'https://graph.facebook.com/v15.0/116169031385897/messages';
+            $uri = 'https://graph.facebook.com/v15.0/100375426320424/messages';
             $headers = array(
                 'Content-Type' => 'application/json',
-                'Authorization' => 'Bearer EABR9lTePtecBABRLMiYHsajFAZB1vOmb2MykRoReAeQNGWkSZCuRIZAUFaLx0BG0I1ZArEKYi04y0KY5ZAyq75gQLYDzFrxD6VZCcgxb4qLRbmJzj13xroj6BZAXajbwLx6lLHmpE4FNZB6wmsqngxGUdCcBQKn1WgtQQcIsShAcN4wOyzfocptuHUhvKR2reSkA0p59aM1JyBIe5rIbhfcI'
+                'Authorization' => 'Bearer EABR9lTePtecBAOdjMOitf7hCPOXXDbPZBN06O8GJ0Wy87wdLLJV1ZBo5ygIEgeo0ZC2ev3a4J264gRaLKcncRTSDqMbGpu1Ic81x7SPR4YGo8feeB8y0MVFstadl2TX6qoHi6HZBxvPqScIBTkcbiJPEuxmJmEVk8bxkTDIfGJvlphZC5szmD1RzXzq6xpZCOADZCt2UmIVfCuMCFJFrxG3'
             );
             $parameter1 = json_encode(array(
                 "type" => "text",
