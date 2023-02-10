@@ -42,12 +42,13 @@ class dailyWisdom extends Command
                 'Content-Type' => 'application/json',
                 'Authorization' => 'Bearer EABR9lTePtecBABRLMiYHsajFAZB1vOmb2MykRoReAeQNGWkSZCuRIZAUFaLx0BG0I1ZArEKYi04y0KY5ZAyq75gQLYDzFrxD6VZCcgxb4qLRbmJzj13xroj6BZAXajbwLx6lLHmpE4FNZB6wmsqngxGUdCcBQKn1WgtQQcIsShAcN4wOyzfocptuHUhvKR2reSkA0p59aM1JyBIe5rIbhfcI'
             );
+            $parameter1 = json_encode(array(
+                "type" => "text",
+                "text" => $wisdom
+            ));
             $component1 = json_encode(array(
                 "type" => "body",
-                "parameters" => [json_encode('{
-                        "type": "text",
-                        "text":' . $wisdom . '
-                    }')]
+                "parameters" => [$parameter1]
             ));
             $body = ["messaging_product" => "whatsapp", "to" => $subscriber->telephone, "type" => "template", "template" => ["name" => "wisdom", "language" => ["code" => "ar"], "components" => [$component1]]];
 
