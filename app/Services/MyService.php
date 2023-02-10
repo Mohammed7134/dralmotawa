@@ -21,7 +21,7 @@ class MyService
             "type" => "body",
             "parameters" => [$parameter1]
         ));
-        $body = ["messaging_product" => "whatsapp", "to" => $subscriber->telephone, "type" => "template", "template" => ["name" => $templateName, "language" => ["code" => "ar"], "components" => [$component1]]];
+        $body = ["name" => "DrAlmutawa", "messaging_product" => "whatsapp", "to" => $subscriber->telephone, "type" => "template", "template" => ["name" => $templateName, "language" => ["code" => "ar"], "components" => [$component1]]];
 
         $request = new Request('POST', $uri, $headers);
         $stream = new Stream(fopen('php://temp', 'r+'));
