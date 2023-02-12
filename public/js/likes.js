@@ -49,7 +49,7 @@ const addLike = (wisId) => {
                 if (shareBt) {
                     setLikesStorage();
                     likeBt.classList.remove("fa-solid");
-                    likeBt.style.color = "black";
+                    likeBt.style.color = "red";
                     removeLike(wisId);
                 }
             }

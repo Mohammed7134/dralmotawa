@@ -21,8 +21,9 @@
                 @endisset
             @endauth
             <button class="add-button"><i id="add-{{$wisdom->id;}}" class="fas far fa-share-square share-icon black" style="color:black;"></i></button>
-            <button class="like-button"><i id="like-{{$wisdom->id;}}" class="fa-regular fa-heart like-icon" style="color:black;"></i></button>
-            <a class="twitter-button" href='https://twitter.com/intent/tweet?text={{adjustLineBreaks($displayed, true)}}%0A@dralmotawaa'><i class="fa-brands fa-twitter" style="color:black;"></i></a>
+            <button class="like-button"><i id="like-{{$wisdom->id;}}" class="fa-regular fa-heart like-icon" style="color:red;"></i></button>
+            <a class="twitter-button" href='https://twitter.com/intent/tweet?text={{adjustLineBreaks($displayed, true)}}%0A@dralmotawaa'><i class="fa-brands fa-twitter" ></i></a>
+            <a class="facebook-button" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.dralmutawa.com%2Fid%2F{{$wisdom->id;}}&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore"><i class="fa-brands fa-facebook" data-href="https://www.dralmutawa.com/id/{{$wisdom->id;}}" data-layout="button" data-size="small"></i></a>
         </div>
     </div>
 </div>

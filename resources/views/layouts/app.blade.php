@@ -68,6 +68,10 @@
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MT2XGKM"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
+    <!-- Facebook Tag  -->
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/ar_AR/sdk.js#xfbml=1&version=v16.0&appId=5767579369977319&autoLogAppEvents=1" nonce="hCrAcreE"></script>
+    <!-- End Facebook Tag -->
     <button id="btnScrollToTopId"><i class="fas fa-arrow-up"></i></button>
     <a class="floating share-link me-3" data-action="share/whatsapp/share"><i class="fab fa-whatsapp fa-2x" style="color:black" aria-hidden="true"></i></a>
     <p class="number-of-messages"></p>
