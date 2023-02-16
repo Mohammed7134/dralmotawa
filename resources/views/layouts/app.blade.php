@@ -97,8 +97,8 @@
                     <p>مقولات الدكتور عبدالعزيز فيصل المطوع</p>
                     @auth
                     <a href="/add"><button class="new-wisdom-button" type="submit" style="margin:5px auto;">إضافة حكمة</button></a>
-                    {{-- @else
-                    <a href="/subscribe"><button style="margin:5px auto;">اشترك هنا في رسائل الواتساب المجانية</button></a> --}}
+                    @else
+                    <a href="/subscribe"><button style="margin:5px auto;">اضغط هنا للاشتراك في رسائل الواتساب المجانية</button></a>
                     @endauth
                 </div>
 
