@@ -7,7 +7,6 @@ use App\Models\Subscriber;
 use App\Models\Wisdom;
 use App\Services\MyService;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Log;
 
 class dailyWisdom extends Command
 {
@@ -40,7 +39,7 @@ class dailyWisdom extends Command
                 "text" => $wisdom
             ));
             $myservice = new MyService;
-            Log::debug(print_r($myservice->sendWhatsApp($subscriber, $parameter1, 'wisdom'), true));
+            $myservice->sendWhatsApp($subscriber, $parameter1, 'wisdom');
         }
     }
 }
