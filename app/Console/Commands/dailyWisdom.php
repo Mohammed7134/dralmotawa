@@ -39,7 +39,7 @@ class dailyWisdom extends Command
                 "text" => $wisdom
             ));
             $myservice = new MyService;
-            $myservice->sendWhatsApp($subscriber, $parameter1, 'daily_wisdom');
+            $myservice->sendWhatsApp($subscriber, $parameter1, 'wisdom');
         }
     }
 }
