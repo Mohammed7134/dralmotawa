@@ -10,7 +10,7 @@
 @endif
 
 <div class="row justify-content-center">
-    <p>coming soon - قريبا</p>
+    <p>الاشتراك في خدمة رسائل الواتساب اليومية</p>
     <div class="container shadow-lg p-3 mx-1 my-3 rounded d-flex justify-content-center w-50">
         <form onsubmit="return false">
             <div id="timer"></div>
