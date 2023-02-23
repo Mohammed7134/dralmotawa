@@ -44,9 +44,14 @@ class dailyWisdom extends Command
                         "type" => "text",
                         "text" => $wisdom
                     ));
+                    Log::debug($subscriber->first_name);
+                    Log::debug("first choice wisdom");
+                    Log::debug($wisdom);
                     $response = $myservice->sendWhatsApp($subscriber, [$parameter1], 'wisdom');
                     while (isset($response->error->message)) {
+                        Log::debug("Searching for another wisdom");
                         $wisdom = Wisdom::inRandomOrder()->first()->text;
+                        Log::debug($wisdom);
                         $parameter1 = json_encode(array(
                             "type" => "text",
                             "text" => $wisdom
