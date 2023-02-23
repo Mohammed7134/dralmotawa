@@ -21,4 +21,8 @@ class Subscriber extends Model
         'id',
         'name'
     ];
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
 }

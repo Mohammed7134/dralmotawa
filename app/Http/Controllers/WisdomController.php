@@ -58,7 +58,7 @@ class WisdomController extends Controller
         } while (!$beforeWisdom);
         return redirect('/id/' . $beforeWisdom->id);
     }
-    public function getWisdomsForCategory(int $originalId)
+    public function getWisdomsForCategory($originalId)
     {
         $id = '%' . $originalId . '%';
         $wisdoms = Wisdom::where('ids', 'LIKE', $id)->paginate(9);

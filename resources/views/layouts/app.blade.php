@@ -1,16 +1,18 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="csrf-token" content="{{ Session::token() }}">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="csrf-token" content="{{ Session::token() }}">
+        
+        <link rel="icon" type="image/x-icon" href="favicon.ico" />
+        
+        <title>فقه الحياة | @yield('title')</title>
 
-    <link rel="icon" type="image/x-icon" href="favicon.ico" />
-
-    <title>فقه الحياة | @yield('title')</title>
-    @isset($originalId)
-    <script type="application/ld+json">
+        @isset($originalId)
+        <script type="application/ld+json">
         {
           "@context": "http://schema.org/",
           "@type": "Article",
@@ -75,6 +77,7 @@
     <!-- End Facebook Tag -->
     <button id="btnScrollToTopId"><i class="fas fa-arrow-up"></i></button>
     <a class="floating share-link me-3" data-action="share/whatsapp/share"><i class="fab fa-whatsapp fa-2x" style="color:black" aria-hidden="true"></i></a>
+    {{-- <a href="/subscribe" class="floating subscribe-link me-3" data-action="subscriber/whatsapp/subscribe"><i class="fa-regular fa-envelope fa-2x" style="color:black" aria-hidden="true"></i></a> --}}
     <p class="number-of-messages"></p>
     <div id="snackbar"></div>
     @include("shared.message")
@@ -96,10 +99,11 @@
                 <div class="jumbotron text-center" style="margin-bottom: 0px;">
                     <h1>فقه الحياة</h1>
                     <p>مقولات الدكتور عبدالعزيز فيصل المطوع</p>
+                    <p style="font-size: 10px; color:grey;">تم تطوير الموقع بواسطة: <a target="_blank" href="https://www.linkedin.com/in/محمد-المطوع-78a09a138/">محمد المطوع</a></p>
                     @auth
                     <a href="/add"><button class="new-wisdom-button" type="submit" style="margin:5px auto;">إضافة حكمة</button></a>
-                    @else
-                    <a href="/subscribe"><button style="margin:5px auto;">اضغط هنا للاشتراك في رسائل الواتساب المجانية</button></a>
+                    {{-- @else
+                    <a href="/subscribe"><button style="margin:5px auto;">اضغط هنا للاشتراك في رسائل الواتساب</button></a> --}}
                     @endauth
                 </div>
 
@@ -135,7 +139,7 @@
                         <img src="https://storage.googleapis.com/rapidapi-documentation/connect-on-rapidapi-dark.png" width="100" alt="Connect on RapidAPI">
                     </a>
                     @endauth
-                    <p>موقع فقه الحياة<br> ©<span id="year">2022</span></p>
+                    <p>موقع فقه الحياة<br> ©<span id="year">2023</span></p>
 
                 </div>
             </footer>

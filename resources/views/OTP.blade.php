@@ -17,7 +17,16 @@
             <label for="OTP" class="required">OTP</label>
             {{-- otp has to be 6 numbers-long --}}
             <input id="OTP" type="number" name="OTP" class="form-control" min='6' required>
-            <div class="d-inline-block">
+            <div>
+                <label for="period">اختر مدة الاشتراك</label><br>
+
+                <input type="radio" id="30" name="period" value="30" required checked>
+                <label for="30">30 يوما ({{getenv('MONTH_CHARGE')}}$)</label><br>
+                <input type="radio" id="365" name="period" value="365" required>
+                <label for="365">365 يوما ({{getenv('YEAR_CHARGE')}}$)</label><br>
+
+            </div>
+                <div class="d-inline-block">
                 <button id="verifyOTP" class="btn btn-primary m-2" >الاشتراك</button>
                 <button id="resendOTP" class="btn btn-secondary m-2" type="button" >اعادة ارسال الرمز</button>
             </div>
@@ -25,13 +34,13 @@
     </div>
 </div>
 <script>
-    var expirationTime = 60;
+    var expirationTime = parseInt({{$subscriber->otp_expiry}} - (new Date().getTime()/1000));
     var interval;
     function startCountdown() {
         $('#resendOTP').prop("disabled", true);
         interval = setInterval(function() {
             var seconds = expirationTime--;
-            document.getElementById("timer").innerHTML = seconds + "الثواني المتبقية";
+            document.getElementById("timer").innerHTML = seconds + " الثواني المتبقية ";
             if (seconds <= 0) {
                 clearInterval(interval);
                 $('#resendOTP').prop("disabled", false);
@@ -46,14 +55,10 @@
     }
     startCountdown();
     $('#resendOTP').click(function() {
-        let data = {
-            '_token': $('meta[name=csrf-token]').attr('content'),
-            telephone: {{$telephone}}
-        }
         $.ajax({
                 url: '/resendOTP',
-                type: 'post',
-                data: { '_token': $('meta[name=csrf-token]').attr('content'), telephone: {{$telephone}} }
+                type: 'POST',
+                data: { '_token': $('meta[name=csrf-token]').attr('content'), telephone: {{$subscriber->telephone}}, country_code: {{$subscriber->country_code}} }
             })
             .done(function(data) {
                 decodedData = JSON.parse(data);
@@ -69,18 +74,26 @@
     });
     $('#verifyOTP').click(function() {
         const otp = document.getElementById('OTP').value;
+        const periodRadios = document.querySelectorAll('input[name="period"]');
+        let selectedPeriod;
+        for (const radio of periodRadios) {
+            if (radio.checked) {
+                selectedPeriod = radio.value;
+                break;
+            }
+        }
         if (otp.length == 6) {
         $.ajax({
                 url: '/enteredOTP',
-                type: 'post',
-                data: { '_token': $('meta[name=csrf-token]').attr('content'), OTP: otp, telephone: {{$telephone}} }
+                type: 'POST',
+                data: { '_token': $('meta[name=csrf-token]').attr('content'), OTP: otp, telephone: {{$subscriber->telephone}}, country_code: {{$subscriber->country_code}}, period: selectedPeriod }
             })
             .done(function(data) {
                 decodedData = JSON.parse(data);
                 showSnackbar(decodedData.message);
                 if (decodedData.error == false) {
                     $('#verifyOTP').prop("disabled", true);
-                    setTimeout(() => window.location.href = "/", 2000); 
+                    setTimeout(() => window.location.href = "/charge?period=" + selectedPeriod, 2000); 
                 }
             })
             .fail(function(jqXHR, ajaxOptions, thrownError) {

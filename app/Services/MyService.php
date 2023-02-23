@@ -4,12 +4,14 @@ namespace App\Services;
 
 use App\Models\Subscriber;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Stream;
+use Illuminate\Support\Facades\Log;
 
 class MyService
 {
-    function sendWhatsApp(Subscriber $subscriber, String $parameter1, String $templateName)
+    function sendWhatsApp(Subscriber $subscriber, array $parameters, String $templateName)
     {
         $client = new Client();
         $uri = getenv('WHATSAPP_URI');
@@ -19,15 +21,22 @@ class MyService
         );
         $component1 = json_encode(array(
             "type" => "body",
-            "parameters" => [$parameter1]
+            "parameters" => $parameters
         ));
-        $body = ["messaging_product" => "whatsapp", "to" => $subscriber->telephone, "type" => "template", "template" => ["name" => $templateName, "language" => ["code" => "ar"], "components" => [$component1]]];
+        $body = ["messaging_product" => "whatsapp", "to" => $subscriber->country_code . $subscriber->telephone, "type" => "template", "template" => ["name" => $templateName, "language" => ["code" => "ar"], "components" => [$component1]]];
 
         $request = new Request('POST', $uri, $headers);
         $stream = new Stream(fopen('php://temp', 'r+'));
         $stream->write(json_encode($body));
         $stream->rewind();
         $request = $request->withBody($stream);
-        $response = $client->send($request);
+        try {
+            $response = $client->send($request);
+            return $response;
+        } catch (ClientException $e) {
+            $response = $e->getResponse();
+            $responseBodyAsJSON = json_decode($response->getBody()->getContents());
+            return $responseBodyAsJSON;
+        }
     }
 }

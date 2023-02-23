@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\WisdomController;
 use App\Http\Controllers\UsersController;
 
@@ -57,3 +58,11 @@ Route::get('/الدكتور-عبدالعزيز-المطوع', function () {
 Route::get('/subscribe', function () {
     return view("subscribe");
 });
+
+Route::get('payment-result', function () {
+    return view("payment-result");
+});
+
+Route::get('callback', [PaymentController::class, 'callback'])->name('callback');
+Route::get('charge', [PaymentController::class, 'charge']);
+Route::get('renew-subscription/{{', [PaymentController::class, '']);
