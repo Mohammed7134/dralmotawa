@@ -43,10 +43,13 @@
 <p class="text-center loading" style="display: none"> يرجى الانتظار...</p>
 <script type="text/javascript">
     var paginate = 1;
+    var load = true;
     $(window).scroll(function() {
         if ($(window).scrollTop() + $(window).height() + 100 >= $(document).height()) {
-            paginate++;
-            loadMoreData(paginate);
+            if (load) {
+                paginate++;
+                loadMoreData(paginate);
+            }
         }
     });
 
@@ -66,6 +69,7 @@
                 datatype: 'html',
                 beforeSend: function() {
                     $('.loading').show();
+                    load = false;
                 }
             })
             .done(function(data) {
@@ -74,12 +78,14 @@
                     $('.add_here').append(data);
                     likeColorCheck();
                     checkColor();
+                    load = true;
                 } else {
                     document.querySelector(".loading").innerText = "لا يوجد نتائج أكثر";
                 }
             })
             .fail(function(jqXHR, ajaxOptions, thrownError) {
                 alert(thrownError);
+                load = true;
             });
     }
 </script>
