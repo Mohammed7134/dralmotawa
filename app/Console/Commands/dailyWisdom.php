@@ -44,8 +44,9 @@ class dailyWisdom extends Command
                         "type" => "text",
                         "text" => $wisdom
                     ));
+                    Log::debug("User first name is:");
                     Log::debug($subscriber->first_name);
-                    Log::debug("first choice wisdom");
+                    Log::debug("first choice wisdom text is");
                     Log::debug($wisdom);
                     $response = $myservice->sendWhatsApp($subscriber, [$parameter1], 'wisdom');
                     while (isset($response->error->message)) {
