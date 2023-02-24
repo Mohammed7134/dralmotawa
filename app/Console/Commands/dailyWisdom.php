@@ -39,8 +39,6 @@ class dailyWisdom extends Command
         $myservice = new MyService;
         foreach ($subscribers as $subscriber) {
             $date = Carbon::create(2022, 12, 31);
-            // Log::debug("test date: " . );
-
             Log::debug('START debug dates');
             Log::debug("start date: " . print_r($date, true));
             Log::debug("end date: " . $date->addDays($subscriber->payments->last()->period));
