@@ -38,11 +38,12 @@ class dailyWisdom extends Command
         // $wisdom = str_replace(array("\r\n", "\r", "\n"), " ", $wisdom);
         $myservice = new MyService;
         foreach ($subscribers as $subscriber) {
-            $date = Carbon::create(2022, 12, 31);
+            $date = Carbon::parse($subscriber->payments->last()->created_at);
+            // $date = Carbon::create(2022, 12, 31);
             $secdate = $date->addDays($subscriber->payments->last()->period);
             Log::debug('START debug dates');
-            Log::debug("start date: " . print_r($date));
-            Log::debug("end date: " . print_r($secdate));
+            Log::debug("start date: " . var_export($date, true));
+            Log::debug("end date: " . var_export($secdate, true));
             Log::debug("date in the past? " . var_export($secdate->isPast(), true));
             Log::debug('END debug dates');
             if ($date->addDays($subscriber->payments->last()->period)->isPast() == false) {
