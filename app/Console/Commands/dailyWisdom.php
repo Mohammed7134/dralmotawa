@@ -38,8 +38,8 @@ class dailyWisdom extends Command
         // $wisdom = str_replace(array("\r\n", "\r", "\n"), " ", $wisdom);
         $myservice = new MyService;
         foreach ($subscribers as $subscriber) {
-            $date = Carbon::parse($subscriber->payments->last()->created_at);
-            Log::debug("test date: " . Carbon::create(2023, 12, 31));
+            $date = Carbon::create(2022, 12, 31);
+            // Log::debug("test date: " . );
 
             Log::debug('START debug dates');
             Log::debug("start date: " . print_r($date, true));
