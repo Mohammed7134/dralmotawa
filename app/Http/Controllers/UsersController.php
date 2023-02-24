@@ -202,7 +202,7 @@ class UsersController extends Controller
                     if ($inboundNotification) {
                         Log::debug("inbound level");
                         $to = $data->entry[0]->changes[0]->value->messages[0]->from;
-                        $subscriber = Subscriber::whereRaw(("CONCAT(country_code, telephone)"), '=', $to)->first();
+                        $subscriber = Subscriber::where(("CONCAT(country_code, telephone)"), '=', $to)->first();
                         if ($subscriber) {
                             Log::debug("subscriber level");
                             if ($messageType == "text" && $data->entry[0]->changes[0]->value->messages[0]->text->body === 'أوقف الخدمة') {
