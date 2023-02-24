@@ -42,7 +42,7 @@ class dailyWisdom extends Command
             Log::debug('START debug dates');
             Log::debug(print_r($date, true));
             Log::debug($date->addDays($subscriber->payments->last()->period));
-            Log::debug(print_r($date->addDays($subscriber->payments->last()->period)->isPast()), true);
+            Log::debug(var_export($date->addDays($subscriber->payments->last()->period)->isPast(), true));
             Log::debug('END debug dates');
             if ($date->addDays($subscriber->payments->last()->period)->isPast() == false) {
                 if ($subscriber->payments->last()->status == "CAPTURED") {
