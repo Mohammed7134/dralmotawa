@@ -192,14 +192,19 @@ class UsersController extends Controller
         $data = json_decode(request()->getContent());
         Log::debug("first check: " . print_r($data, true));
         if (isset($data->entry[0]->changes)) {
+            Log::debug("changes level");
             if (isset($data->entry[0]->changes[0]->value)) {
+                Log::debug("value level");
                 if (isset($data->entry[0]->changes[0]->value->messages)) {
+                    Log::debug("messages level");
                     $inboundNotification = isset($data->entry[0]->changes[0]->value->messages[0]);
                     $messageType = $data->entry[0]->changes[0]->value->messages[0]->type;
                     if ($inboundNotification) {
+                        Log::debug("inbound level");
                         $to = $data->entry[0]->changes[0]->value->messages[0]->from;
                         $subscriber = Subscriber::where('telephone', '=', $to)->first();
                         if ($subscriber) {
+                            Log::debug("subscriber level");
                             if ($messageType == "text" && $data->entry[0]->changes[0]->value->messages[0]->text->body === 'أوقف الخدمة') {
                                 $myservice = new MyService;
                                 $response = $myservice->sendWhatsApp($subscriber, [], 'stop_service');
@@ -211,6 +216,7 @@ class UsersController extends Controller
                                 $subscriber = Subscriber::where('telephone', '=', $to);
                                 $subscriber->delete();
                             } elseif ($messageType == "button" && $data->entry[0]->changes[0]->value->messages[0]->button->text === 'كيف ألغي الاشتراك') {
+                                Log::debug("button level");
                                 $myservice = new MyService;
                                 $response = $myservice->sendWhatsApp($subscriber, [], 'to_stop_service');
                                 if (isset($response->error->message)) {
