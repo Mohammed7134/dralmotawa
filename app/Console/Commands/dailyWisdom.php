@@ -34,7 +34,7 @@ class dailyWisdom extends Command
     public function handle()
     {
         $subscribers = Subscriber::all();
-        $wisdom = Wisdom::where('text', 'NOT LIKE', '%\n%')->whereRaw('CHAR_LENGTH(text) < ?', [1000])->inRandomOrder()->first()->text;
+        $wisdom = Wisdom::where('text', 'NOT LIKE', '%\n%')->whereRaw('CHAR_LENGTH(text) <= ?', [950])->inRandomOrder()->first()->text;
         // $wisdom = str_replace(array("\r\n", "\r", "\n"), " ", $wisdom);
         $myservice = new MyService;
         foreach ($subscribers as $subscriber) {
@@ -52,7 +52,7 @@ class dailyWisdom extends Command
                     $response = $myservice->sendWhatsApp($subscriber, [$parameter1], 'wisdom');
                     while (isset($response->error->message)) {
                         Log::debug("Searching for another wisdom");
-                        $wisdom = Wisdom::inRandomOrder()->first()->text;
+                        $wisdom = Wisdom::where('text', 'NOT LIKE', '%\n%')->whereRaw('CHAR_LENGTH(text) <= ?', [950])->inRandomOrder()->first()->text;
                         Log::debug($wisdom);
                         $parameter1 = json_encode(array(
                             "type" => "text",
