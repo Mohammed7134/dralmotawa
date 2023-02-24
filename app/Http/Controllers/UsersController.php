@@ -215,7 +215,7 @@ class UsersController extends Controller
                                     Log::debug("One message was sent to one user who sent request to stop service");
                                 }
                                 $subscriber->delete();
-                            } elseif ($messageType == "text" || ($messageType == "button" && $data->entry[0]->changes[0]->value->messages[0]->button->text === 'كيف ألغي الاشتراك؟')) {
+                            } elseif ($messageType == "text") {
                                 Log::debug("button level");
                                 $myservice = new MyService;
                                 $response = $myservice->sendWhatsApp($subscriber, [], 'to_stop_service');
