@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Subscriber;
 use App\Services\MyService;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class UsersController extends Controller
@@ -202,7 +203,7 @@ class UsersController extends Controller
                     if ($inboundNotification) {
                         Log::debug("inbound level");
                         $to = $data->entry[0]->changes[0]->value->messages[0]->from;
-                        $subscriber = Subscriber::where("CONCAT(country_code, telephone)", '=', $to)->first();
+                        $subscriber = Subscriber::where(DB::raw("CONCAT(country_code, telephone)"), '=', $to)->first();
                         if ($subscriber) {
                             Log::debug("subscriber level");
                             if ($messageType == "text" && $data->entry[0]->changes[0]->value->messages[0]->text->body === 'أوقف الخدمة') {
