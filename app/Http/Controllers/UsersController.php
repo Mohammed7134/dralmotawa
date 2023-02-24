@@ -216,7 +216,7 @@ class UsersController extends Controller
                                 }
                                 $subscriber = Subscriber::where('telephone', '=', $to);
                                 $subscriber->delete();
-                            } elseif ($messageType == "button" && $data->entry[0]->changes[0]->value->messages[0]->button->text === 'كيف ألغي الاشتراك') {
+                            } elseif ($messageType == "button" && $data->entry[0]->changes[0]->value->messages[0]->button->text === 'كيف ألغي الاشتراك؟') {
                                 Log::debug("button level");
                                 $myservice = new MyService;
                                 $response = $myservice->sendWhatsApp($subscriber, [], 'to_stop_service');
@@ -226,6 +226,7 @@ class UsersController extends Controller
                                     Log::debug("One message was sent to one user who sent something");
                                 }
                             } else {
+                                Log::debug("user sent a message that is not a predefined button of a normal text");
                             }
                         } else {
                             // user no longer a subscriber
