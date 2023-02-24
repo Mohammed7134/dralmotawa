@@ -40,8 +40,8 @@ class dailyWisdom extends Command
         foreach ($subscribers as $subscriber) {
             $date = Carbon::parse($subscriber->payments->last()->created_at);
             Log::debug('debug date');
-            Log::debug(print_r($date->date, true));
-            Log::debug(print_r($date->addDays($subscriber->payments->last()->period)->date, true));
+            Log::debug(print_r($date, true));
+            Log::debug(print_r($date->addDays($subscriber->payments->last()->period), true));
 
             if ($date->addDays($subscriber->payments->last()->period)->isPast() == false) {
                 if ($subscriber->payments->last()->status == "CAPTURED") {
