@@ -200,28 +200,25 @@ class UsersController extends Controller
                         $to = $data->entry[0]->changes[0]->value->messages[0]->from;
                         $subscriber = Subscriber::where('telephone', '=', $to)->first();
                         if ($subscriber) {
-                            if ($messageType == "text" || $messageType = "button") {
-                                if ($data->entry[0]->changes[0]->value->messages[0]->text->body === 'أوقف الخدمة') {
-                                    $myservice = new MyService;
-                                    $response = $myservice->sendWhatsApp($subscriber, [], 'stop_service');
-                                    if (isset($response->error->message)) {
-                                        Log::debug($response->error->message);
-                                    } else {
-                                        Log::debug("One message was sent to one user who sent request to stop service");
-                                    }
-                                    $subscriber = Subscriber::where('telephone', '=', $to);
-                                    $subscriber->delete();
+                            if ($messageType == "text" && $data->entry[0]->changes[0]->value->messages[0]->text->body === 'أوقف الخدمة') {
+                                $myservice = new MyService;
+                                $response = $myservice->sendWhatsApp($subscriber, [], 'stop_service');
+                                if (isset($response->error->message)) {
+                                    Log::debug($response->error->message);
                                 } else {
-                                    $myservice = new MyService;
-                                    $response = $myservice->sendWhatsApp($subscriber, [], 'to_stop_service');
-                                    if (isset($response->error->message)) {
-                                        Log::debug($response->error->message);
-                                    } else {
-                                        Log::debug("One message was sent to one user who sent something");
-                                    }
+                                    Log::debug("One message was sent to one user who sent request to stop service");
+                                }
+                                $subscriber = Subscriber::where('telephone', '=', $to);
+                                $subscriber->delete();
+                            } elseif ($messageType == "button" && $data->entry[0]->changes[0]->value->messages[0]->button->text === 'كيف ألغي الاشتراك') {
+                                $myservice = new MyService;
+                                $response = $myservice->sendWhatsApp($subscriber, [], 'to_stop_service');
+                                if (isset($response->error->message)) {
+                                    Log::debug($response->error->message);
+                                } else {
+                                    Log::debug("One message was sent to one user who sent something");
                                 }
                             } else {
-                                // message is not text
                             }
                         } else {
                             // user no longer a subscriber
