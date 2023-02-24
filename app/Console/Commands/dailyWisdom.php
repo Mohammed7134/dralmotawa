@@ -38,15 +38,10 @@ class dailyWisdom extends Command
         // $wisdom = str_replace(array("\r\n", "\r", "\n"), " ", $wisdom);
         $myservice = new MyService;
         foreach ($subscribers as $subscriber) {
-            $date = Carbon::parse($subscriber->payments->last()->created_at);
-            // $date = Carbon::create(2022, 12, 31);
-            $secdate = $date->addDays($subscriber->payments->last()->period);
-            Log::debug('START debug dates');
-            Log::debug("start date: " . var_export($date, true));
-            Log::debug("end date: " . var_export($secdate, true));
-            Log::debug("date in the past? " . var_export($secdate->isPast(), true));
-            Log::debug('END debug dates');
-            if ($date->addDays($subscriber->payments->last()->period)->isPast() == false) {
+            $startDate = Carbon::parse($subscriber->payments->last()->created_at);
+            $endDate = $startDate->addDays($subscriber->payments->last()->period);
+            $remiderDate = $endDate->addDays(1);
+            if ($endDate->isPast() == false) {
                 if ($subscriber->payments->last()->status == "CAPTURED") {
                     $parameter1 = json_encode(array(
                         "type" => "text",
@@ -68,7 +63,7 @@ class dailyWisdom extends Command
                         $response = $myservice->sendWhatsApp($subscriber, [$parameter1], 'wisdom');
                     }
                 }
-            } elseif ($date->addDays($subscriber->payments->last()->period + 1)->isToday()) {
+            } elseif ($remiderDate->isToday()) {
                 if ($subscriber->payments->last()->status == "CAPTURED") {
                     $parameter1 = json_encode(array(
                         "type" => "text",
