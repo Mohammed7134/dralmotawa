@@ -35,7 +35,7 @@ class dailyWisdom extends Command
     {
         $subscribers = Subscriber::all();
         // $wisdom = Wisdom::inRandomOrder()->first()->text;
-        $wisdom = Wisdom::where('id', '=', 44492)->first()->text;
+        $wisdom = Wisdom::where('id', '=', 17514)->first()->text;
         $myservice = new MyService;
         foreach ($subscribers as $subscriber) {
             $date = Carbon::parse($subscriber->payments->last()->created_at);
