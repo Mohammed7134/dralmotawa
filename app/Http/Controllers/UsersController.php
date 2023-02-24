@@ -190,6 +190,7 @@ class UsersController extends Controller
     function messageFromTwilio()
     {
         $data = json_decode(request()->getContent());
+        Log::debug("first check: " . print_r($data, true));
         if (isset($data->entry[0]->changes)) {
             if (isset($data->entry[0]->changes[0]->value)) {
                 $inboundNotification = isset($data->entry[0]->changes[0]->value->messages[0]);
