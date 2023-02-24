@@ -39,6 +39,7 @@ class dailyWisdom extends Command
         $myservice = new MyService;
         foreach ($subscribers as $subscriber) {
             $date = Carbon::parse($subscriber->payments->last()->created_at);
+            Log::debug(print_r($date->addDays($subscriber->payments->last()->period), true));
             if ($date->addDays($subscriber->payments->last()->period)->isPast() == false) {
                 if ($subscriber->payments->last()->status == "CAPTURED") {
                     $parameter1 = json_encode(array(
