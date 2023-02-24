@@ -34,8 +34,8 @@ class dailyWisdom extends Command
     public function handle()
     {
         $subscribers = Subscriber::all();
-        // $wisdom = Wisdom::inRandomOrder()->first()->text;
-        $wisdom = Wisdom::where('id', '=', 36905)->first()->text;
+        // $wisdom = Wisdom::where('text', 'NOT LIKE', '%\n%')->whereRaw('CHAR_LENGTH(column_name) <= ?', [1000])->inRandomOrder()->first()->text;
+        $wisdom = Wisdom::where('id', '=', 33913)->first()->text;
         $wisdom = str_replace(array("\r\n", "\r", "\n"), " ", $wisdom);
         $myservice = new MyService;
         foreach ($subscribers as $subscriber) {
