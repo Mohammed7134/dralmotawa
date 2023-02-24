@@ -190,40 +190,48 @@ class UsersController extends Controller
     function messageFromTwilio()
     {
         $data = json_decode(request()->getContent());
-        $inboundNotification = isset($data->entry[0]->changes[0]->value->messages[0]);
-        $messageType = $data->entry[0]->changes[0]->value->messages[0]->type;
-        if ($inboundNotification) {
-            $to = $data->entry[0]->changes[0]->value->messages[0]->from;
-            $subscriber = Subscriber::where('telephone', '=', $to)->first();
-            if ($subscriber) {
-                if ($messageType == "text" || $messageType = "button") {
-                    if ($data->entry[0]->changes[0]->value->messages[0]->text->body === 'أوقف الخدمة') {
-                        $myservice = new MyService;
-                        $response = $myservice->sendWhatsApp($subscriber, [], 'stop_service');
-                        if (isset($response->error->message)) {
-                            Log::debug($response->error->message);
+        if (isset($data->entry[0]->changes)) {
+            if (isset($data->entry[0]->changes[0]->value)) {
+                $inboundNotification = isset($data->entry[0]->changes[0]->value->messages[0]);
+                $messageType = $data->entry[0]->changes[0]->value->messages[0]->type;
+                if ($inboundNotification) {
+                    $to = $data->entry[0]->changes[0]->value->messages[0]->from;
+                    $subscriber = Subscriber::where('telephone', '=', $to)->first();
+                    if ($subscriber) {
+                        if ($messageType == "text" || $messageType = "button") {
+                            if ($data->entry[0]->changes[0]->value->messages[0]->text->body === 'أوقف الخدمة') {
+                                $myservice = new MyService;
+                                $response = $myservice->sendWhatsApp($subscriber, [], 'stop_service');
+                                if (isset($response->error->message)) {
+                                    Log::debug($response->error->message);
+                                } else {
+                                    Log::debug("One message was sent to one user who sent request to stop service");
+                                }
+                                $subscriber = Subscriber::where('telephone', '=', $to);
+                                $subscriber->delete();
+                            } else {
+                                $myservice = new MyService;
+                                $response = $myservice->sendWhatsApp($subscriber, [], 'to_stop_service');
+                                if (isset($response->error->message)) {
+                                    Log::debug($response->error->message);
+                                } else {
+                                    Log::debug("One message was sent to one user who sent something");
+                                }
+                            }
                         } else {
-                            Log::debug("One message was sent to one user who sent request to stop service");
+                            // message is not text
                         }
-                        $subscriber = Subscriber::where('telephone', '=', $to);
-                        $subscriber->delete();
                     } else {
-                        $myservice = new MyService;
-                        $response = $myservice->sendWhatsApp($subscriber, [], 'to_stop_service');
-                        if (isset($response->error->message)) {
-                            Log::debug($response->error->message);
-                        } else {
-                            Log::debug("One message was sent to one user who sent something");
-                        }
+                        // user no longer a subscriber
                     }
                 } else {
-                    // message is not text
+                    Log::debug(print_r($data, true));
                 }
             } else {
-                // user no longer a subscriber
+                Log::debug(print_r($data, true));
             }
         } else {
-            // Log::debug(print_r($data, true));
+            Log::debug(print_r($data, true));
         }
     }
 }
