@@ -39,10 +39,11 @@ class dailyWisdom extends Command
         $myservice = new MyService;
         foreach ($subscribers as $subscriber) {
             $date = Carbon::create(2022, 12, 31);
+            $secdate = $date->addDays($subscriber->payments->last()->period);
             Log::debug('START debug dates');
-            Log::debug("start date: " . print_r($date, true));
-            // Log::debug("end date: " . $date->addDays($subscriber->payments->last()->period));
-            Log::debug("date in the past? " . var_export($date->addDays($subscriber->payments->last()->period)->isPast(), true));
+            Log::debug("start date: " . print_r($date));
+            Log::debug("end date: " . print_r($secdate));
+            Log::debug("date in the past? " . var_export($secdate->isPast(), true));
             Log::debug('END debug dates');
             if ($date->addDays($subscriber->payments->last()->period)->isPast() == false) {
                 if ($subscriber->payments->last()->status == "CAPTURED") {
