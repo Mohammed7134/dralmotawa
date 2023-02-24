@@ -39,11 +39,11 @@ class dailyWisdom extends Command
         $myservice = new MyService;
         foreach ($subscribers as $subscriber) {
             $date = Carbon::parse($subscriber->payments->last()->created_at);
-            Log::debug('debug dates');
+            Log::debug('START debug dates');
             Log::debug(print_r($date, true));
             Log::debug($date->addDays($subscriber->payments->last()->period));
             Log::debug(print_r($date->addDays($subscriber->payments->last()->period)->isPast()), true);
-
+            Log::debug('END debug dates');
             if ($date->addDays($subscriber->payments->last()->period)->isPast() == false) {
                 if ($subscriber->payments->last()->status == "CAPTURED") {
                     $parameter1 = json_encode(array(
