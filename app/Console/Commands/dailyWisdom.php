@@ -64,11 +64,11 @@ class dailyWisdom extends Command
                 if ($subscriber->payments->last()->status == "CAPTURED") {
                     $parameter1 = json_encode(array(
                         "type" => "text",
-                        "text" => "https://dralmutawa.com/renew-subscription/" . $subscriber->id . "?days=30"
+                        "text" => "https://dralmutawa.com/renew-subscription/" . $subscriber->id . "?period=30"
                     ));
                     $parameter2 = json_encode(array(
                         "type" => "text",
-                        "text" => "https://dralmutawa.com/renew-subscription/" . $subscriber->id . "?days=365"
+                        "text" => "https://dralmutawa.com/renew-subscription/" . $subscriber->id . "?period=365"
                     ));
                     $response = $myservice->sendWhatsApp($subscriber, [$parameter1, $parameter2], 'renew_subscription_reminder');
                     if (isset($response->error->message)) {

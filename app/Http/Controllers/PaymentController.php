@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Payment;
 use App\Models\Subscriber;
 use App\Services\MyService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Tap\Charge;
@@ -14,13 +15,13 @@ class PaymentController extends Controller
 
     public function charge(Request $request)
     {
-        $chosenCharge = request()->period == 30 ? env('MONTH_CHARGE') : env('YEAR_CHARGE');
+        $chosenCharge = $request->period == 30 ? env('MONTH_CHARGE') : env('YEAR_CHARGE');
         $user_id = session()->get('user_id');
         $subscriber = Subscriber::where('id', '=', $user_id)->first();
         // add data to payment table
         $payment = new Payment();
         $payment->payment_id = 0;
-        $payment->period = request()->period;
+        $payment->period = $request->period;
         $payment->subscriber_id = $user_id;
         $payment->amount = $chosenCharge;
         $payment->currency = "USD";
@@ -146,5 +147,22 @@ class PaymentController extends Controller
             return redirect('payment-result')->withErrors('تم الدفع بنجاح٬ لكن حدث خطأ٬ يرجى الابلاغ');
         }
         return redirect('payment-result')->withErrors('حدث خطأ يرجى المحاولة مجددا');
+    }
+    public function renewSubscription(Subscriber $subscriber)
+    {
+        $date = Carbon::parse($subscriber->payments->last()->created_at);
+        if ($date->addDays($subscriber->payments->last()->period)->isPast() == false) {
+            if ($subscriber->payments->last()->status == "CAPTURED") {
+                return redirect('/')->with("message", "الرقم مسجل مسبقا٬ ولم ينته الاشتراك");
+            } else {
+                session()->start();
+                session()->put('user_id', $subscriber->id);
+                return $this->charge(request());
+            }
+        } else {
+            session()->start();
+            session()->put('user_id', $subscriber->id);
+            return $this->charge(request());
+        }
     }
 }

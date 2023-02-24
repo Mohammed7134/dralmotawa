@@ -65,4 +65,4 @@ Route::get('payment-result', function () {
 
 Route::get('callback', [PaymentController::class, 'callback'])->name('callback');
 Route::get('charge', [PaymentController::class, 'charge']);
-Route::get('renew-subscription/{{', [PaymentController::class, '']);
+Route::get('renew-subscription/{subscriber}', [PaymentController::class, 'renewSubscription']);
