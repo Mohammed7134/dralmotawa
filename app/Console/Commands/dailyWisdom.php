@@ -41,7 +41,7 @@ class dailyWisdom extends Command
             $date = Carbon::create(2022, 12, 31);
             Log::debug('START debug dates');
             Log::debug("start date: " . print_r($date, true));
-            Log::debug("end date: " . $date->addDays($subscriber->payments->last()->period));
+            // Log::debug("end date: " . $date->addDays($subscriber->payments->last()->period));
             Log::debug("date in the past? " . var_export($date->addDays($subscriber->payments->last()->period)->isPast(), true));
             Log::debug('END debug dates');
             if ($date->addDays($subscriber->payments->last()->period)->isPast() == false) {
