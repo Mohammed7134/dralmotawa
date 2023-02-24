@@ -82,7 +82,6 @@ class dailyWisdom extends Command
                     }
                 }
             }
-            break;
         }
     }
 }
