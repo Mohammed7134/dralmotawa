@@ -35,7 +35,7 @@ class dailyWisdom extends Command
     {
         $subscribers = Subscriber::all();
         // $wisdom = Wisdom::inRandomOrder()->first()->text;
-        $wisdom = Wisdom::where('id', '=', 36348)->first()->text;
+        $wisdom = Wisdom::where('id', '=', 37673)->first()->text;
         $wisdom = str_replace(array("\r\n", "\r", "\n"), " ", $wisdom);
         $myservice = new MyService;
         foreach ($subscribers as $subscriber) {
