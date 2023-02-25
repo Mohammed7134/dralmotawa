@@ -71,7 +71,8 @@ class UsersController extends Controller
                 }
             } else {
                 if ($exists[0]->otp == null) {
-                    if ($exists[0]->payments->last()->status == "CAPTURED") {
+                    $paymentStatus = $exists[0]->payments->last()->status;
+                    if ($paymentStatus == "CAPTURED" ||  $paymentStatus == "FREE") {
                         $date = Carbon::parse($exists[0]->payments->last()->created_at);
                         if ($date->addDays($exists[0]->payments->last()->period)->isPast()) {
                             $exists[0]->otp = mt_rand(100000, 999999);

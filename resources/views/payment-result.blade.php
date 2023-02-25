@@ -11,7 +11,7 @@
 <div class="row justify-content-center">
     @if($errors->any())
     <p>حدث خطأ</p>
-    <div class="container shadow-lg p-3 mx-1 my-3 rounded w-50">
+    <div class="container shadow-lg p-3 mx-1 my-3 rounded w-75">
         <p>نعتذر منك٬ </p>
         <p>يرجى الإبلاغ عن الخطأ</p>
     </div>
@@ -20,7 +20,7 @@
     </div>
     @else
     <p>تم الاشتراك في خدمة رسائل الواتساب اليومية</p>
-    <div class="container shadow-lg p-3 mx-1 my-3 rounded w-50">
+    <div class="container shadow-lg p-3 mx-1 my-3 rounded w-75">
         <p>شكرا لك٬ </p>
         <p>ستصلك رسالة تأكيد على الواتساب</p>
         <a href="/">الصفحة الرئيسية</a>

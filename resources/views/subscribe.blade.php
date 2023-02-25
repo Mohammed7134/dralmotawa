@@ -11,11 +11,11 @@
 
 <div class="row justify-content-center">
     <p>الاشتراك في خدمة رسائل الواتساب اليومية:</p>
-    <ol style="font-size: 20px;margin-right:10%;">
+    {{-- <ol style="font-size: 20px;margin-right:10%;">
         <li>${{getenv("MONTH_CHARGE")}} / 30 يوم</li>
         <li>${{getenv("YEAR_CHARGE")}} / 365 يوم</li>
-    </ol>
-    <div class="container shadow-lg p-3 mx-1 my-3 rounded d-flex justify-content-center" style="width:70%;">
+    </ol> --}}
+    <div class="container shadow-lg p-3 mx-1 my-3 rounded d-flex justify-content-center" style="width:90%;">
         <form action="new-subscriber" method="post">
             @csrf
             <div class="row">

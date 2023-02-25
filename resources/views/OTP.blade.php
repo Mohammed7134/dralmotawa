@@ -11,7 +11,7 @@
 
 <div class="row justify-content-center">
     <p>الاشتراك في خدمة رسائل الواتساب اليومية</p>
-    <div class="container shadow-lg p-3 mx-1 my-3 rounded d-flex justify-content-center w-50">
+    <div class="container shadow-lg p-3 mx-1 my-3 rounded d-flex justify-content-center w-75">
         <form onsubmit="return false">
             <div id="timer"></div>
             <label for="OTP" class="required">OTP</label>
@@ -21,9 +21,9 @@
                 <label for="period">اختر مدة الاشتراك</label><br>
 
                 <input type="radio" id="30" name="period" value="30" required checked>
-                <label for="30">30 يوما ({{getenv('MONTH_CHARGE')}}$)</label><br>
+                <label for="30">30 يوما </label><br> {{--({{getenv('MONTH_CHARGE')}}$)--}}
                 <input type="radio" id="365" name="period" value="365" required>
-                <label for="365">365 يوما ({{getenv('YEAR_CHARGE')}}$)</label><br>
+                <label for="365">365 يوما </label><br>{{--({{getenv('YEAR_CHARGE')}}$)--}}
 
             </div>
                 <div class="d-inline-block">

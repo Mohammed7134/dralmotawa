@@ -41,8 +41,9 @@ class dailyWisdom extends Command
             $startDate = Carbon::parse($subscriber->payments->last()->created_at);
             $endDate = $startDate->addDays($subscriber->payments->last()->period);
             $remiderDate = $endDate->addDays(1);
+            $paymentStatus = $subscriber->payments->last()->status;
             if ($endDate->isPast() == false) {
-                if ($subscriber->payments->last()->status == "CAPTURED") {
+                if ($paymentStatus == "CAPTURED" ||  $paymentStatus == "FREE") {
                     $parameter1 = json_encode(array(
                         "type" => "text",
                         "text" => $wisdom
@@ -64,7 +65,7 @@ class dailyWisdom extends Command
                     }
                 }
             } elseif ($remiderDate->isToday()) {
-                if ($subscriber->payments->last()->status == "CAPTURED") {
+                if ($paymentStatus == "CAPTURED" ||  $paymentStatus == "FREE") {
                     $parameter1 = json_encode(array(
                         "type" => "text",
                         "text" => "https://dralmutawa.com/renew-subscription/" . $subscriber->id . "?period=30"

@@ -25,128 +25,128 @@ class PaymentController extends Controller
         $payment->subscriber_id = $user_id;
         $payment->amount = $chosenCharge;
         $payment->currency = "USD";
-        $payment->status = "INITIATED";
+        $payment->status = "FREE"; //"INITIATED";
         $payment->save();
+        return $this->callback($request);
         //capture payment details
-        $paymentData = [
-            "amount" => $chosenCharge,
-            "threeDSecure" => true,
-            "description" =>  'مرحبا ' . $subscriber->first_name . ' ' . $subscriber->last_name . ' رقم طلبك هو: ' . $payment->id . ' يرجى استكمال الدفع٬ ونشكر لك استخدامك لهذه الخدمة',
-            "currency" => env('SUBSCRIPTION_CURRENCY'),
-            "receipt" => [
-                "email" => true,
-                "sms" => true
-            ],
-            "customer" => [
-                "first_name" => $subscriber->first_name,
-                "last_name" => $subscriber->last_name,
-                "email" => $subscriber->email,
-                "phone" => [
-                    "country_code" => $subscriber->country_code,
-                    "number" => $subscriber->telephone
-                ]
-            ],
-            "source" => [
-                "id" => "src_all"
-            ],
-            "redirect" => [
-                "url" => route('callback')
-            ]
-        ];
+        // $paymentData = [
+        //     "amount" => $chosenCharge,
+        //     "threeDSecure" => true,
+        //     "description" =>  'مرحبا ' . $subscriber->first_name . ' ' . $subscriber->last_name . ' رقم طلبك هو: ' . $payment->id . ' يرجى استكمال الدفع٬ ونشكر لك استخدامك لهذه الخدمة',
+        //     "currency" => env('SUBSCRIPTION_CURRENCY'),
+        //     "receipt" => [
+        //         "email" => true,
+        //         "sms" => true
+        //     ],
+        //     "customer" => [
+        //         "first_name" => $subscriber->first_name,
+        //         "last_name" => $subscriber->last_name,
+        //         "email" => $subscriber->email,
+        //         "phone" => [
+        //             "country_code" => $subscriber->country_code,
+        //             "number" => $subscriber->telephone
+        //         ]
+        //     ],
+        //     "source" => [
+        //         "id" => "src_all"
+        //     ],
+        //     "redirect" => [
+        //         "url" => route('callback')
+        //     ]
+        // ];
 
-        $curl = curl_init();
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => "https://api.tap.company/v2/charges",
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => "",
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 30,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_POSTFIELDS => json_encode($paymentData),
-            CURLOPT_HTTPHEADER => array(
-                "authorization: Bearer " . env('TAP_API_KEY'),
-                "content-type: application/json"
-            ),
-        ));
+        // $curl = curl_init();
+        // curl_setopt_array($curl, array(
+        //     CURLOPT_URL => "https://api.tap.company/v2/charges",
+        //     CURLOPT_RETURNTRANSFER => true,
+        //     CURLOPT_ENCODING => "",
+        //     CURLOPT_MAXREDIRS => 10,
+        //     CURLOPT_TIMEOUT => 30,
+        //     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        //     CURLOPT_CUSTOMREQUEST => "POST",
+        //     CURLOPT_POSTFIELDS => json_encode($paymentData),
+        //     CURLOPT_HTTPHEADER => array(
+        //         "authorization: Bearer " . env('TAP_API_KEY'),
+        //         "content-type: application/json"
+        //     ),
+        // ));
 
-        $response = curl_exec($curl);
-        $err = curl_error($curl);
+        // $response = curl_exec($curl);
+        // $err = curl_error($curl);
 
-        curl_close($curl);
+        // curl_close($curl);
 
-        $response = json_decode($response);
-        if (isset($response->errors)) {
-            return back()->withErrors($response->errors[0]->description);
-        }
-        return redirect($response->transaction->url);
+        // $response = json_decode($response);
+        // if (isset($response->errors)) {
+        //     return back()->withErrors($response->errors[0]->description);
+        // }
+        // return redirect($response->transaction->url);
     }
 
     public function callback(Request $request)
     {
-        $curl = curl_init();
+        // $curl = curl_init();
 
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => "https://api.tap.company/v2/charges/" . $request->tap_id,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => "",
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 30,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => "GET",
-            CURLOPT_POSTFIELDS => "{}",
-            CURLOPT_HTTPHEADER => array(
-                "authorization: Bearer " . env('TAP_API_KEY')
-            ),
-        ));
+        // curl_setopt_array($curl, array(
+        //     CURLOPT_URL => "https://api.tap.company/v2/charges/" . $request->tap_id,
+        //     CURLOPT_RETURNTRANSFER => true,
+        //     CURLOPT_ENCODING => "",
+        //     CURLOPT_MAXREDIRS => 10,
+        //     CURLOPT_TIMEOUT => 30,
+        //     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        //     CURLOPT_CUSTOMREQUEST => "GET",
+        //     CURLOPT_POSTFIELDS => "{}",
+        //     CURLOPT_HTTPHEADER => array(
+        //         "authorization: Bearer " . env('TAP_API_KEY')
+        //     ),
+        // ));
 
-        $response = curl_exec($curl);
-        $err = curl_error($curl);
+        // $response = curl_exec($curl);
+        // $err = curl_error($curl);
 
-        curl_close($curl);
+        // curl_close($curl);
 
-        $responseTap = json_decode($response);
+        // $responseTap = json_decode($response);
         $user_id = session()->get('user_id');
         if ($user_id) {
             $subscriber = Subscriber::where('id', '=', $user_id)->first();
             $payment = $subscriber->payments->last();
-            if ($responseTap->status == 'CAPTURED') {
-                $payment->payment_id = $responseTap->id;
-                $payment->status = $responseTap->status;
-                $payment->save();
-                $parameter1 = json_encode(array(
-                    "type" => "text",
-                    "text" => $payment->payment_id
-                ));
-                $parameter2 = json_encode(array(
-                    "type" => "text",
-                    "text" => "$payment->period يوما"
-                ));
-                $parameter3 = json_encode(array(
-                    "type" => "text",
-                    "text" => "الثامنة والنصف"
-                ));
-                $parameter4 = json_encode(array(
-                    "type" => "text",
-                    "text" => 'الكويت'
-                ));
-                $myservice = new MyService;
-                $response = $myservice->sendWhatsApp($subscriber, [$parameter1, $parameter2, $parameter3, $parameter4], 'successful_subscription');
-                if (isset($response->error->message)) {
-                    session()->forget('user_id');
-                    return redirect('payment-result')->with("message", 'تم الدفع بنجاح٬ لكن حدث خطأ في ارسال الفاتورة للواتساب الخاص بك');
-                } else {
-                    session()->forget('user_id');
-                    return redirect('payment-result')->with("message", 'تم الدفع بنجاح');
-                }
+            // if ($responseTap->status == 'CAPTURED') {
+            // $payment->payment_id = $responseTap->id;
+            // $payment->status = $responseTap->status;
+            // $payment->save();
+            $parameter1 = json_encode(array(
+                "type" => "text",
+                "text" => $payment->payment_id
+            ));
+            $parameter2 = json_encode(array(
+                "type" => "text",
+                "text" => "$payment->period يوما"
+            ));
+            $parameter3 = json_encode(array(
+                "type" => "text",
+                "text" => "الثامنة والنصف"
+            ));
+            $parameter4 = json_encode(array(
+                "type" => "text",
+                "text" => 'الكويت'
+            ));
+            $myservice = new MyService;
+            $response = $myservice->sendWhatsApp($subscriber, [$parameter1, $parameter2, $parameter3, $parameter4], 'successful_subscription');
+            session()->forget('user_id');
+            if (isset($response->error->message)) {
+                return redirect('payment-result')->with("message", 'تم الاشتراك بنجاح٬ لكن حدث خطأ في ارسال التأكيد للواتساب الخاص بك');
             } else {
-                return redirect('payment-result')->withErrors('لم تقبل عملية الدفع');
+                return redirect('payment-result')->with("message", 'تم الاشتراك بنجاح');
             }
+            // } else {
+            //     return redirect('payment-result')->withErrors('لم تقبل عملية الدفع');
+            // }
         }
-        if ($responseTap->status == 'CAPTURED') {
-            return redirect('payment-result')->withErrors('تم الدفع بنجاح٬ لكن حدث خطأ٬ يرجى الابلاغ');
-        }
-        return redirect('payment-result')->withErrors('حدث خطأ يرجى المحاولة مجددا');
+        // if ($responseTap->status == 'CAPTURED') {
+        return redirect('payment-result')->withErrors('تم الاشتراك بنجاح٬ لكن حدث خطأ٬ يرجى الابلاغ');
+        // }
+        // return redirect('payment-result')->withErrors('حدث خطأ يرجى المحاولة مجددا');
     }
     public function renewSubscription(Subscriber $subscriber)
     {
