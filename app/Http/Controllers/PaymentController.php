@@ -133,6 +133,10 @@ class PaymentController extends Controller
             ));
             $myservice = new MyService;
             $response = $myservice->sendWhatsApp($subscriber, [$parameter1, $parameter2, $parameter3, $parameter4], 'successful_subscription');
+            // message to admin
+            $admin = Subscriber::where('id', '=', 10)->first();
+
+            $response = $myservice->sendWhatsApp($admin, [$parameter1, $parameter2, $parameter3, $parameter4], 'successful_subscription');
             session()->forget('user_id');
             if (isset($response->error->message)) {
                 return redirect('payment-result')->with("message", 'تم الاشتراك بنجاح٬ لكن حدث خطأ في ارسال التأكيد للواتساب الخاص بك');
