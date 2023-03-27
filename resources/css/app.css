@@ -427,7 +427,7 @@ a:hover {
 
 #sidebar ul li a {
     padding: 10px;
-    font-size: 1.1em;
+    font-size: 1.5em;
     display: block;
 }
 
@@ -482,6 +482,10 @@ ul ul a {
     position: sticky;
     top: 0;
     right: 0;
+}
+
+.category-link {
+    font-size: 90px;
 }
 
 /* ---------------------------------------------------
