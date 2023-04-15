@@ -144,13 +144,18 @@ class WisdomController extends Controller
         $path = public_path() . '/json/categories.json';
         $file = file_get_contents($path);
         $categories = json_decode($file, true);
-        if ($_SERVER['REQUEST_METHOD'] == 'GET' && $rapidApi) {
+        if ($rapidApi) {
             $response['status'] = 200;
-            if (isset($_GET['limit'])) {
-                $wisdom = Wisdom::whereRaw('CHAR_LENGTH(text) <= ?', [$_GET['limit']])->inRandomOrder()->first();
-            } else {
-                $wisdom = Wisdom::inRandomOrder()->first();
+            $wisdom = null;
+            while (!$wisdom) {
+                $ran = rand(1, 100000);
+                if (isset($_GET['limit'])) {
+                    $wisdom = Wisdom::where('id', '=', $ran)->whereRaw('CHAR_LENGTH(text) <= ?', [$_GET['limit']])->first();
+                } else {
+                    $wisdom = Wisdom::where('id', '=', $ran)->first();
+                }
             }
+
             $responseWisdom['id'] = $wisdom->id;
             $responseWisdom['text'] = $wisdom->text . "\n\n" . "د. عبدالعزيز فيصل المطوع";
             $responseWisdom['categories'] = [];
