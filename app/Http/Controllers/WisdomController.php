@@ -148,11 +148,11 @@ class WisdomController extends Controller
             $response['status'] = 200;
             $wisdom = null;
             while (!$wisdom) {
-                $ran = rand(1, 100000);
+                $ran = rand(1, 45000);
                 if (isset($_GET['limit'])) {
-                    $wisdom = Wisdom::whereRaw('CHAR_LENGTH(text) <= ?', [$_GET['limit']])->inRandomOrder()->first();
+                    $wisdom = Wisdom::where('id', '=', $ran)->whereRaw('CHAR_LENGTH(text) <= ?', [$_GET['limit']])->first();
                 } else {
-                    $wisdom = Wisdom::inRandomOrder()->first();
+                    $wisdom = Wisdom::where('id', '=', $ran)->first();
                 }
             }
 
