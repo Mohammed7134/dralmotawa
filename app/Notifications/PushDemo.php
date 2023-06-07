@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App\Models\Wisdom;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -37,11 +38,12 @@ class PushDemo extends Notification
 
     public function toWebPush($notifiable, $notification)
     {
+        $wisdom = Wisdom::inRandomOrder()->first();
         return (new WebPushMessage)
-            ->title('I\'m Notification Title')
+            ->title('حكمة اليوم')
             ->icon('/notification-icon.png')
-            ->body('Great, Push Notifications work!')
-            ->action('View App', 'notification_action');
+            ->body($wisdom->text)
+            ->action('افتح التطبيق', 'notification_action');
     }
 
 
