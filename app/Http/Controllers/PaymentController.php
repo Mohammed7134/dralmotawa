@@ -184,9 +184,12 @@ class PaymentController extends Controller
         $token = request()->keys['auth'];
         $key = request()->keys['p256dh'];
         $user = Auth::user();
-        $user->updatePushSubscription($endpoint, $key, $token);
-
-        return response()->json(['success' => true], 200);
+        if ($user) {
+            $user->updatePushSubscription($endpoint, $key, $token);
+            return response()->json(['success' => true], 200);
+        } else {
+            return response()->json(['success' => false], 405);
+        }
     }
     public function push()
     {
