@@ -40,20 +40,20 @@
         <link href='https://fonts.googleapis.com/css?family=Montserrat:700|Lato:400' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-        <script src="https://kit.fontawesome.com/00a20bfa02.js" crossorigin="anonymous"></script>
+        <script src="https://kit.fontawesome.com/00a20bfa02.js" crossorigin="anonymous" defer></script>
         <!-- Bootstrap CSS CDN -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.rtl.min.css"
             integrity="sha384-gXt9imSW0VcJVHezoNQsP+TNrjYXoGcrqBZJpry9zJt8PCQjobwmhMGaDHTASo9N" crossorigin="anonymous">
         <!-- Font Awesome JS -->
-        <script src="https://kit.fontawesome.com/00a20bfa02.js" crossorigin="anonymous"></script>
+        <script src="https://kit.fontawesome.com/00a20bfa02.js" crossorigin="anonymous" defer></script>
         <!-- Axios Library -->
-        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js" defer></script>
         <!-- jQuery Library -->
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="{{asset('js/snackbar.js')}}"></script>
-        <script src="{{asset('js/truncate.js')}}"></script>
-        <script src="{{asset('js/display.js')}}"></script>
-        <script src="{{asset('js/changeCategory.js')}}"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
+        <script src="{{asset('js/snackbar.js')}}" defer></script>
+        <script src="{{asset('js/truncate.js')}}" defer></script>
+        <script src="{{asset('js/display.js')}}" defer></script>
+        <script src="{{asset('js/changeCategory.js')}}" defer></script>
         <script src="{{ asset('js/enable-push.js') }}" defer></script>
 
         @vite(['resources/css/app.css'])
@@ -69,10 +69,10 @@
         <!-- Google Tag Manager -->
         <script>
             (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-        })(window,document,'script','dataLayer','GTM-MT2XGKM');
+                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+                })(window,document,'script','dataLayer','GTM-MT2XGKM');
         </script>
         <!-- End Google Tag Manager -->
     </head>
