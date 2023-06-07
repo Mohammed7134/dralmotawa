@@ -2,9 +2,16 @@
 <html lang="ar" dir="rtl">
 
     <head>
+        <link rel="manifest" href="/manifest.json">
+
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="msapplication-starturl" content="/">
+        <meta name="theme-color" content="#e5e5e5">
+
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0 shrink-to-fit=no">
         <meta name="csrf-token" content="{{ Session::token() }}">
 
         {{--
@@ -47,6 +54,8 @@
         <script src="{{asset('js/truncate.js')}}"></script>
         <script src="{{asset('js/display.js')}}"></script>
         <script src="{{asset('js/changeCategory.js')}}"></script>
+        <script src="{{ asset('js/enable-push.js') }}" defer></script>
+
         @vite(['resources/css/app.css'])
         @auth
         <script>
@@ -110,9 +119,10 @@
                         @auth
                         <a href="/add"><button class="new-wisdom-button" type="submit" style="margin:5px auto;">إضافة
                                 حكمة</button></a>
-                        @else
-                        <a class="subscribe-float-link" href="/subscribe"><button class="subscribe-float-button"
-                                style="margin:5px auto;">اضغط هنا للاشتراك في رسائل الواتساب</button></a>
+                        <br>
+                        <button id="permission-btn" onclick="main()">اشترك في خدمة الإشعارات</button>
+                        <br>
+                        <a href="{{route('push')}}">أرسل إشعار</a>
                         @endauth
                     </div>
 
