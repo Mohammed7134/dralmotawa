@@ -1,6 +1,7 @@
 @extends("layouts.app")
 @section('title', isset($q) ? "البحث" : (isset($originalId) ? $categories[$originalId] : "الرئيسية"))
-@section('description', isset($q) ? "ابحث عن اي حكمة عن الحياة مع قصص متنوعة وفوائد ممتعة" : (isset($originalId) ? $categories[$originalId] : "الرئيسية"))
+@section('description', isset($q) ? "ابحث عن اي حكمة عن الحياة مع قصص متنوعة وفوائد ممتعة" : (isset($originalId) ?
+$categories[$originalId] : "الرئيسية"))
 
 @section("content")
 @if(isset($q) || isset($originalId))
@@ -41,10 +42,10 @@
 </div>
 @if(count($wisdoms) > 6 && gettype($wisdoms) !== "array" && !isset($noajax))
 <p class="text-center loading" style="display: none"> يرجى الانتظار...</p>
-<script type="text/javascript">
+<script type="text/javascript" defer>
     var paginate = 1;
     var load = true;
-    $(window).scroll(function() {
+    window.addEventListener('scroll', function() {
         if ($(window).scrollTop() + $(window).height() + 100 >= $(document).height()) {
             if (load) {
                 paginate++;

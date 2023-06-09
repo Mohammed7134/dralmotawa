@@ -41,7 +41,7 @@ class PushDemo extends Notification
         $wisdom = Wisdom::inRandomOrder()->first();
         return (new WebPushMessage)
             ->title('حكمة اليوم')
-            ->icon('/notification-icon.png')
+            ->icon('/images/logo.png')
             ->body($wisdom->text)
             ->action('افتح التطبيق', 'notification_action');
     }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\SubscribeController;
 use App\Http\Controllers\WisdomController;
 use App\Http\Controllers\UsersController;
 
@@ -65,8 +66,10 @@ Route::get('payment-result', function () {
 
 Route::get('callback', [PaymentController::class, 'callback'])->name('callback');
 Route::get('charge', [PaymentController::class, 'charge']);
+
 Route::get('renew-subscription/{subscriber}', [PaymentController::class, 'renewSubscription']);
-Route::post('save-subscription', [PaymentController::class, 'saveSubscription']);
-Route::get('/push', [PaymentController::class, 'push'])->name('push');
-//store a push subscriber.
-Route::post('/push', [PaymentController::class, 'saveSubscription']);
+
+
+Route::post('save-subscription', [SubscribeController::class, 'saveSubscription']);
+Route::get('/push', [SubscribeController::class, 'push'])->name('push');
+Route::post('/push', [SubscribeController::class, 'saveSubscription']);
