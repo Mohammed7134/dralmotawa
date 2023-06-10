@@ -1,10 +1,11 @@
 <nav class="navbar navbar-expand-sm navbar-light bg-light">
     <div class="container-fluid">
-        <button class="btn " type="button" id="sidebarCollapse" style="background-color: #9bafca; "><i
+        <button class="btn" type="button" id="sidebarCollapse" style="background-color: #9bafca; "><i
                 class="fas fa-align-left" aria-hidden="true"></i></button>
         <a class="navbar-brand" href="/">الرئيسية</a>
-        <button class="navbar-toggler btn" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler btn" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
             <i class="fas fa-search"></i>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">

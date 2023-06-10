@@ -1,3 +1,5 @@
+// Import all of Bootstrap's JS
+import './bootstrap';
 //Setting up sidebar functionality
 function togglingActions() {
     $('#sidebar').toggleClass('active');
