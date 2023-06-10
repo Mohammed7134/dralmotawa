@@ -42,13 +42,6 @@
                 style="display:none;visibility:hidden"></iframe></noscript>
         <!-- End Google Tag Manager (noscript) -->
 
-        <!-- Facebook Tag  -->
-        <div id="fb-root"></div>
-        <script defer crossorigin="anonymous"
-            src="https://connect.facebook.net/ar_AR/sdk.js#xfbml=1&version=v16.0&appId=5767579369977319&autoLogAppEvents=1"
-            nonce="hCrAcreE"></script>
-        <!-- End Facebook Tag -->
-
         @include("shared.message")
         <div class="wrapper">
             @include('layouts.sideMenu')
@@ -80,6 +73,12 @@
         <!-- Import other JavaScript files -->
         @vite(['resources/js/app.js'])
 
+        <!-- Facebook Tag  -->
+        <div id="fb-root"></div>
+        <script defer crossorigin="anonymous"
+            src="https://connect.facebook.net/ar_AR/sdk.js#xfbml=1&version=v16.0&appId=5767579369977319&autoLogAppEvents=1"
+            nonce="hCrAcreE"></script>
+        <!-- End Facebook Tag -->
     </body>
     <!-- basket -->
     <script src="{{asset('js/basket.js')}}" defer></script>
