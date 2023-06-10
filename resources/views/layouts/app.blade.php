@@ -26,13 +26,13 @@
         <script src="{{asset('js/display.js')}}"></script>
         <script src="{{asset('js/changeCategory.js')}}"></script>
         <script src="{{ asset('js/enable-push.js') }}"></script>
-        <script src="https://kit.fontawesome.com/00a20bfa02.js" crossorigin="anonymous" async></script>
+        <script src="https://kit.fontawesome.com/00a20bfa02.js" crossorigin="anonymous" defer></script>
 
         @vite(['resources/css/app.css', 'resources/sass/app.scss'])
 
-        @auth <script src="{{asset('js/gtmLoginEvent.js')}}" async></script> @endauth
+        @auth <script src="{{asset('js/gtmLoginEvent.js')}}" defer></script> @endauth
         <!-- GTM -->
-        <script src="{{asset('js/gtm.js')}}" async></script>
+        <script src="{{asset('js/gtm.js')}}" defer></script>
         <!-- End GTM -->
     </head>
 
