@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Wisdom;
 use GuzzleHttp\Psr7\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Cookie;
 
 class WisdomController extends Controller
@@ -27,11 +28,17 @@ class WisdomController extends Controller
     }
     public function index()
     {
-        $wisdoms = Wisdom::inRandomOrder()->paginate(7);
+        $expirationTime = 60; // Cache expires after 60 minutes
+        $wisdoms = Cache::remember('wisdoms', $expirationTime, function () {
+            // Retrieve data from the database or perform expensive computation
+            // Here's an example of retrieving data from the database
+            return Wisdom::inRandomOrder()->paginate(7);
+        });
         if (Auth::check()) {
             $wisdoms = $this->getSimilarWisdoms($wisdoms);
         }
         if (request()->ajax()) {
+            $wisdoms = Wisdom::inRandomOrder()->paginate(7);
             return $this->ajax($wisdoms);
         }
         return view('home')->with(compact('wisdoms'));
