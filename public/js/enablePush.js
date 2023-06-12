@@ -23,14 +23,14 @@ function initSW() {
     navigator.serviceWorker.register('../sw.js')
         .then(() => {
             console.log('serviceWorker installed!')
-            initPush();
         })
         .catch((err) => {
             console.log(err)
         });
 }
+const notificationButton = document.getElementById('permission-btn');
+notificationButton.addEventListener('click', function () {
 
-function initPush() {
     if (!swReady) {
         return;
     }
@@ -50,7 +50,7 @@ function initPush() {
             }
             subscribeUser();
         });
-}
+});
 
 /**
  * Subscribe the user to push

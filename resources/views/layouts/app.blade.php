@@ -2,7 +2,8 @@
 <html lang="ar" dir="rtl">
 
     <head>
-        <link rel="manifest" href="/manifest.json">
+        <link rel="manifest" href={{ asset("/manifest.json") }}>
+        <link rel="apple-touch-icon" href={{ asset("/images/logo.png") }}>
 
         <meta name="mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-capable" content="yes">
@@ -25,7 +26,7 @@
         <script src="{{asset('js/truncate.js')}}"></script>
         <script src="{{asset('js/display.js')}}"></script>
         <script src="{{asset('js/changeCategory.js')}}"></script>
-        <script src="{{ asset('js/enable-push.js') }}"></script>
+        <script src="{{ asset('js/enablePush.js') }}" defer></script>
         <script src="https://kit.fontawesome.com/00a20bfa02.js" crossorigin="anonymous" defer></script>
 
         @vite(['resources/css/app.css', 'resources/sass/app.scss'])
@@ -54,7 +55,7 @@
                                 href="https://www.linkedin.com/in/محمد-المطوع-78a09a138/">محمد المطوع</a></p>
                         @auth
                         <a href="/add"><button class="new-wisdom-button" type="submit">إضافة حكمة</button></a><br>
-                        <button id="permission-btn" onclick="main()">اشترك في خدمة الإشعارات</button><br>
+                        <button id="permission-btn">اشترك في خدمة الإشعارات</button><br>
                         <a href="{{route('push')}}">أرسل إشعار</a>
                         @endauth
                     </div>
