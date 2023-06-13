@@ -52,7 +52,7 @@ notificationButton.addEventListener('click', function () {
         })
         .catch((error) => {
             // Handle promise rejection
-            alert(error);
+            alert("يجب تثبيت الموقع أولا.");
         });
 });
 
