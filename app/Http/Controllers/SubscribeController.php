@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Guest;
 use App\Models\User;
 use App\Notifications\PushDemo;
 use Illuminate\Http\Request;
@@ -20,7 +21,9 @@ class SubscribeController extends Controller
         $endpoint = request()->endpoint;
         $token = request()->keys['auth'];
         $key = request()->keys['p256dh'];
-        $user = Auth::user();
+        $user = Guest::firstOrCreate([
+            'endpoint' => $endpoint
+        ]);
         if ($user) {
             $user->updatePushSubscription($endpoint, $key, $token);
             return response()->json(['success' => true], 200);
@@ -30,7 +33,7 @@ class SubscribeController extends Controller
     }
     public function push()
     {
-        Notification::send(User::all(), new PushDemo);
+        Notification::send(Guest::all(), new PushDemo);
         return redirect()->back();
     }
 }

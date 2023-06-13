@@ -46,7 +46,7 @@ notificationButton.addEventListener('click', function () {
     })
         .then((permissionResult) => {
             if (permissionResult !== 'granted') {
-                throw new Error('We weren\'t granted permission.');
+                alert('نأسف٬ لا يمكن تفعيل الإشعارات في هذا المتصفح.');
             }
             subscribeUser();
         });
@@ -57,19 +57,27 @@ notificationButton.addEventListener('click', function () {
  */
 function subscribeUser() {
     swReady
-        .then((registration) => {
+        .then(async (registration) => {
             const subscribeOptions = {
                 userVisibleOnly: true,
                 applicationServerKey: urlBase64ToUint8Array(
                     'BE8g7b9p7drelPGpzcPUN4PrB4RhQV_OxLloKZZZ60yq7h8N8X1O-egI-XwBnTPXmpzwQVT9pY5refgF4YYZ5ic'
                 )
             };
-
-            return registration.pushManager.subscribe(subscribeOptions);
+            if (registration.pushManager) {
+                let subscription = await registration.pushManager.subscribe(subscribeOptions);
+                return subscription;
+            } else {
+                return false;
+            }
         })
         .then((pushSubscription) => {
-            console.log('Received PushSubscription: ', JSON.stringify(pushSubscription));
-            storePushSubscription(pushSubscription);
+            if (pushSubscription) {
+                console.log('Received PushSubscription: ', JSON.stringify(pushSubscription));
+                storePushSubscription(pushSubscription);
+            } else {
+                alert('نأسف٬ لا يمكن تفعيل الإشعارات في هذا المتصفح.');
+            }
         });
 }
 
@@ -93,7 +101,9 @@ function storePushSubscription(pushSubscription) {
             return res.json();
         })
         .then((res) => {
-            console.log(res)
+            console.log(res);
+            const subscribeButton = document.getElementById('permission-btn');
+            subscribeButton.style.display = "none";
         })
         .catch((err) => {
             console.log(err)
@@ -118,4 +128,29 @@ function urlBase64ToUint8Array(base64String) {
         outputArray[i] = rawData.charCodeAt(i);
     }
     return outputArray;
+}
+
+/**
+ * check if the user already subscribed to the notification in this pwa 
+ */
+
+if ('serviceWorker' in navigator && 'PushManager' in window) {
+    navigator.serviceWorker.ready.then(function (serviceWorkerRegistration) {
+        serviceWorkerRegistration.pushManager.getSubscription()
+            .then(function (subscription) {
+                if (subscription === null) {
+                    // The user is not subscribed
+                    // console.log('User is not subscribed');
+                } else {
+                    // The user is already subscribed
+                    const subscribeButton = document.getElementById('permission-btn');
+                    subscribeButton.style.display = "none";
+                }
+            })
+            .catch(function (error) {
+                // console.error('Error getting subscription', error);
+            });
+    });
+} else {
+    // console.log('either no service worker or no push manager');
 }

@@ -53,9 +53,10 @@
                         <p>مقولات الدكتور عبدالعزيز فيصل المطوع</p>
                         <p style="font-size: 10px; color:grey;">تم تطوير الموقع بواسطة: <a target="_blank"
                                 href="https://www.linkedin.com/in/محمد-المطوع-78a09a138/">محمد المطوع</a></p>
+                        <button id="permission-btn">اشترك في خدمة الإشعارات</button><br>
+
                         @auth
                         <a href="/add"><button class="new-wisdom-button" type="submit">إضافة حكمة</button></a><br>
-                        <button id="permission-btn">اشترك في خدمة الإشعارات</button><br>
                         <a href="{{route('push')}}">أرسل إشعار</a>
                         @endauth
                     </div>
