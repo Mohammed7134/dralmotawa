@@ -36,14 +36,9 @@ notificationButton.addEventListener('click', function () {
     }
 
     new Promise(function (resolve, reject) {
-        if (Notification) {
-            console.dir(Notification);
-            const permissionResult = Notification.requestPermission(function (result) {
-                resolve(result);
-            });
-        } else {
-            console.dir(Notification);
-        }
+        const permissionResult = Notification.requestPermission(function (result) {
+            resolve(result);
+        });
 
         if (permissionResult) {
             permissionResult.then(resolve, reject);
@@ -54,6 +49,10 @@ notificationButton.addEventListener('click', function () {
                 alert('نأسف٬ لا يمكن تفعيل الإشعارات في هذا المتصفح.');
             }
             subscribeUser();
+        })
+        .catch((error) => {
+            // Handle promise rejection
+            alert(error);
         });
 });
 
