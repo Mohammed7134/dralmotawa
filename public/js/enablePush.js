@@ -38,6 +38,9 @@ notificationButton.addEventListener('click', function () {
     new Promise(function (resolve, reject) {
         const permissionResult = Notification.requestPermission(function (result) {
             resolve(result);
+        }).catch((error) => {
+            // Handle promise rejection
+            console.error(error);
         });
 
         if (permissionResult) {
