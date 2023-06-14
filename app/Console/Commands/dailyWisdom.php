@@ -38,7 +38,6 @@ class dailyWisdom extends Command
     public function handle()
     {
         Notification::send(Guest::all(), new PushDemo);
-        Log::debug("heel");
         // $subscribers = Subscriber::all();
         // $wisdom = Wisdom::where('text', 'NOT LIKE', '%\n%')->whereRaw('CHAR_LENGTH(text) <= ?', [950])->inRandomOrder()->first()->text;
         // // $wisdom = str_replace(array("\r\n", "\r", "\n"), " ", $wisdom);
