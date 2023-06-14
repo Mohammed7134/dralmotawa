@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-
+use App\Models\Guest;
 use App\Models\Subscriber;
 use App\Models\User;
 use App\Models\Wisdom;
@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Log;
+use Ramsey\Uuid\Guid\Guid;
 
 class dailyWisdom extends Command
 {
@@ -36,7 +37,7 @@ class dailyWisdom extends Command
      */
     public function handle()
     {
-        Notification::send(User::all(), new PushDemo);
+        Notification::send(Guest::all(), new PushDemo);
         Log::debug("heel");
         // $subscribers = Subscriber::all();
         // $wisdom = Wisdom::where('text', 'NOT LIKE', '%\n%')->whereRaw('CHAR_LENGTH(text) <= ?', [950])->inRandomOrder()->first()->text;
