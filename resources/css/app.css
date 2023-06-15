@@ -775,7 +775,7 @@ blockquote {
 
 /* Add to home */
 #ios-add-to-home {
-    /* display: none; */
+    display: none;
     position: fixed;
     bottom: 0;
     left: 0;
