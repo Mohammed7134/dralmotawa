@@ -792,8 +792,8 @@ blockquote {
 
 #add-to-home-btn,
 #dismiss-btn {
-    background-color: #4caf50;
-    color: white;
+    /* background-color: #4caf50; */
+    /* color: white; */
     border: none;
     padding: 10px 20px;
     margin-top: 5px;
@@ -801,7 +801,10 @@ blockquote {
 }
 
 #dismiss-btn {
-    background-color: #ff5722;
+    /* background-color: #ff5722; */
+    position: absolute;
+    top: 1px;
+    left: 10px;
 }
 
 #add-to-home-text {
