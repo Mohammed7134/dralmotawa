@@ -775,7 +775,7 @@ blockquote {
 
 /* Add to home */
 #ios-add-to-home {
-    display: none;
+    /* display: none; */
     position: fixed;
     bottom: 0;
     left: 0;
@@ -790,8 +790,7 @@ blockquote {
     margin: 0;
 }
 
-#add-to-home-btn,
-#dismiss-btn {
+#add-to-home-btn {
     /* background-color: #4caf50; */
     /* color: white; */
     border: none;
@@ -808,17 +807,10 @@ blockquote {
 }
 
 #add-to-home-text {
-    font-size: 1.2rem;
+    font-size: 1rem;
 }
 
 /* bouncing arrow */
-.arrow-button {
-    border: none;
-    padding: 10px 20px;
-    font-size: 20px;
-    position: relative;
-    overflow: hidden;
-}
 
 .arrow {
     position: absolute;
@@ -827,9 +819,12 @@ blockquote {
     transform: translate(-50%, -50%);
     width: 10px;
     height: 10px;
-    border: 2px solid white;
-    border-radius: 50%;
+    /* border: 2px solid white; */
+    /* border-radius: 50%; */
     animation: bounce 2s infinite;
+    border: none;
+    padding: 10px 20px;
+    font-size: 20px;
 }
 
 @keyframes bounce {
