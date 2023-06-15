@@ -3,5 +3,5 @@
     <button id="add-to-home-btn" class="arrow-button">
         <i class="fa-solid fa-arrow-down arrow"></i>
     </button>
-    <button id="dismiss-btn">Dismiss</button>
+    <button id="dismiss-btn">X</button>
 </div>
