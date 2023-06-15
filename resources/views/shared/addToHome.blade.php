@@ -1,4 +1,6 @@
 <div id="ios-add-to-home">
-    <p>Add this app to your home screen for quick access.</p>
-    <button id="add-to-home-btn">Add to Home Screen</button>
+    <p>يجب إضافة الموقع إلى الصفحة الرئيسيةأولا</p>
+    <button id="add-to-home-btn" class="arrow-button">
+        <span class="arrow"></span>
+    </button>
 </div>
