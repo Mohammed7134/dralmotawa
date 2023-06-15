@@ -40,11 +40,13 @@ class PushDemo extends Notification
     public function toWebPush($notifiable, $notification)
     {
         $wisdom = Wisdom::inRandomOrder()->whereRaw('CHAR_LENGTH(text) <= ?', [200])->first();
-        return (new WebPushMessage)
+        $message = (new WebPushMessage)
             ->title('حكمة اليوم')
             ->icon('/images/logo.png')
             ->body($wisdom->text)
             ->action('افتح التطبيق', 'notification_action');
+        Log::debug(json_encode($message));
+        return $message;
     }
 
 
