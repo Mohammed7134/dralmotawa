@@ -52,7 +52,7 @@ notificationButton.addEventListener('click', function () {
         })
         .catch((error) => {
             // Handle promise rejection
-            alert("يجب تثبيت الموقع أولا.");
+            // alert("يجب تثبيت الموقع أولا.");
             const iosAddToHomeBanner = document.getElementById('ios-add-to-home');
             const addToHomeBtn = document.getElementById('add-to-home-btn');
 
