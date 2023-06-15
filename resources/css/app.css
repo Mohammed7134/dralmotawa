@@ -799,6 +799,10 @@ blockquote {
     cursor: pointer;
 }
 
+#add-to-home-text {
+    font-size: 1rem;
+}
+
 /* bouncing arrow */
 .arrow-button {
     background-color: #007bff;

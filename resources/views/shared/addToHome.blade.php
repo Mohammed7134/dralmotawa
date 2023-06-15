@@ -1,5 +1,5 @@
 <div id="ios-add-to-home">
-    <p>يجب إضافة الموقع إلى الصفحة الرئيسيةأولا</p>
+    <p id="add-to-home-text">يجب إضافة الموقع إلى الصفحة الرئيسية أولا</p>
     <button id="add-to-home-btn" class="arrow-button">
         <span class="arrow"></span>
     </button>
