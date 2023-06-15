@@ -7,7 +7,6 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use Illuminate\Support\Facades\Log;
 use NotificationChannels\WebPush\WebPushMessage;
 use NotificationChannels\WebPush\WebPushChannel;
 
@@ -39,14 +38,12 @@ class PushDemo extends Notification
 
     public function toWebPush($notifiable, $notification)
     {
-        $wisdom = Wisdom::inRandomOrder()->whereRaw('CHAR_LENGTH(text) <= ?', [200])->first();
-        $message = (new WebPushMessage)
+        $wisdom = Wisdom::inRandomOrder()->whereRaw('CHAR_LENGTH(text) <= ?', [500])->first();
+        return (new WebPushMessage)
             ->title('حكمة اليوم')
             ->icon('/images/logo.png')
             ->body($wisdom->text)
             ->action('افتح التطبيق', 'notification_action');
-        Log::debug(json_encode($message));
-        return $message;
     }
 
 
