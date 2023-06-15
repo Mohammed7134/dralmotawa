@@ -773,4 +773,28 @@ blockquote {
     font-size: 1.4rem;
 }
 
-/* stick */
+/* Add to home */
+#ios-add-to-home {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #f5f5f5;
+    padding: 10px;
+    text-align: center;
+    z-index: 9999;
+}
+
+#ios-add-to-home p {
+    margin: 0;
+}
+
+#add-to-home-btn {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 5px;
+    cursor: pointer;
+}

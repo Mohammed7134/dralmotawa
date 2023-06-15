@@ -69,6 +69,9 @@
                 </footer>
             </div>
         </div>
+        <!-- Add to home screen prompt -->
+        @include('shared.addToHome')
+
         <!-- Import jQuery CDN -->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 

@@ -53,6 +53,16 @@ notificationButton.addEventListener('click', function () {
         .catch((error) => {
             // Handle promise rejection
             alert("يجب تثبيت الموقع أولا.");
+            const iosAddToHomeBanner = document.getElementById('ios-add-to-home');
+            const addToHomeBtn = document.getElementById('add-to-home-btn');
+
+            iosAddToHomeBanner.style.display = 'block';
+
+            addToHomeBtn.addEventListener('click', () => {
+                // Show installation instructions to the user (e.g., guide them to the share button)
+                // You can also use the Web Share API to prompt the user to share the app's installation link.
+            });
+
         });
 });
 
