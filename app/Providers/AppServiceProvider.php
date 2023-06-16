@@ -29,9 +29,8 @@ class AppServiceProvider extends ServiceProvider
         $path = public_path() . '/json/categories.json';
         $file = file_get_contents($path);
         $categories = json_decode($file, true);
-        view()->share(compact('categories'));
-        Paginator::useBootstrap();
         $numberOfSubscribers = Subscriber::count();
-        view()->share(compact('numberOfSubscribers'));
+        view()->share(compact('categories', 'numberOfSubscribers'));
+        Paginator::useBootstrap();
     }
 }
