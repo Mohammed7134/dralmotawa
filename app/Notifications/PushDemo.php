@@ -39,11 +39,13 @@ class PushDemo extends Notification
     public function toWebPush($notifiable, $notification)
     {
         $wisdom = Wisdom::inRandomOrder()->whereRaw('CHAR_LENGTH(text) <= ?', [500])->first();
+        $url = "https://dralmutawa.com/id/$wisdom->id";
         return (new WebPushMessage)
             ->title('حكمة اليوم')
             ->icon('/images/logo.png')
             ->body($wisdom->text)
-            ->action('افتح التطبيق', 'notification_action');
+            ->action('افتح التطبيق', 'notification_action')
+            ->data(['url' => $url]);
     }
 
 

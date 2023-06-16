@@ -72,3 +72,14 @@ self.addEventListener('push', function (e) {
         );
     }
 });
+self.addEventListener('notificationclick', function (event) {
+    event.notification.close();
+
+    // Retrieve the URL from the notification data
+    const url = event.notification.data.url;
+
+    // Use clients.openWindow() to navigate to the specified URL
+    if (url) {
+        event.waitUntil(clients.openWindow(url));
+    }
+});
