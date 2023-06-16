@@ -32,10 +32,8 @@ class AppServiceProvider extends ServiceProvider
         view()->share(compact('categories'));
         Paginator::useBootstrap();
         if (Auth::check()) {
-            view()->composer('*', function ($view) {
-                $numberOfSubscribers = Subscriber::count();
-                $view->with('numberOfSubscribers', $numberOfSubscribers);
-            });
+            $numberOfSubscribers = Subscriber::count();
+            view()->share(compact('numberOfSubscribers'));
         }
     }
 }
