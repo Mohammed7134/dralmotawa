@@ -68,7 +68,8 @@ self.addEventListener('push', function (e) {
             self.registration.showNotification(msg.title, {
                 body: msg.body,
                 icon: msg.icon,
-                actions: msg.actions
+                actions: msg.actions,
+                data: msg.data
             })
         );
     }
@@ -79,7 +80,7 @@ self.addEventListener('notificationclick', function (event) {
     console.dir(event.notification);
 
     // Retrieve the URL from the notification data
-    const url = event.notification.icon;
+    const url = event.notification.data.url;
     // Use clients.openWindow() to navigate to the specified URL
     if (url) {
         console.log(url);
