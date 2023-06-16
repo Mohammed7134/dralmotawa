@@ -33,10 +33,7 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrap();
         if (Auth::check()) {
             view()->composer('*', function ($view) {
-                // Fetch the record from the database
                 $numberOfSubscribers = Subscriber::count();
-
-                // Pass the record to the view
                 $view->with('numberOfSubscribers', $numberOfSubscribers);
             });
         }
