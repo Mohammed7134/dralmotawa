@@ -9,6 +9,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use NotificationChannels\WebPush\WebPushMessage;
 use NotificationChannels\WebPush\WebPushChannel;
+use Illuminate\Support\Str;
 
 class PushWisdom extends Notification
 {
@@ -39,11 +40,12 @@ class PushWisdom extends Notification
     public function toWebPush($notifiable, $notification)
     {
         $wisdom = Wisdom::where('id', '=', $this->wisdomId)->first();
+        $body = Str::limit($wisdom->text, 550, '...');
         $url = "https://dralmutawa.com/id/$wisdom->id";
         return (new WebPushMessage)
             ->title('حكمة اليوم')
             ->icon('/images/logo.png')
-            ->body($wisdom->text)
+            ->body($body)
             ->action('افتح التطبيق', 'notification_action')
             ->data(['url' => $url]);
     }
