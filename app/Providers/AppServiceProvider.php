@@ -31,9 +31,7 @@ class AppServiceProvider extends ServiceProvider
         $categories = json_decode($file, true);
         view()->share(compact('categories'));
         Paginator::useBootstrap();
-        if (Auth::check()) {
-            $numberOfSubscribers = Subscriber::count();
-            view()->share(compact('numberOfSubscribers'));
-        }
+        $numberOfSubscribers = Subscriber::count();
+        view()->share(compact('numberOfSubscribers'));
     }
 }
