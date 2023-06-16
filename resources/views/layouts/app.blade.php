@@ -58,6 +58,7 @@
                                 href="https://www.linkedin.com/in/محمد-المطوع-78a09a138/">محمد المطوع</a></p>
                         <button id="permission-btn">اشترك في خدمة الإشعارات</button><br>
                         @auth
+                        <p>عدد المشتركين: <span>{{ $numberOfSubsribers }}</span></p>
                         <a href="/add"><button class="new-wisdom-button" type="submit">إضافة حكمة</button></a><br>
                         @endauth
                     </div>

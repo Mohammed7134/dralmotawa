@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Subscriber;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -29,5 +31,14 @@ class AppServiceProvider extends ServiceProvider
         $categories = json_decode($file, true);
         view()->share(compact('categories'));
         Paginator::useBootstrap();
+        if (Auth::check()) {
+            view()->composer('*', function ($view) {
+                // Fetch the record from the database
+                $numberOfSubscribers = Subscriber::count();
+
+                // Pass the record to the view
+                $view->with('numberOfSubscribers', $numberOfSubscribers);
+            });
+        }
     }
 }
