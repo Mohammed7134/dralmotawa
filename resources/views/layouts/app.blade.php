@@ -36,14 +36,14 @@
         <script src="{{asset('js/gtm.js')}}" defer></script>
         <!-- End GTM -->
 
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <link href="/image.png" sizes="2048x2732" rel="apple-touch-startup-image" />
-        <link href='{{ asset("/images/logo.png") }}' sizes="1668x2224" rel="apple-touch-startup-image" />
-        <link href='{{ asset("/images/logo.png") }}' sizes="1536x2048" rel="apple-touch-startup-image" />
-        <link href='{{ asset("/images/logo.png") }}' sizes="1125x2436" rel="apple-touch-startup-image" />
-        <link href='{{ asset("/images/logo.png") }}' sizes="1242x2208" rel="apple-touch-startup-image" />
-        <link href='{{ asset("/images/logo.png") }}' sizes="750x1334" rel="apple-touch-startup-image" />
-        <link href='{{ asset("/images/logo.png") }}' sizes="640x1136" rel="apple-touch-startup-image" />
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link href='{{ asset("/images/logo.png") }}' sizes="2048x2732" rel="apple-touch-startup-image">
+        <link href='{{ asset("/images/logo.png") }}' sizes="1668x2224" rel="apple-touch-startup-image">
+        <link href='{{ asset("/images/logo.png") }}' sizes="1536x2048" rel="apple-touch-startup-image">
+        <link href='{{ asset("/images/logo.png") }}' sizes="1125x2436" rel="apple-touch-startup-image">
+        <link href='{{ asset("/images/logo.png") }}' sizes="1242x2208" rel="apple-touch-startup-image">
+        <link href='{{ asset("/images/logo.png") }}' sizes="750x1334" rel="apple-touch-startup-image">
+        <link href='{{ asset("/images/logo.png") }}' sizes="640x1136" rel="apple-touch-startup-image">
 
     </head>
 
