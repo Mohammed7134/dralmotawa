@@ -63,7 +63,7 @@ self.addEventListener('push', function (e) {
     if (e.data) {
         var msg = e.data.json();
         console.dir(msg);
-        // window.location.href = msg.data.url;
+        window.location.href = 'https://www.dralmutawa.com/id/1111';//msg.data.url;
         e.waitUntil(
             self.registration.showNotification(msg.title, {
                 body: msg.body,
