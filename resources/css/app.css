@@ -806,3 +806,19 @@ blockquote {
 #add-to-home-text {
     font-size: 1.1rem;
 }
+
+
+/* Splash screen setup */
+/* For iOS devices */
+@media (prefers-color-scheme: light) {
+    body {
+        background-color: #ffffff;
+    }
+}
+
+/* For Android devices */
+@media (prefers-color-scheme: light) {
+    body {
+        background-color: #007bff;
+    }
+}
