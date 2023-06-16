@@ -10,18 +10,18 @@ use Illuminate\Notifications\Notification;
 use NotificationChannels\WebPush\WebPushMessage;
 use NotificationChannels\WebPush\WebPushChannel;
 
-class PushDemo extends Notification
+class PushWisdom extends Notification
 {
     use Queueable;
-
+    private $wisdomId;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($wisdomId)
     {
-        //
+        $this->wisdomId = $wisdomId;
     }
 
     /**
@@ -38,7 +38,7 @@ class PushDemo extends Notification
 
     public function toWebPush($notifiable, $notification)
     {
-        $wisdom = Wisdom::inRandomOrder()->whereRaw('CHAR_LENGTH(text) <= ?', [500])->first();
+        $wisdom = Wisdom::where('id', '=', $this->wisdomId)->first();
         $url = "https://dralmutawa.com/id/$wisdom->id";
         return (new WebPushMessage)
             ->title('حكمة اليوم')

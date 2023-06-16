@@ -71,5 +71,5 @@ Route::get('renew-subscription/{subscriber}', [PaymentController::class, 'renewS
 
 
 Route::post('save-subscription', [SubscribeController::class, 'saveSubscription']);
-Route::get('/push', [SubscribeController::class, 'push'])->name('push');
+Route::get('/push/{id}', [SubscribeController::class, 'push'])->name('push');
 Route::post('/push', [SubscribeController::class, 'saveSubscription']);

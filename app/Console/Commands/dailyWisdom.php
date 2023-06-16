@@ -6,7 +6,7 @@ use App\Models\Guest;
 use App\Models\Subscriber;
 use App\Models\User;
 use App\Models\Wisdom;
-use App\Notifications\PushDemo;
+use App\Notifications\PushWisdom;
 use App\Services\MyService;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
@@ -37,7 +37,7 @@ class dailyWisdom extends Command
      */
     public function handle()
     {
-        Notification::send(Guest::all(), new PushDemo);
+        Notification::send(Guest::all(), new PushWisdom);
         // $subscribers = Subscriber::all();
         // $wisdom = Wisdom::where('text', 'NOT LIKE', '%\n%')->whereRaw('CHAR_LENGTH(text) <= ?', [950])->inRandomOrder()->first()->text;
         // // $wisdom = str_replace(array("\r\n", "\r", "\n"), " ", $wisdom);

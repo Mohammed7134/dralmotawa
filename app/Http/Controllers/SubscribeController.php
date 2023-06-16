@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Guest;
 use App\Models\User;
-use App\Notifications\PushDemo;
+use App\Notifications\PushWisdom;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
@@ -33,7 +33,7 @@ class SubscribeController extends Controller
     }
     public function push()
     {
-        Notification::send(Guest::all(), new PushDemo);
+        Notification::send(Guest::all(), new PushWisdom(request()->id));
         return redirect()->back();
     }
 }

@@ -672,7 +672,8 @@ blockquote {
 .before-button,
 .after-button,
 .facebook-button,
-.similar-button {
+.similar-button,
+.notification-button {
     font-size: 2rem;
     background: none;
     border: none;
