@@ -44,8 +44,8 @@ class PushDemo extends Notification
             ->title('حكمة اليوم')
             ->icon('/images/logo.png')
             ->body($wisdom->text)
-            ->action('افتح التطبيق', 'notification_action');
-        // ->data(['url' => $url]);
+            ->action('افتح التطبيق', 'notification_action')
+            ->data(['url' => $url]);
     }
 
 

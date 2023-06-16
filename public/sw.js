@@ -74,16 +74,41 @@ self.addEventListener('push', function (e) {
     }
 });
 // This function is not functioning
-// self.addEventListener('notificationclick', function (event) {
-//     event.notification.close();
+self.addEventListener("notificationclick", (event) => {
+    console.log("On notification click1: ", event.notification.tag);
+    event.notification.close();
 
-//     // Retrieve the URL from the notification data
-//     const url = event.notification.data.url;
-//     // Use clients.openWindow() to navigate to the specified URL
-//     if (url) {
-//         console.log(url);
-//         event.waitUntil(clients.openWindow(url));
-//     } else {
-//         console.log("no url");
-//     }
-// });
+    // This looks to see if the current is already open and
+    // focuses if it is
+    event.waitUntil(
+        clients
+            .matchAll({
+                type: "window",
+            })
+            .then((clientList) => {
+                for (const client of clientList) {
+                    if (client.url === "/" && "focus" in client) return client.focus();
+                }
+                if (clients.openWindow) return clients.openWindow("/category/1422");
+            })
+    );
+});
+self.onnotificationclick = (event) => {
+    console.log("On notification click2: ", event.notification.tag);
+    event.notification.close();
+
+    // This looks to see if the current is already open and
+    // focuses if it is
+    event.waitUntil(
+        clients
+            .matchAll({
+                type: "window",
+            })
+            .then((clientList) => {
+                for (const client of clientList) {
+                    if (client.url === "/" && "focus" in client) return client.focus();
+                }
+                if (clients.openWindow) return clients.openWindow("/");
+            })
+    );
+};
