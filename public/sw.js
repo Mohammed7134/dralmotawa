@@ -77,9 +77,11 @@ self.addEventListener('notificationclick', function (event) {
 
     // Retrieve the URL from the notification data
     const url = event.notification.data.url;
-
     // Use clients.openWindow() to navigate to the specified URL
     if (url) {
         event.waitUntil(clients.openWindow(url));
+        console.log(url);
+    } else {
+        console.log("no url");
     }
 });
