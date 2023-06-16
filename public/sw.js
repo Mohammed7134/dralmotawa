@@ -72,16 +72,17 @@ self.addEventListener('push', function (e) {
         );
     }
 });
-self.addEventListener('notificationclick', function (event) {
-    event.notification.close();
+// This function is not functioning
+// self.addEventListener('notificationclick', function (event) {
+//     event.notification.close();
 
-    // Retrieve the URL from the notification data
-    const url = event.notification.data.url;
-    // Use clients.openWindow() to navigate to the specified URL
-    if (url) {
-        console.log(url);
-        event.waitUntil(clients.openWindow(url));
-    } else {
-        console.log("no url");
-    }
-});
+//     // Retrieve the URL from the notification data
+//     const url = event.notification.data.url;
+//     // Use clients.openWindow() to navigate to the specified URL
+//     if (url) {
+//         console.log(url);
+//         event.waitUntil(clients.openWindow(url));
+//     } else {
+//         console.log("no url");
+//     }
+// });
