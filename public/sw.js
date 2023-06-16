@@ -62,7 +62,7 @@ self.addEventListener('push', function (e) {
 
     if (e.data) {
         var msg = e.data.json();
-        console.log(msg.data)
+        console.log(msg.data.data)
         e.waitUntil(
             self.registration.showNotification(msg.title, {
                 body: msg.body,
