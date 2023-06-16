@@ -54,19 +54,17 @@ notificationButton.addEventListener('click', function () {
             // Handle promise rejection
             // alert("يجب تثبيت الموقع أولا.");
             const iosAddToHomeBanner = document.getElementById('ios-add-to-home');
-            const addToHomeBtn = document.getElementById('add-to-home-btn');
-            const dismissBtn = document.getElementById('dismiss-btn');
-
             iosAddToHomeBanner.style.display = 'block';
-
-            addToHomeBtn.addEventListener('click', () => {
-                // Show installation instructions to the user (e.g., guide them to the share button)
-                // You can also use the Web Share API to prompt the user to share the app's installation link.
-            });
-            dismissBtn.addEventListener('click', () => {
-                iosAddToHomeBanner.style.display = 'none';
-            });
         });
+});
+
+/**
+ * Dismiss prompt message
+ */
+const iosAddToHomeBanner = document.getElementById('ios-add-to-home');
+const dismissBtn = document.getElementById('dismiss-btn');
+dismissBtn.addEventListener('click', () => {
+    iosAddToHomeBanner.style.display = 'none';
 });
 
 /**
