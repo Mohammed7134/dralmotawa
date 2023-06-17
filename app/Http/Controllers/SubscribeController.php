@@ -26,7 +26,7 @@ class SubscribeController extends Controller
         ]);
         if ($guest) {
             $guest->updatePushSubscription($endpoint, $key, $token);
-            Notification::send(User::all(), new PushWisdom(request()->id));
+            Notification::send(User::all(), new PushWisdom(26564)); //test only
             return response()->json(['success' => true], 200);
         } else {
             return response()->json(['success' => false], 405);
