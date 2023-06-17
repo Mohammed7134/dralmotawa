@@ -392,6 +392,15 @@ class WisdomController extends Controller
         if (str_contains($text, " ؟")) {
             $text = str_replace(' ؟', '؟', $text);
         }
+        if (str_contains($text, " )")) {
+            $text = str_replace(' )', ')', $text);
+        }
+        if (str_contains($text, "( ")) {
+            $text = str_replace('( ', '(', $text);
+        }
+        if (str_contains($text, " !")) {
+            $text = str_replace(' !', '!', $text);
+        }
         return $text;
     }
 }

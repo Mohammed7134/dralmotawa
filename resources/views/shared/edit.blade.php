@@ -1,6 +1,6 @@
 <div class="blog_post">
     <div>
-        <form action="/changeText" method="post">
+        <form id="edit-form" action="/changeText" method="post">
             @csrf
             <input type="text" value="{{$wisdom->id}}" name="wisdomId" hidden>
             <textarea name="text" class="displayed_wisdom" rows="10"
@@ -16,8 +16,9 @@
                     </select>
                 </div>
                 <div>
-                    <input value="تأكيد" class="btn btn-primary" type="submit">
-                    <a class="btn btn-danger" onclick="showSnackbar('متأكد؟', {{$wisdom->id}})">مسح</a>
+                    <button class="btn btn-primary" type="submit">تأكيد</button>
+                    <button class="btn btn-danger" onclick="showSnackbar('متأكد؟', {{$wisdom->id}})"
+                        type="button">مسح</button>
                 </div>
             </div>
         </form>

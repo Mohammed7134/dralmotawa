@@ -62,8 +62,6 @@ self.addEventListener('push', function (e) {
 
     if (e.data) {
         var msg = e.data.json();
-        console.dir(msg);
-        // window.location.href = msg.data.url;
         e.waitUntil(
             self.registration.showNotification(msg.title, {
                 body: msg.body,
@@ -77,15 +75,10 @@ self.addEventListener('push', function (e) {
 // This function is not functioning
 self.addEventListener('notificationclick', function (event) {
     event.notification.close();
-    console.dir(event.notification);
-
     // Retrieve the URL from the notification data
     const url = event.notification.data.url;
     // Use clients.openWindow() to navigate to the specified URL
     if (url) {
-        console.log(url);
         event.waitUntil(clients.openWindow(url));
-    } else {
-        console.log("no url");
     }
 });

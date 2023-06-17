@@ -20,10 +20,12 @@
 </div>
 @endif
 <div class="container-fluid shadow-lg p-3 mx-1 my-3 rounded">
-    <form method="post" action="/createWisdoms">
+    <form id="add-form" method="post" action="/createWisdoms">
         @csrf
-        <textarea name="wisdoms" id="txtarea" spellcheck="false" style="height:70vh" placeholder="نص الحكمة الجديد..."></textarea>
-        <input type="submit" value="تأكيد" class="btn btn-primary btn-sm w-100 p-6" style="font-size:24px;" id="submit" />
+        <textarea name="wisdoms" id="txtarea" spellcheck="false" style="height:70vh"
+            placeholder="نص الحكمة الجديد..."></textarea>
+        <button type="submit" class="btn btn-primary btn-sm w-100 p-6" style="font-size:24px;"
+            id="submit">تأكيد</button>
     </form>
 </div>
 

@@ -13,7 +13,7 @@
                 <li class="nav-item">
                 </li>
             </ul>
-            <form class="form-inline me-2 me-lg-0" action="/search" method="GET" name="search">
+            <form id="search-form" class="form-inline me-2 me-lg-0" action="/search" method="GET" name="search">
                 <div class="search-form"><input class="form-control ms-sm-2" type="search" placeholder="أدخل كلمة البحث"
                         aria-label="بحث" name="q"><button class="btn btn-outline-primary "
                         type="submit">بحث</button>@auth <a href="/lastAddedWisdom" class="btn btn-outline-secondary">آخر

@@ -40,3 +40,25 @@ function startCounter() {
         });
     });
 }
+
+// Get all the links and desired forms on the page
+const links = document.querySelectorAll('a');
+const searchForm = document.getElementById('search-form');
+const editForm = document.getElementById('edit-form');
+const addForm = document.getElementById('add-form');
+
+// Define the function to be executed on click
+const handleClick = (event) => {
+    showSnackbar("جاري التحميل...");
+};
+
+// Attach the event listener to each link
+links.forEach((link) => {
+    link.addEventListener('click', handleClick);
+});
+
+// Attach the event listener to the form(s)
+searchForm.addEventListener('submit', handleClick);
+editForm.addEventListener('submit', handleClick);
+addForm.addEventListener('submit', handleClick);
+
