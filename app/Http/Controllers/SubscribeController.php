@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Notifications\PushWisdom;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Notification;
 
 class SubscribeController extends Controller
@@ -25,6 +26,8 @@ class SubscribeController extends Controller
             'endpoint' => $endpoint
         ]);
         if ($guest) {
+            Log::debug($endpoint);
+            return;
             $guest->updatePushSubscription($endpoint, $key, $token);
             Notification::send(User::all(), new PushWisdom(26564)); //test only
             return response()->json(['success' => true], 200);
