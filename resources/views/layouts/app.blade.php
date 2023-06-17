@@ -55,7 +55,7 @@
                         <h1>فقه الحياة</h1>
                         <p>مقولات الدكتور عبدالعزيز فيصل المطوع</p>
                         <p style="font-size: 10px; color:grey;">تم تطوير الموقع بواسطة: <a target="_blank"
-                                href="https://www.linkedin.com/in/محمد-المطوع-78a09a138/">محمد المطوع</a></p>
+                                href="/login">محمد المطوع</a></p>
                         <button id="permission-btn">اشترك في خدمة الإشعارات</button><br>
                         @auth
                         <p>عدد المشتركين: <span>{{ $numberOfSubscribers }}</span></p>

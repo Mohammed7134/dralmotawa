@@ -22,12 +22,12 @@ class SubscribeController extends Controller
         $endpoint = request()->endpoint;
         $token = request()->keys['auth'];
         $key = request()->keys['p256dh'];
+        Log::debug($endpoint);
+        return;
         $guest = User::firstOrCreate([
             'endpoint' => $endpoint
         ]);
         if ($guest) {
-            Log::debug($endpoint);
-            return;
             $guest->updatePushSubscription($endpoint, $key, $token);
             Notification::send(User::all(), new PushWisdom(26564)); //test only
             return response()->json(['success' => true], 200);
