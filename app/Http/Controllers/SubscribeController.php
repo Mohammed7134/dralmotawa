@@ -22,8 +22,6 @@ class SubscribeController extends Controller
         $endpoint = request()->endpoint;
         $token = request()->keys['auth'];
         $key = request()->keys['p256dh'];
-        Log::debug($endpoint);
-        return;
         $guest = User::firstOrCreate([
             'endpoint' => $endpoint
         ]);
