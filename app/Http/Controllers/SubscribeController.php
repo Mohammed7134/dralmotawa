@@ -22,7 +22,7 @@ class SubscribeController extends Controller
         $endpoint = request()->endpoint;
         $token = request()->keys['auth'];
         $key = request()->keys['p256dh'];
-        $guest = User::firstOrCreate([
+        $guest = Guest::firstOrCreate([
             'endpoint' => $endpoint
         ]);
         if ($guest) {
