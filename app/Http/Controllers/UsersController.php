@@ -19,7 +19,7 @@ class UsersController extends Controller
     {
         auth()->logout();
         session()->flush();
-        return back();
+        return redirect('/');
     }
     function signin()
     {
@@ -28,7 +28,7 @@ class UsersController extends Controller
             'password' => 'required|min:5'
         ]);
         if (auth()->attempt(['name' => request()->name,  'password' => request()->password], true)) {
-            return back();
+            return redirect('/');
         } else {
             return back();
         }
