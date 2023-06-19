@@ -61,6 +61,10 @@ links.forEach((link) => {
 
 // Attach the event listener to the form(s)
 searchForm.addEventListener('submit', handleClick);
-editForm.addEventListener('submit', handleClick);
-addForm.addEventListener('submit', handleClick);
+if (editForm) {
+    editForm.addEventListener('submit', handleClick);
+}
+if (addForm) {
+    addForm.addEventListener('submit', handleClick);
+}
 
