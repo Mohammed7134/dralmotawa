@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [WisdomController::class, "index"]);
+Route::get('/', [WisdomController::class, "index"])->name('home');
 Route::get('/category/{id}', [WisdomController::class, "getWisdomsForCategory"]);
 Route::get('/search', [WisdomController::class, "searchForWisdom"]);
 Route::get('/login', [UsersController::class, "login"]);
@@ -33,7 +33,7 @@ Route::get('/add', function () {
 });
 Route::post('/getWisdomsByIds', [WisdomController::class, "retrieveWisdoms"]);
 Route::get('/getRelatedWisdoms/{wisdom}', [WisdomController::class, "retrieveWisdoms"]);
-Route::get('/id/{wisdom}', [WisdomController::class, "getOneWisdom"]);
+Route::get('/id/{id}', [WisdomController::class, "getOneWisdom"]);
 Route::get('after/id/{wisdom}', [WisdomController::class, "getAfterWisdom"]);
 Route::get('before/id/{wisdom}', [WisdomController::class, "getBeforeWisdom"]);
 

@@ -43,9 +43,14 @@ class WisdomController extends Controller
         }
         return view('home')->with(compact('wisdoms'));
     }
-    public function getOneWisdom(Wisdom $wisdom)
+    public function getOneWisdom(int $id)
     {
-        return view('home')->with('wisdoms', [$wisdom])->with("noajax", true);
+        try {
+            $wisdom = Wisdom::findOrFail($id);
+            return view('home')->with('wisdoms', [$wisdom])->with("noajax", true);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return redirect('/');
+        }
     }
     public function getAfterWisdom(Wisdom $wisdom)
     {
@@ -140,7 +145,6 @@ class WisdomController extends Controller
     public function deleteWisdom(Wisdom $wisdom)
     {
         $wisdom->delete();
-        $result['error'] = false;
         return back()->with("message", "تم حذف الحكمة");
     }
     public function getRandomQuote()
