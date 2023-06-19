@@ -17,7 +17,7 @@
             @endforeach
         </div>
         {{-- toolbar --}}
-        <div class="d-flex justify-content-end" style="padding: 10px">
+        <div class="d-flex toolbar justify-content-end" style="padding: 10px">
             <button class="add-button"><i id="add-{{$wisdom->id;}}" class="fas far fa-share-square share-icon black"
                     style="color:black;"></i></button>
             <button class="like-button"><i id="like-{{$wisdom->id;}}" class="fa-regular fa-heart like-icon"
