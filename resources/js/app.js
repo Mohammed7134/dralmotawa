@@ -54,7 +54,9 @@ const handleClick = (event) => {
 
 // Attach the event listener to each link
 links.forEach((link) => {
-    link.addEventListener('click', handleClick);
+    if (link.id != "whatsapp-link") {
+        link.addEventListener('click', handleClick);
+    }
 });
 
 // Attach the event listener to the form(s)
