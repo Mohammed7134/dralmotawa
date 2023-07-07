@@ -53,7 +53,7 @@
                 <header>
                     <div class="jumbotron text-center" style="margin-bottom: 0px;">
                         <h1>فقه الحياة</h1>
-                        <p>مقولات الدكتور عبدالعزيز فيصل المطوع</p>
+                        <b>مقولات الدكتور عبدالعزيز فيصل المطوع</b>
                         <p style="font-size: 10px; color:grey;">تم تطوير الموقع بواسطة: <a target="_blank"
                                 href="https://bmc.link/mohammed71Q/">محمد المطوع</a></p>
                         <button id="permission-btn">اشترك في خدمة الإشعارات</button><br>

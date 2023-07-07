@@ -81,6 +81,7 @@ function subscribeUser() {
             };
             if (registration.pushManager) {
                 let subscription = await registration.pushManager.subscribe(subscribeOptions);
+                console.dir(subscription.endpoint);
                 return subscription;
             } else {
                 return false;
