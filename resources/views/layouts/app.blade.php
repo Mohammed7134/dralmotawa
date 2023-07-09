@@ -15,7 +15,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0 shrink-to-fit=no">
         <meta name="csrf-token" content="{{ Session::token() }}">
 
-        <title>فقه الحياةِ | @yield('title')</title>
+        <title>فقه الحياة | @yield('title')</title>
 
         @isset($originalId)
         @include('layouts.googleTool')
@@ -55,7 +55,7 @@
                         <h1>فقه الحياة</h1>
                         <b>مقولات الدكتور عبدالعزيز فيصل المطوع</b>
                         <p style="font-size: 10px; color:grey;">تم تطوير الموقع بواسطة: <a target="_blank"
-                                href="https://bmc.link/mohammed71Q/">محمد المطوع</a></p>
+                                href="https://bmc.link/mohammed71Q/">محمد المطوع</a><i class="fa-regular fa-cup-togo"></i></p>
                         <button id="permission-btn">اشترك في خدمة الإشعارات</button><br>
                         @auth
                         <p>عدد المشتركين: <span>{{ $numberOfSubscribers }}</span></p>
