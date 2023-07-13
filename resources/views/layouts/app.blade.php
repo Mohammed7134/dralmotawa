@@ -55,7 +55,8 @@
                         <h1>فقه الحياة</h1>
                         <b>مقولات الدكتور عبدالعزيز فيصل المطوع</b>
                         <p style="font-size: 10px; color:grey;">تم تطوير الموقع بواسطة: <a target="_blank"
-                                href="https://bmc.link/mohammed71Q/"> محمد المطوع <i class="fa-regular fa-mug-hot fa-lg"></i></a> </p>
+                                href="https://bmc.link/mohammed71Q/"> محمد المطوع <i
+                                    class="fa-solid fa-mug-hot"></i></a> </p>
                         <button id="permission-btn">اشترك في خدمة الإشعارات</button><br>
                         @auth
                         <p>عدد المشتركين: <span>{{ $numberOfSubscribers }}</span></p>
