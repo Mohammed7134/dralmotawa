@@ -78,6 +78,7 @@ categorySelect.addEventListener('change', function () {
     // Get the form and submit it
     const form = document.getElementById('filterForm');
     form.submit();
+    handleClick();
 });
 
 

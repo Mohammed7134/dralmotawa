@@ -102,10 +102,14 @@ class WisdomController extends Controller
                         })->where('ids', 'LIKE', $c)
                         ->paginate(9);
                 } else {
-                    return back()->with("message", "يجب أن يكون نص البحث أكبر من ٣ أحرف");
+                    $message = "يجب أن يكون نص البحث أكبر من ٣ أحرف";
+                    session()->put('message', $message);
+                    return back();
                 }
             } else {
-                return back()->with("message", "يرجى عدم إدخال رموز في البحث");
+                $message = "يرجى عدم إدخال رموز في البحث";
+                session()->put('message', $message);
+                return back();
             }
         }
         if (request()->ajax()) {
