@@ -31,7 +31,7 @@ $categories[$originalId] : "الرئيسية"))
 @endif
 <div class="container-fluid shadow-lg p-3 mx-1 my-3 rounded">
     @if(count($wisdoms) > 0)
-    <div class="row add_here">
+    <div class="row add_here animated-list">
         @foreach($wisdoms as $wisdom)
         @include("shared.card")
         @endforeach
@@ -80,6 +80,7 @@ $categories[$originalId] : "الرئيسية"))
                     likeColorCheck();
                     checkColor();
                     load = true;
+                    applyAnimation();
                 } else {
                     document.querySelector(".loading").innerText = "لا يوجد نتائج أكثر";
                 }

@@ -27,6 +27,7 @@
         <script src="{{asset('js/display.js')}}"></script>
         <script src="{{asset('js/changeCategory.js')}}"></script>
         <script src="{{ asset('js/enablePush.js') }}" defer></script>
+        <script src="{{ asset('js/animation.js') }}" defer></script>
         <script src="https://kit.fontawesome.com/00a20bfa02.js" crossorigin="anonymous" defer></script>
 
         @vite(['resources/css/app.css', 'resources/sass/app.scss'])

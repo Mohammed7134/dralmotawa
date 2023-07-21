@@ -823,3 +823,37 @@ blockquote {
         background-color: #007bff;
     }
 }
+
+/* Animation for the list */
+
+/* Base styles for list items */
+.animated-list .item {
+    list-style: none;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    opacity: 0;
+    /* Start with opacity set to 0 */
+}
+
+/* Animation styles for list items */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Apply animation to list items with the animate class */
+.animated-list .item.animate-on-scroll {
+    /* Transition animation properties */
+    animation: fadeInUp 0.5s ease-in-out;
+    /* Delay animation until it comes into the viewport */
+    animation-delay: 0.3s;
+    /* Use this rule to trigger the animation only once */
+    animation-fill-mode: forwards;
+}
