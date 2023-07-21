@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', [WisdomController::class, "index"])->name('home');
+Route::get('/', [WisdomController::class, "index"])->name('home');
 Route::get('/category/{id}', [WisdomController::class, "getWisdomsForCategory"]);
 Route::get('/search', [WisdomController::class, "searchForWisdom"]);
 Route::get('/login', [UsersController::class, "login"]);
