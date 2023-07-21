@@ -6,6 +6,8 @@ use App\Http\Requests\StoreWisdomRequest;
 use App\Http\Requests\UpdateWisdomRequest;
 use App\Models\User;
 use App\Models\Wisdom;
+use App\Rules\CustomRule;
+use Dotenv\Validator;
 use GuzzleHttp\Psr7\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
@@ -81,36 +83,28 @@ class WisdomController extends Controller
     }
     public function searchForWisdom()
     {
+        $validatedData = request()->validate([
+            'q' => ['required', new CustomRule(3)],
+        ]);
+
         $id = (int)request()->q;
         if ($id) {
             $wisdoms = Wisdom::where('id', '=', $id)->paginate(9);
         } else {
-            if (!str_contains(request()->q, ")") && !str_contains(request()->q, "(")) {
-                if (mb_strlen(request()->q) > 3) {
-                    $c = '%' . request()->c . '%';
-                    $wisdoms =
-                        Wisdom::where(function ($query) {
-                            $q = '%' . request()->q . '%';
-                            $newSearchText = $this->arabicSearch(request()->q, false);
-                            $newSearchText2 = $this->arabicSearch(request()->q, true);
-                            $query->where("search_text", "LIKE", $q)
-                                ->orWhere("search_text", "REGEXP", $newSearchText)
-                                ->orWhere("search_text", "REGEXP", $newSearchText2)
-                                ->orWhere("text", "LIKE", $q)
-                                ->orWhere("text", "REGEXP", $newSearchText)
-                                ->orWhere("text", "REGEXP", $newSearchText2);
-                        })->where('ids', 'LIKE', $c)
-                        ->paginate(9);
-                } else {
-                    $message = "يجب أن يكون نص البحث أكبر من ٣ أحرف";
-                    session()->put('message', $message);
-                    return back();
-                }
-            } else {
-                $message = "يرجى عدم إدخال رموز في البحث";
-                session()->put('message', $message);
-                return back();
-            }
+            $c = '%' . request()->c . '%';
+            $wisdoms =
+                Wisdom::where(function ($query) {
+                    $q = '%' . request()->q . '%';
+                    $newSearchText = $this->arabicSearch(request()->q, false);
+                    $newSearchText2 = $this->arabicSearch(request()->q, true);
+                    $query->where("search_text", "LIKE", $q)
+                        ->orWhere("search_text", "REGEXP", $newSearchText)
+                        ->orWhere("search_text", "REGEXP", $newSearchText2)
+                        ->orWhere("text", "LIKE", $q)
+                        ->orWhere("text", "REGEXP", $newSearchText)
+                        ->orWhere("text", "REGEXP", $newSearchText2);
+                })->where('ids', 'LIKE', $c)
+                ->paginate(9);
         }
         if (request()->ajax()) {
             return $this->ajax($wisdoms);

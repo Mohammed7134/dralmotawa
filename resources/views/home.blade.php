@@ -4,6 +4,17 @@
 $categories[$originalId] : "الرئيسية"))
 
 @section("content")
+<div>
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+</div>
 @if(isset($q) || isset($originalId))
 <div class="container-fluid shadow-lg p-3 mx-1 my-3 rounded">
     <div class="label">
@@ -20,6 +31,7 @@ $categories[$originalId] : "الرئيسية"))
         <h1>عدد النتائج:</h1>
         <h4>{{$wisdoms->total()}}</h4>
     </div>
+    @isset($q)
     <div>
         <form id="filterForm" method="GET" action="{{ url()->current() }}">
             <input type="text" name="q" value="{{ $q }}" hidden>
@@ -31,8 +43,8 @@ $categories[$originalId] : "الرئيسية"))
             </select>
         </form>
     </div>
+    @endisset
 </div>
-
 @endif
 @if( !isset($noajax) && $wisdoms->total() > 30000)
 <div class="love_counter d-flex align-items-center justify-content-between">
