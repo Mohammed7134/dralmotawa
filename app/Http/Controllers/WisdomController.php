@@ -87,16 +87,19 @@ class WisdomController extends Controller
         } else {
             if (!str_contains(request()->q, ")") && !str_contains(request()->q, "(")) {
                 if (mb_strlen(request()->q) > 3) {
-                    $q = '%' . request()->q . '%';
-                    $newSearchText = $this->arabicSearch(request()->q, false);
-                    $newSearchText2 = $this->arabicSearch(request()->q, true);
+                    $c = '%' . request()->c . '%';
                     $wisdoms =
-                        Wisdom::where("search_text", "LIKE", $q)
-                        ->orWhere("search_text", "REGEXP", $newSearchText)
-                        ->orWhere("search_text", "REGEXP", $newSearchText2)
-                        ->orWhere("text", "LIKE", $q)
-                        ->orWhere("text", "REGEXP", $newSearchText)
-                        ->orWhere("text", "REGEXP", $newSearchText2)
+                        Wisdom::where(function ($query) {
+                            $q = '%' . request()->q . '%';
+                            $newSearchText = $this->arabicSearch(request()->q, false);
+                            $newSearchText2 = $this->arabicSearch(request()->q, true);
+                            $query->where("search_text", "LIKE", $q)
+                                ->orWhere("search_text", "REGEXP", $newSearchText)
+                                ->orWhere("search_text", "REGEXP", $newSearchText2)
+                                ->orWhere("text", "LIKE", $q)
+                                ->orWhere("text", "REGEXP", $newSearchText)
+                                ->orWhere("text", "REGEXP", $newSearchText2);
+                        })->where('ids', 'LIKE', $c)
                         ->paginate(9);
                 } else {
                     return back()->with("message", "يجب أن يكون نص البحث أكبر من ٣ أحرف");
@@ -108,7 +111,7 @@ class WisdomController extends Controller
         if (request()->ajax()) {
             return $this->ajax($wisdoms);
         }
-        return view('home')->with(compact('wisdoms'))->with('q', request()->q);
+        return view('home')->with(compact('wisdoms'))->with('q', request()->q)->with('c', request()->c);
     }
 
     public function changeCategory()

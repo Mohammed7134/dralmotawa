@@ -20,6 +20,17 @@ $categories[$originalId] : "الرئيسية"))
         <h1>عدد النتائج:</h1>
         <h4>{{$wisdoms->total()}}</h4>
     </div>
+    <div>
+        <form id="filterForm" method="GET" action="{{ url()->current() }}">
+            <input type="text" name="q" value="{{ $q }}" hidden>
+            <select class="form-control" name="c" id="category-select">
+                <option value="" {{ $c ? '' : 'selected' }}>جميع التصانيف</option>
+                @foreach($categories as $id => $name)
+                <option value="{{ $id }}" {{ $c==$id ? 'selected' : '' }}>{{$name}}</option>
+                @endforeach
+            </select>
+        </form>
+    </div>
 </div>
 
 @endif

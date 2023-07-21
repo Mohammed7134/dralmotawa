@@ -68,3 +68,16 @@ if (addForm) {
     addForm.addEventListener('submit', handleClick);
 }
 
+// Filter by category
+
+// Get the select element
+const categorySelect = document.getElementById('category-select');
+
+// Add an event listener to the select element
+categorySelect.addEventListener('change', function () {
+    // Get the form and submit it
+    const form = document.getElementById('filterForm');
+    form.submit();
+});
+
+
