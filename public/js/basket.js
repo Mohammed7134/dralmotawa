@@ -199,9 +199,9 @@ shareButton.addEventListener('touchstart', function () {
         showSnackbar(longPressRequired);
     }
     return false;
-});
+}, { passive: true });
 shareButton.addEventListener('touchend', function () {
     shareButton.style.transform = "scale(1.0)";
     clearTimeout(pressTimer);
     return false;
-});
+}, { passive: true });
