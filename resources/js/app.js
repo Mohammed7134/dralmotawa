@@ -74,11 +74,11 @@ if (addForm) {
 const categorySelect = document.getElementById('category-select');
 
 // Add an event listener to the select element
-categorySelect.addEventListener('change', function () {
-    // Get the form and submit it
-    const form = document.getElementById('filterForm');
-    form.submit();
-    handleClick();
-});
-
-
+if (categorySelect) {
+    categorySelect.addEventListener('change', function () {
+        // Get the form and submit it
+        const form = document.getElementById('filterForm');
+        form.submit();
+        handleClick();
+    });
+}

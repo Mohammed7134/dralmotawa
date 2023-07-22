@@ -43,6 +43,8 @@
                 class="fb-xfbml-parse-ignore"><i class="fa-brands fa-facebook"
                     data-href="https://www.dralmutawa.com/id/{{$wisdom->id;}}" data-layout="button"
                     data-size="small"></i></a>
+            <a class="coffee-button w-{{ $wisdom->id }}" href="https://bmc.link/mohammed71Q/" target="_blank"><i
+                    class="fa-solid fa-mug-hot"></i></a>
             <a class="before-button" href="/before/id/{{$wisdom->id}}"><i class="fa-solid fa-chevron-left"></i></a>
         </div>
     </div>

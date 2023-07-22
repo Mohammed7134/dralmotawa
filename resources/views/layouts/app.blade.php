@@ -2,46 +2,38 @@
 <html lang="ar" dir="rtl">
 
     <head>
-        <link rel="manifest" href={{ asset("/manifest.json") }}>
-        <link rel="apple-touch-icon" href={{ asset("/images/logo.png") }}>
-
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="csrf-token" content="{{ Session::token() }}">
         <meta name="mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="msapplication-starturl" content="/">
         <meta name="theme-color" content="#e5e5e5">
-
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0 shrink-to-fit=no">
-        <meta name="csrf-token" content="{{ Session::token() }}">
-
         <title>فقه الحياة | @yield('title')</title>
+        <meta name="description" content="@yield('description')">
+        <link rel="manifest" href="{{ asset('/manifest.json') }}">
+        <link rel="apple-touch-icon" href="{{ asset('/images/logo.png') }}">
+        @vite(['resources/css/app.css', 'resources/sass/app.scss'])
+        <script src="{{ asset('js/truncate.js') }}"></script>
 
         @isset($originalId)
         @include('layouts.googleTool')
         @endisset
-        <meta name="description" content="@yield('description')">
 
-        <script src="{{asset('js/snackbar.js')}}"></script>
-        <script src="{{asset('js/truncate.js')}}"></script>
-        <script src="{{asset('js/display.js')}}"></script>
-        <script src="{{asset('js/changeCategory.js')}}"></script>
-        <script src="{{ asset('js/enablePush.js') }}" defer></script>
-        <script src="{{ asset('js/animation.js') }}" defer></script>
-        <script src="https://kit.fontawesome.com/00a20bfa02.js" crossorigin="anonymous" defer></script>
 
-        @vite(['resources/css/app.css', 'resources/sass/app.scss'])
+        @auth
+        <script src="{{ asset('js/gtmLoginEvent.js') }}" defer></script>
+        @endauth
 
-        @auth <script src="{{asset('js/gtmLoginEvent.js')}}" defer></script> @endauth
         <!-- GTM -->
-        <script src="{{asset('js/gtm.js')}}" defer></script>
+        <script src="{{ asset('js/gtm.js') }}" defer></script>
         <!-- End GTM -->
 
         @include('layouts.images')
-
     </head>
 
-    <body>
+    <body lang="ar" dir="rtl">
         <!-- Google Tag Manager (noscript) -->
         <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MT2XGKM" height="0" width="0"
                 style="display:none;visibility:hidden"></iframe></noscript>
@@ -81,6 +73,13 @@
 
         <!-- Import other JavaScript files -->
         @vite(['resources/js/app.js'])
+        <script src="{{ asset('js/snackbar.js') }}" defer></script>
+        <script src="{{ asset('js/display.js') }}" defer></script>
+        <script src="{{ asset('js/changeCategory.js') }}" defer></script>
+        <script src="{{ asset('js/enablePush.js') }}" defer></script>
+        <script src="{{ asset('js/animation.js') }}" defer></script>
+        <script src="https://kit.fontawesome.com/00a20bfa02.js" crossorigin="anonymous" defer></script>
+
 
         <!-- Facebook Tag  -->
         <div id="fb-root"></div>
@@ -88,10 +87,10 @@
             src="https://connect.facebook.net/ar_AR/sdk.js#xfbml=1&version=v16.0&appId=5767579369977319&autoLogAppEvents=1"
             nonce="hCrAcreE"></script>
         <!-- End Facebook Tag -->
+
+        <script src="{{ asset('js/basket.js') }}" defer></script>
+        <script src="{{ asset('js/likes.js') }}" defer></script>
+        <script src="{{ asset('js/stickNavigationBar.js') }}" defer></script>
     </body>
-    <!-- basket -->
-    <script src="{{asset('js/basket.js')}}" defer></script>
-    <script src="{{asset('js/likes.js')}}" defer></script>
-    <script src="{{asset('js/stickNavigationBar.js')}}" defer></script>
 
 </html>
