@@ -34,11 +34,6 @@
     </head>
 
     <body lang="ar" dir="rtl">
-        <!-- Google Tag Manager (noscript) -->
-        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MT2XGKM" height="0" width="0"
-                style="display:none;visibility:hidden"></iframe></noscript>
-        <!-- End Google Tag Manager (noscript) -->
-
         @include("shared.message")
         <div class="wrapper">
             @include('layouts.sideMenu')
@@ -50,7 +45,7 @@
                         <p style="font-size: 10px; color:grey;">تم تطوير الموقع بواسطة: <a target="_blank"
                                 href="https://bmc.link/mohammed71Q/"> محمد المطوع <i
                                     class="fa-solid fa-mug-hot"></i></a> </p>
-                        <button id="permission-btn">اشترك في خدمة الإشعارات</button><br>
+                        <button class="subscribe-button" id="permission-btn">اشترك في خدمة الإشعارات</button><br>
                         @auth
                         <p>عدد المشتركين: <span>{{ $numberOfSubscribers }}</span></p>
                         <a href="/add"><button class="new-wisdom-button" type="submit">إضافة حكمة</button></a><br>
@@ -91,6 +86,10 @@
         <script src="{{ asset('js/basket.js') }}" defer></script>
         <script src="{{ asset('js/likes.js') }}" defer></script>
         <script src="{{ asset('js/stickNavigationBar.js') }}" defer></script>
+        <!-- Google Tag Manager (noscript) -->
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MT2XGKM" height="0" width="0"
+                style="display:none;visibility:hidden"></iframe></noscript>
+        <!-- End Google Tag Manager (noscript) -->
     </body>
 
 </html>
