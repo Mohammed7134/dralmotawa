@@ -29,7 +29,7 @@
                 href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.dralmutawa.com%2Fid%2F{{$wisdom->id;}}&amp;src=sdkpreparse"><i
                     class="fa-brands fa-facebook" data-href="https://www.dralmutawa.com/id/{{$wisdom->id;}}"
                     data-layout="button" data-size="small"></i></a>
-            <a class="coffee-button w-{{ $wisdom->id }}" href="https://bmc.link/mohammed71Q/" target="_blank"><i
+            <a class="coffee-button" href="https://bmc.link/mohammed71Q/" target="_blank"><i
                     class="fa-solid fa-mug-hot"></i></a>
         </div>
     </div>
