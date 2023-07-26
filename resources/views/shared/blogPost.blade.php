@@ -18,9 +18,9 @@
         </div>
         {{-- toolbar --}}
         <div class="d-flex toolbar" style="padding: 10px">
-            <button class="add-button"><i id="add-{{$wisdom->id;}}" class="fas far fa-share-square share-icon black"
-                    style="color:black;"></i></button>
-            <button class="like-button"><i id="like-{{$wisdom->id;}}" class="fa-regular fa-heart like-icon"
+            <button id="add_to_basket" class="add-button"><i id="add-{{$wisdom->id;}}"
+                    class="fas far fa-share-square share-icon black" style="color:black;"></i></button>
+            <button id="like" class="like-button"><i id="like-{{$wisdom->id;}}" class="fa-regular fa-heart like-icon"
                     style="color:red;"></i></button>
             <a class="twitter-button"
                 href='https://twitter.com/intent/tweet?text={{adjustLineBreaks($displayed, true)}}%0A@dralmotawaa'><i

@@ -28,7 +28,7 @@ function initSW() {
             console.log(err)
         });
 }
-const notificationButton = document.getElementById('permission-btn');
+const notificationButton = document.getElementById('subscribe_button');
 notificationButton.addEventListener('click', function () {
 
     if (!swReady) {
@@ -118,7 +118,7 @@ function storePushSubscription(pushSubscription) {
         })
         .then((res) => {
             console.log(res);
-            const subscribeButton = document.getElementById('permission-btn');
+            const subscribeButton = document.getElementById('subscribe_button');
             subscribeButton.style.display = "none";
         })
         .catch((err) => {
@@ -159,7 +159,7 @@ if ('serviceWorker' in navigator && 'PushManager' in window) {
                     // console.log('User is not subscribed');
                 } else {
                     // The user is already subscribed
-                    const subscribeButton = document.getElementById('permission-btn');
+                    const subscribeButton = document.getElementById('subscribe_button');
                     subscribeButton.style.display = "none";
                 }
             })
