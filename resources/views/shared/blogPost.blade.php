@@ -13,7 +13,8 @@
         {{-- categories --}}
         <div class="d-flex categories">
             @foreach(json_decode($wisdom->ids) as $category_id)
-            <a href="/category/{{$category_id}}" class="category">{{$categories[$category_id]}}</a>
+            <a href="/category/{{Str::replace(' ', '-', $categories[$category_id])}}"
+                class="category">{{$categories[$category_id]}}</a>
             @endforeach
         </div>
         {{-- toolbar --}}

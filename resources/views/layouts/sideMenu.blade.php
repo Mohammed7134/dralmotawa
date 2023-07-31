@@ -4,7 +4,7 @@
     </div>
     <ul class="list-unstyled components">
         @foreach($categories as $id => $name)
-        <li><a href="/category/{{$id}}" class="category-link">{{$name}}</a></li>
+        <li><a href="/category/{{Str::replace(' ', '-', $name)}}" class="category-link">{{$name}}</a></li>
         @endforeach
     </ul>
 </nav>

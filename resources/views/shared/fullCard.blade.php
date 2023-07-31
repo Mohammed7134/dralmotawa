@@ -5,9 +5,9 @@
         <hr>
         <div class="d-flex justify-content-between">
             @foreach(json_decode($wisdom->ids) as $category_id)
-                <a href="/category/{{$category_id}}" class="category">
-                    {{$categories[$category_id]}}
-                </a>
+            <a href="/category/{{Str::replace(' ', '-', $categories[$category_id])}}" class="category">
+                {{$categories[$category_id]}}
+            </a>
             @break
             @endforeach
         </div>

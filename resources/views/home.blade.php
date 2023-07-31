@@ -83,7 +83,7 @@ $categories[$originalId] : "الرئيسية"))
         if (newURL[1] == "search") {
             url = `search?${window.location.search.split('?')[1]}&page=${paginate}`;
         } else if (newURL[1] == "category") {
-            url = `/category/${newURL[2]}?page=${paginate}`;
+            url = `/category/${newURL[2].replace(/\s+/g, '-')}?page=${paginate}`;
         } else if (newURL[1] == "") {
             url = "?page=" + paginate;
         }

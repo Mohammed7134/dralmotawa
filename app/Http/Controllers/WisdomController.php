@@ -4,14 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreWisdomRequest;
 use App\Http\Requests\UpdateWisdomRequest;
-use App\Models\User;
 use App\Models\Wisdom;
 use App\Rules\CustomRule;
-use Dotenv\Validator;
-use GuzzleHttp\Psr7\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Str;
+
 
 class WisdomController extends Controller
 {
@@ -72,14 +70,19 @@ class WisdomController extends Controller
         } while (!$beforeWisdom);
         return redirect('/id/' . $beforeWisdom->id);
     }
-    public function getWisdomsForCategory($originalId)
+    public function getWisdomsForCategory($category)
     {
-        $id = '%' . $originalId . '%';
+        $category = Str::replace('-', ' ', $category);
+        $path = public_path() . '/json/categories.json';
+        $file = file_get_contents($path);
+        $categories = json_decode($file, true);
+        $key = array_search($category, $categories);
+        $id = '%' . $key . '%';
         $wisdoms = Wisdom::where('ids', 'LIKE', $id)->paginate(9);
         if (request()->ajax()) {
             return $this->ajax($wisdoms);
         }
-        return view('home')->with(compact('wisdoms'))->with(compact('originalId'));
+        return view('home')->with(compact('wisdoms'))->with('originalId', $key);
     }
     public function searchForWisdom()
     {
