@@ -130,10 +130,12 @@ class WisdomController extends Controller
     public function changeText()
     {
         $wisdom = Wisdom::where("id", "=", request()->wisdomId)->first();
-        if (request()->text != $wisdom->text) {
-            $wisdom->text = $this->cleanText(request()->text);
-            $remove = array('ِ', 'ُ', 'ٓ', 'ٰ', 'ْ', 'ٌ', 'ٍ', 'ً', 'ّ', 'َ');
-            $wisdom->search_text = str_replace($remove, '', request()->text);
+        $newCleanText = $this->cleanText(request()->text);
+        $remove = array('ِ', 'ُ', 'ٓ', 'ٰ', 'ْ', 'ٌ', 'ٍ', 'ً', 'ّ', 'َ');
+        $newCleanSearchText = str_replace($remove, '', $newCleanText);
+        if ($newCleanText != $wisdom->text) {
+            $wisdom->text = $newCleanText;
+            $wisdom->search_text = $newCleanSearchText;
             if ($wisdom->save()) {
                 $result['error'] = false;
                 return back()->with("message", "تم تعديل النص");
