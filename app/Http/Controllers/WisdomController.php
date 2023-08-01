@@ -8,6 +8,7 @@ use App\Models\Wisdom;
 use App\Rules\CustomRule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 
@@ -257,7 +258,7 @@ class WisdomController extends Controller
     {
         foreach ($wisdoms as $wisdom) {
             $result = array();
-            $words = array_unique(explode(" ", $wisdom->search_text, 15));
+            $words = array_unique(explode(" ", $wisdom->search_text));
             $similars = [];
             foreach ($words as $word) {
                 if (mb_strlen($word) > 3) {
@@ -265,10 +266,21 @@ class WisdomController extends Controller
                     $similars = array_merge($simlarIds, $similars);
                 }
             }
+            // $inputSentence = 'الإيمان % بالقدر'; //$wisdom->search_text;
+            // $threshold = 10; // You can adjust this threshold based on your needs
+
+            // $similars = Wisdom::where('search_text', 'like', '%' . $inputSentence . '%')
+            //     ->orWhere(function ($query) use ($inputSentence, $threshold) {
+            //         for ($i = 1; $i <= $threshold; $i++) {
+            //             $query->orWhere('search_text', 'like', '%' . $inputSentence . '%');
+            //         }
+            //     })
+            //     ->get()->pluck('id')->toArray();
             // $similars = array_diff($similars, array($wisdom->id));
             $similars = array_count_values($similars);
             arsort($similars);
             foreach (array_slice($similars, 0, 10, true) as $key => $val) {
+                // wisdoms where you found 4 words or more that are also present in the current wisdoms
                 if ($val >= 4) {
                     $result[$key] = $val;
                 }
