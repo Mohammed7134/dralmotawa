@@ -16,7 +16,7 @@ function handleFormSubmit(event) {
         return res.json();
     }).then(async data => {
         if (data.error === false) {
-            const textarea = document.getElementById('myTextarea');
+            const textarea = document.getElementById(`textarea-${form.wisdomId.value}`);
             textarea.value = data.text;
             await showSnackbar(data.message);
         } else {

@@ -3,7 +3,7 @@
         <form class="edit-form" action="/changeText" method="post">
             @csrf
             <input type="text" value="{{$wisdom->id}}" name="wisdomId" hidden>
-            <textarea id="myTextarea" name="text" class="displayed_wisdom" rows="10"
+            <textarea id="textarea-{{ $wisdom->id }}" name="text" class="displayed_wisdom" rows="10"
                 style="max-width: -webkit-fill-available;">{{$displayed}}</textarea>
             <p id="{{$wisdom->id}}" style="display: none">{{$displayed}}</p> {{-- full wisdom text hidden here --}}
             <div class="d-flex justify-content-between">
