@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreWisdomRequest;
 use App\Http\Requests\UpdateWisdomRequest;
+use App\Models\Category;
 use App\Models\Wisdom;
 use App\Rules\CustomRule;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Str;
+
 
 
 class WisdomController extends Controller
@@ -73,42 +74,47 @@ class WisdomController extends Controller
     }
     public function getWisdomsForCategory($category)
     {
-        $category = Str::replace('-', ' ', $category);
-        $path = public_path() . '/json/categories.json';
-        $file = file_get_contents($path);
-        $categories = json_decode($file, true);
-        $key = array_search($category, $categories);
-        $id = '%' . $key . '%';
-        $wisdoms = Wisdom::where('ids', 'LIKE', $id)->paginate(9);
+        $category = Category::where('category_url', '=', $category)->first();
+        $wisdoms = Wisdom::whereHas('categories', function ($query) use ($category) {
+            $query->where('categories.id', $category->id);
+        })->paginate(9);
+
         if (request()->ajax()) {
             return $this->ajax($wisdoms);
         }
-        return view('home')->with(compact('wisdoms'))->with('originalId', $key);
+        return view('home')->with(compact('wisdoms'))->with(compact('category'));
     }
+
     public function searchForWisdom()
     {
         $validatedData = request()->validate([
             'q' => ['required', new CustomRule(3)],
         ]);
 
+        $query = Wisdom::query();
+
         $id = (int)request()->q;
+
         if ($id) {
             $wisdoms = Wisdom::where('id', '=', $id)->paginate(9);
         } else {
-            $c = '%' . request()->c . '%';
-            $wisdoms =
-                Wisdom::where(function ($query) {
-                    $q = '%' . request()->q . '%';
-                    $newSearchText = $this->arabicSearch(request()->q, false);
-                    $newSearchText2 = $this->arabicSearch(request()->q, true);
-                    $query->where("search_text", "LIKE", $q)
-                        ->orWhere("search_text", "REGEXP", $newSearchText)
-                        ->orWhere("search_text", "REGEXP", $newSearchText2)
-                        ->orWhere("text", "LIKE", $q)
-                        ->orWhere("text", "REGEXP", $newSearchText)
-                        ->orWhere("text", "REGEXP", $newSearchText2);
-                })->where('ids', 'LIKE', $c)
-                ->paginate(9);
+            $query->where(function ($query) {
+                $q = '%' . request()->q . '%';
+                $newSearchText = $this->arabicSearch(request()->q, false);
+                $newSearchText2 = $this->arabicSearch(request()->q, true);
+                $query->where("search_text", "LIKE", $q)
+                    ->orWhere("search_text", "REGEXP", $newSearchText)
+                    ->orWhere("search_text", "REGEXP", $newSearchText2)
+                    ->orWhere("text", "LIKE", $q)
+                    ->orWhere("text", "REGEXP", $newSearchText)
+                    ->orWhere("text", "REGEXP", $newSearchText2);
+            });
+            if (request()->c) {
+                $query->whereHas('categories', function ($query) {
+                    $query->where('categories.id', request()->c);
+                });
+            }
+            $wisdoms = $query->paginate(9);
         }
         if (request()->ajax()) {
             return $this->ajax($wisdoms);
@@ -118,16 +124,21 @@ class WisdomController extends Controller
 
     public function changeCategory()
     {
-        $wisdom = Wisdom::where("id", "=", request()->wisdomId)->first();
-        $wisdom->ids = request()->newCategories;
-        if ($wisdom->save()) {
-            $result['error'] = false;
-            return json_encode($result);
-        } else {
+        $result = array();
+        try {
+            $wisdom = Wisdom::where("id", "=", request()->wisdomId)->first();
+            if ($wisdom) {
+                $wisdom->categories()->sync(request()->updatedCategories, ['created_at' => now(), 'updated_at' => now()]);
+                $result['error'] = false;
+            } else {
+                $result['error'] = true;
+            }
+        } catch (QueryException $e) {
             $result['error'] = true;
-            return json_encode($result);
         }
+        return json_encode($result);
     }
+
     public function changeText()
     {
         $wisdom = Wisdom::where("id", "=", request()->wisdomId)->first();
@@ -139,15 +150,17 @@ class WisdomController extends Controller
             $wisdom->search_text = $newCleanSearchText;
             if ($wisdom->save()) {
                 $result['error'] = false;
-                return back()->with("message", "تم تعديل النص");
+                $result['message'] = "تم تعديل النص";
+                $result['text'] = $newCleanText;
             } else {
                 $result['error'] = true;
-                $wisdoms = Wisdom::where("id", "=", request()->wisdomId)->get();
-                return view('home')->with(compact('wisdoms'))->with("message", "حدث خطأ");
+                $result['message'] = "حدث خطأ";
             }
         } else {
-            return back()->with("message", "لم يتغير شيء");
+            $result['error'] = true;
+            $result['message'] = "لم يتغير شيء";
         }
+        return json_encode($result);
     }
     public function deleteWisdom(Wisdom $wisdom)
     {
@@ -159,9 +172,6 @@ class WisdomController extends Controller
         $headers = apache_request_headers();
         $rapidApi = $headers['X-RapidAPI-Proxy-Secret'] === "4e81b800-7e6a-11ec-bd3d-d70ef1ec455f";
         $response = array();
-        $path = public_path() . '/json/categories.json';
-        $file = file_get_contents($path);
-        $categories = json_decode($file, true);
         if ($rapidApi) {
             $response['status'] = 200;
             $wisdom = null;
@@ -176,10 +186,7 @@ class WisdomController extends Controller
 
             $responseWisdom['id'] = $wisdom->id;
             $responseWisdom['text'] = $wisdom->text . "\n\n" . "د. عبدالعزيز فيصل المطوع";
-            $responseWisdom['categories'] = [];
-            foreach (json_decode($wisdom->ids) as $id) {
-                $responseWisdom['categories'][] = $categories[$id];
-            }
+            $responseWisdom['categories'] = $wisdom->categories;
             $response['wisdom'] = $responseWisdom;
         } else {
             $response['status'] = 400;
@@ -191,42 +198,25 @@ class WisdomController extends Controller
     public function createWisdoms()
     {
         $texts = explode("||", request()->wisdoms);
-        $wisdoms = [];
         foreach ($texts as $text) {
             $wisdom = new Wisdom();
             $wisdom->text = $this->cleanText($text);
-            $wisdom->ids = json_encode(["1467"]);
             $wisdom->likes = 0;
             $wisdom->save();
-            $wisdoms[] = $wisdom;
+            $wisdom->categories()->attach(1467, ['created_at' => now(), 'updated_at' => now()]);
         }
-        session(['lastAddedWisdoms' => $wisdoms[0]->id]);
-        return redirect('lastAddedWisdoms');
-    }
-    public function lastAddedWisdoms()
-    {
-        if (session("lastAddedWisdoms")) {
-            $wisdoms = Wisdom::where("id", ">=", session("lastAddedWisdoms"))->get();
-            return view('home')->with(compact('wisdoms'))->with("noajax", true);
-        } else {
-            back();
-        }
-    }
-    public function lastAddedWisdom()
-    {
-        $wisdoms = Wisdom::latest()->paginate(5);
-        if (request()->ajax()) {
-            return $this->ajax($wisdoms);
-        }
+        $date = now()->format('Y-m-d');
+        $wisdoms = Wisdom::whereDate('created_at', '>=', $date)->get();
         return view('home')->with(compact('wisdoms'));
     }
+
     public function retrieveWisdoms(Wisdom $wisdom)
     {
         $wisdoms = [];
         if (request()->wisdomsIds) {
             $response = array();
             foreach (request()->wisdomsIds as $id) {
-                $wisdoms[] = Wisdom::where('id', '=', $id)->first();
+                $wisdoms[] = Wisdom::findOrFail($id);
             }
             $response['error'] = false;
             $response['wisdoms'] = $wisdoms;
@@ -234,11 +224,12 @@ class WisdomController extends Controller
         } else {
             $similars = $this->getSimilarWisdoms([$wisdom])[0]->similars;
             foreach ($similars as $key => $value) {
-                $wisdoms[] = Wisdom::where('id', '=', $key)->first();
+                $wisdoms[] = Wisdom::findOrFail($key);;
             }
             return view('home')->with(compact('wisdoms'))->with("noajax", true);
         }
     }
+
     public function likeWisdom(Wisdom $wisdom)
     {
         $wisdom->likes += 1;
@@ -253,6 +244,7 @@ class WisdomController extends Controller
         $result['error'] = false;
         return json_encode($result);
     }
+
     //use search functions or similar to them
     public function getSimilarWisdoms($wisdoms)
     {
@@ -266,16 +258,6 @@ class WisdomController extends Controller
                     $similars = array_merge($simlarIds, $similars);
                 }
             }
-            // $inputSentence = 'الإيمان % بالقدر'; //$wisdom->search_text;
-            // $threshold = 10; // You can adjust this threshold based on your needs
-
-            // $similars = Wisdom::where('search_text', 'like', '%' . $inputSentence . '%')
-            //     ->orWhere(function ($query) use ($inputSentence, $threshold) {
-            //         for ($i = 1; $i <= $threshold; $i++) {
-            //             $query->orWhere('search_text', 'like', '%' . $inputSentence . '%');
-            //         }
-            //     })
-            //     ->get()->pluck('id')->toArray();
             // $similars = array_diff($similars, array($wisdom->id));
             $similars = array_count_values($similars);
             arsort($similars);

@@ -1,39 +1,43 @@
+// Function to get all selected options
+function getSelectedOptions(element) {
+    var selectElement = document.querySelector(`.selectMenu-${element.value.split("-")[0]}`);
+    const selectedOptions = [];
+    const options = selectElement.options;
+
+    for (let i = 0; i < options.length; i++) {
+        if (options[i].selected) {
+            selectedOptions.push(options[i].value.split("-")[1]);
+        }
+    }
+
+    return selectedOptions;
+}
+
 function logValue(element) {
-    var selected = [];
-    var selectedNames = {};
-    if (document.querySelector(`.selectMenu-${element.value.split("-")[0]}`)) {
-        var options = document.querySelector(`.selectMenu-${element.value.split("-")[0]}`).options;
-        for (var option of options) {
-            if (option.selected) {
-                selected.push(option.value.split("-")[1]);
-                selectedNames[option.value.split("-")[1]] = option.innerText;
-            }
+    const selectedOptions = getSelectedOptions(element);
+    console.dir(selectedOptions);
+    if (element.value) {
+        data = {
+            '_token': $('meta[name=csrf-token]').attr('content'),
+            wisdomId: element.value.split("-")[0],
+            updatedCategories: selectedOptions
         }
-        if (element.value) {
-            data = {
-                '_token': $('meta[name=csrf-token]').attr('content'),
-                wisdomId: element.value.split("-")[0],
-                newCategories: selected
+        fetch('/changeCategory', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        }).then(res => {
+            return res.json();
+        }).then(async data => {
+            if (data.error === false) {
+                await showSnackbar("تم تعديل التصنيف");
+            } else {
+                await showSnackbar("لم يتم التعديل");
             }
-            fetch('/changeCategory', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data),
-            }).then(res => {
-                return res.json();
-            }).then(async data => {
-                if (data.error === false) {
-                    await showSnackbar("تم تعديل التصنيف");
-                } else {
-                    await showSnackbar("data.message");
-                }
-            })
-        } else {
-            showSnackbar("errorText");
-        }
+        })
     } else {
-        showSnackbar("errorText");
+        showSnackbar("حدث خطأ ما!");
     }
 }

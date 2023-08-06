@@ -17,7 +17,7 @@
         @vite(['resources/css/app.css', 'resources/sass/app.scss'])
         <script src="{{ asset('js/truncate.js') }}"></script>
 
-        @isset($originalId)
+        @isset($category)
         @include('layouts.googleTool')
         @endisset
 
@@ -48,6 +48,7 @@
                         <button class="subscribe-button" id="subscribe_button">اشترك في خدمة الإشعارات</button><br>
                         @auth
                         <p>عدد المشتركين: <span>{{ $numberOfSubscribers }}</span></p>
+                        <a href="{{ route('create_categories') }}">إضافة جدول التصنيفات والحكم المصاحبة</a><br>
                         <a href="/add"><button class="new-wisdom-button" type="submit">إضافة حكمة</button></a><br>
                         @endauth
                     </div>
@@ -71,6 +72,7 @@
         <script src="{{ asset('js/snackbar.js') }}" defer></script>
         <script src="{{ asset('js/display.js') }}" defer></script>
         <script src="{{ asset('js/changeCategory.js') }}" defer></script>
+        <script src="{{ asset('js/changeText.js') }}" defer></script>
         <script src="{{ asset('js/enablePush.js') }}" defer></script>
         <script src="{{ asset('js/animation.js') }}" defer></script>
         <script src="https://kit.fontawesome.com/00a20bfa02.js" crossorigin="anonymous" defer></script>

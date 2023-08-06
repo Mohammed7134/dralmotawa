@@ -2,10 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Category;
 use App\Models\Guest;
-use App\Models\Subscriber;
 use Illuminate\Pagination\Paginator;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -27,9 +26,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $path = public_path() . '/json/categories.json';
-        $file = file_get_contents($path);
-        $categories = json_decode($file, true);
+        $categories = Category::all();
         $numberOfSubscribers = Guest::count();
         view()->share(compact('categories', 'numberOfSubscribers'));
         Paginator::useBootstrap();

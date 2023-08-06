@@ -44,7 +44,6 @@ function startCounter() {
 // Get all the links and desired forms on the page
 const links = document.querySelectorAll('a');
 const searchForm = document.getElementById('search-form');
-const editForm = document.getElementById('edit-form');
 const addForm = document.getElementById('add-form');
 
 // Define the function to be executed on click
@@ -61,9 +60,7 @@ links.forEach((link) => {
 
 // Attach the event listener to the form(s)
 searchForm.addEventListener('submit', handleClick);
-if (editForm) {
-    editForm.addEventListener('submit', handleClick);
-}
+
 if (addForm) {
     addForm.addEventListener('submit', handleClick);
 }

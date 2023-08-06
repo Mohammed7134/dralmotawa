@@ -3,15 +3,15 @@
         <form id="edit-form" action="/changeText" method="post">
             @csrf
             <input type="text" value="{{$wisdom->id}}" name="wisdomId" hidden>
-            <textarea name="text" class="displayed_wisdom" rows="10"
+            <textarea id="myTextarea" name="text" class="displayed_wisdom" rows="10"
                 style="max-width: -webkit-fill-available;">{{$displayed}}</textarea>
             <p id="{{$wisdom->id}}" style="display: none">{{$displayed}}</p> {{-- full wisdom text hidden here --}}
             <div class="d-flex justify-content-between">
                 <div class="d-flex">
                     <select id="categories" class="selectMenu-{{$wisdom->id}}" onchange="logValue(this);" multiple>
-                        @foreach($categories as $id => $name)
-                        <option {{in_array($id, json_decode($wisdom->ids)) ? "selected" : "";}} value="{{$wisdom->id .
-                            "-" . $id}}">{{$name}}</option>
+                        @foreach($categories as $category)
+                        <option {{in_array($category->id, $wisdom->categories->pluck('id')->toArray())?"selected":"";}}
+                            value="{{$wisdom->id."-".$category->id}}">{{$category->category_name}}</option>
                         @endforeach
                     </select>
                 </div>

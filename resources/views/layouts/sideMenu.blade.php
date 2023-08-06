@@ -3,8 +3,10 @@
         <h3>التصنيفـات</h3>
     </div>
     <ul class="list-unstyled components">
-        @foreach($categories as $id => $name)
-        <li><a href="/category/{{Str::replace(' ', '-', $name)}}" class="category-link">{{$name}}</a></li>
+
+        @foreach($categories as $category)
+        <li><a href="/category/{{$category->category_url}}" class="category-link">{{$category->category_name}}</a>
+        </li>
         @endforeach
     </ul>
 </nav>

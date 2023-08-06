@@ -1,7 +1,7 @@
 @extends("layouts.app")
-@section('title', isset($q) ? "البحث" : (isset($originalId) ? $categories[$originalId] : "الرئيسية"))
-@section('description', isset($q) ? "ابحث عن اي حكمة عن الحياة مع قصص متنوعة وفوائد ممتعة" : (isset($originalId) ?
-$categories[$originalId] : "الرئيسية"))
+@section('title', isset($q) ? "البحث" : (isset($category) ? $category->category_name : "الرئيسية"))
+@section('description', isset($q) ? "ابحث عن اي حكمة عن الحياة مع قصص متنوعة وفوائد ممتعة" : (isset($category) ?
+$category->category_name : "الرئيسية"))
 
 @section("content")
 <div>
@@ -15,16 +15,16 @@ $categories[$originalId] : "الرئيسية"))
     </div>
     @endif
 </div>
-@if(isset($q) || isset($originalId))
+@if(isset($q) || isset($category))
 <div class="container-fluid shadow-lg p-3 mx-1 my-3 rounded">
     <div class="label">
         @isset($q)
         <h1>نص البحث: </h1>
         <h4>{{$q}}</h4>
         @endisset
-        @isset($originalId)
+        @isset($category)
         <h1>التصنيف: </h1>
-        <h4>{{$categories[$originalId]}}</h4>
+        <h4>{{$category->category_name}}</h4>
         @endisset
     </div>
     <div class="total">
@@ -37,8 +37,9 @@ $categories[$originalId] : "الرئيسية"))
             <input type="text" name="q" value="{{ $q }}" hidden>
             <select class="form-control" name="c" id="category-select">
                 <option value="" {{ $c ? '' : 'selected' }}>جميع التصانيف</option>
-                @foreach($categories as $id => $name)
-                <option value="{{ $id }}" {{ $c==$id ? 'selected' : '' }}>{{$name}}</option>
+                @foreach($categories as $category)
+                <option value="{{ $category->id }}" {{$c==$category->id?'selected':''}}>{{$category->category_name}}
+                </option>
                 @endforeach
             </select>
         </form>
