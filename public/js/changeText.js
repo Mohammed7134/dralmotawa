@@ -1,37 +1,9 @@
-function changeWisdomText(element) {
-    const selectedOptions = getSelectedOptions(element);
-    console.dir(selectedOptions);
-    if (element.value) {
-        data = {
-            '_token': $('meta[name=csrf-token]').attr('content'),
-            wisdomId: element.value.split("-")[0],
-            updatedCategories: selectedOptions
-        }
-        fetch('/changeCategory', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        }).then(res => {
-            return res.json();
-        }).then(async data => {
-            if (data.error === false) {
-                await showSnackbar("تم تعديل التصنيف");
-            } else {
-                await showSnackbar("لم يتم التعديل");
-            }
-        })
-    } else {
-        showSnackbar("حدث خطأ ما!");
-    }
-}
-// Get a reference to the form element
-const form = document.getElementById('edit-form');
 
 // Add an event listener for the form submission
-form.addEventListener('submit', (event) => {
+function handleFormSubmit(event) {
     event.preventDefault(); // Prevent the default form submission
+
+    const form = event.target; // Get the form element that triggered the event
 
     // Get the form data
     const formData = new FormData(form);
@@ -54,4 +26,13 @@ form.addEventListener('submit', (event) => {
         // Handle errors that occurred during the AJAX request
         console.error('Error:', error);
     });
-});
+};
+
+// Attach the event listener to all forms
+function addChangingTextFunctionality() {
+    document.querySelectorAll('.edit-form').forEach((form) => {
+        form.addEventListener('submit', handleFormSubmit);
+        // Add other events as needed, e.g., 'change', 'input', etc.
+    });
+}
+addChangingTextFunctionality();

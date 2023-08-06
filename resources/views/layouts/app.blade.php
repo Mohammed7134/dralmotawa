@@ -48,7 +48,6 @@
                         <button class="subscribe-button" id="subscribe_button">اشترك في خدمة الإشعارات</button><br>
                         @auth
                         <p>عدد المشتركين: <span>{{ $numberOfSubscribers }}</span></p>
-                        <a href="{{ route('create_categories') }}">إضافة جدول التصنيفات والحكم المصاحبة</a><br>
                         <a href="/add"><button class="new-wisdom-button" type="submit">إضافة حكمة</button></a><br>
                         @endauth
                     </div>

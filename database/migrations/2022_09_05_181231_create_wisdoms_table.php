@@ -16,7 +16,6 @@ return new class extends Migration
         // Schema::create('wisdoms', function (Blueprint $table) {
         //     $table->id();
         //     $table->text("text");
-        //     $table->text("ids");
         //     $table->timestamps();
         // });
     }

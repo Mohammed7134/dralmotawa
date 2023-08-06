@@ -1,6 +1,6 @@
 <div class="blog_post">
     <div>
-        <form id="edit-form" action="/changeText" method="post">
+        <form class="edit-form" action="/changeText" method="post">
             @csrf
             <input type="text" value="{{$wisdom->id}}" name="wisdomId" hidden>
             <textarea id="myTextarea" name="text" class="displayed_wisdom" rows="10"

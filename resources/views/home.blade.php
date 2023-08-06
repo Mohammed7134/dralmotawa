@@ -105,6 +105,7 @@ $category->category_name : "الرئيسية"))
                     checkColor();
                     load = true;
                     applyAnimation();
+                    addChangingTextFunctionality();
                 } else {
                     document.querySelector(".loading").innerText = "لا يوجد نتائج أكثر";
                 }
