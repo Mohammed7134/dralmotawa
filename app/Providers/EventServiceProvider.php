@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Events\WisdomUpdated;
+use App\Listeners\UpdateSitemapListener;
 use App\Models\Wisdom;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -16,6 +18,9 @@ class EventServiceProvider extends ServiceProvider
      * @var array<class-string, array<int, class-string>>
      */
     protected $listen = [
+        WisdomUpdated::class => [
+            UpdateSitemapListener::class,
+        ],
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],

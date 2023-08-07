@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\WisdomUpdated;
 use App\Http\Requests\StoreWisdomRequest;
 use App\Http\Requests\UpdateWisdomRequest;
 use App\Models\Category;
@@ -129,6 +130,9 @@ class WisdomController extends Controller
             $wisdom = Wisdom::where("id", "=", request()->wisdomId)->first();
             if ($wisdom) {
                 $wisdom->categories()->sync(request()->updatedCategories, ['created_at' => now(), 'updated_at' => now()]);
+                $wisdom->updated_at = now();
+                $wisdom->save();
+                event(new WisdomUpdated($wisdom));
                 $result['error'] = false;
             } else {
                 $result['error'] = true;
