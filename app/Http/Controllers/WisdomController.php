@@ -156,6 +156,7 @@ class WisdomController extends Controller
                 $result['error'] = false;
                 $result['message'] = "تم تعديل النص";
                 $result['text'] = $newCleanText;
+                event(new WisdomUpdated($wisdom));
             } else {
                 $result['error'] = true;
                 $result['message'] = "حدث خطأ";
