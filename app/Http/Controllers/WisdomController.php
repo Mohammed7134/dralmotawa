@@ -75,6 +75,10 @@ class WisdomController extends Controller
     }
     public function getWisdomsForCategory($category)
     {
+        if (is_numeric($category)) {
+            $category = Category::where('id', '=', $category)->first();
+            return redirect('/category/' . urlencode($category->category_url));
+        }
         $category = Category::where('category_url', '=', $category)->orWhere('id', '=', $category)->first();
         $wisdoms = Wisdom::whereHas('categories', function ($query) use ($category) {
             $query->where('categories.id', $category->id);
