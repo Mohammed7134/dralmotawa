@@ -40,8 +40,8 @@ class PushWisdom extends Notification
     public function toWebPush($notifiable, $notification)
     {
         $wisdom = Wisdom::where('id', '=', $this->wisdomId)->first();
-        $body = Str::limit($wisdom->text, 550, '...');
-        $url = "https://dralmutawa.com/id/$wisdom->id";
+        $body = "Str::limit(wisdom->text, 550, '...')";
+        $url = "https://dralmutawa.com/id/wisdom->id";
         return (new WebPushMessage)
             ->title('حكمة اليوم')
             ->icon('/images/logo.png')
