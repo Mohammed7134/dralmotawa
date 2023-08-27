@@ -35,8 +35,8 @@ class SubscribeController extends Controller
     }
     public function push()
     {
-        // Notification::send(User::all(), new PushWisdom());
-        Notification::send(Guest::all(), new PushWisdom());
+        Notification::send(User::all(), new PushWisdom());
+        // Notification::send(Guest::all(), new PushWisdom());
         return redirect()->back();
     }
 }
