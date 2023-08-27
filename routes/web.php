@@ -51,4 +51,4 @@ Route::get('/push/{id}', [SubscribeController::class, 'push'])->name('push');
 Route::post('/push', [SubscribeController::class, 'saveSubscription']);
 
 // temporary
-Route::get('categories/create', [CategoryController::class, 'create'])->name('create_categories');
+Route::get('getWisdoms', [WisdomController::class, 'getWisdoms']);

@@ -11,8 +11,8 @@ use App\Rules\CustomRule;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
-
-
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class WisdomController extends Controller
 {
@@ -75,6 +75,7 @@ class WisdomController extends Controller
     }
     public function getWisdomsForCategory($category)
     {
+        Log::debug($category);
         $category = Category::where('category_url', '=', $category)->first();
         $wisdoms = Wisdom::whereHas('categories', function ($query) use ($category) {
             $query->where('categories.id', $category->id);
@@ -211,7 +212,7 @@ class WisdomController extends Controller
             $wisdom->categories()->attach(1467, ['created_at' => now(), 'updated_at' => now()]);
         }
         $date = now()->format('Y-m-d');
-        $wisdoms = Wisdom::whereDate('created_at', '>=', $date)->get();
+        $wisdoms = Wisdom::whereDate('created_at', '>=', $date)->paginate(7);
         return view('home')->with(compact('wisdoms'));
     }
 
@@ -277,6 +278,22 @@ class WisdomController extends Controller
             }
         }
         return $wisdoms;
+    }
+
+
+    // AI Categorisation 
+    public function getWisdoms()
+    {
+        $wisdoms = Wisdom::with('categories')->take(12000)->get();
+        $wisdomsArray = [];
+        foreach ($wisdoms as $wisdom) {
+            $wis = array();
+            $wis['id'] = $wisdom->id;
+            $wis['wisdom'] = $wisdom->text;
+            $wis['categories'] = $wisdom->categories->pluck('id');
+            $wisdomsArray[] = $wis;
+        }
+        return $wisdomsArray;
     }
     /**
      * Show the form for creating a new resource.

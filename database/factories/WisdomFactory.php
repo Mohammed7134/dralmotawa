@@ -18,7 +18,7 @@ class WisdomFactory extends Factory
     {
         return [
             'text' => fake()->name(),
-            'ids' => '["1429"]'
+            // 'ids' => '["1429"]'
         ];
     }
 }
