@@ -7,6 +7,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\Log;
 use NotificationChannels\WebPush\WebPushMessage;
 use NotificationChannels\WebPush\WebPushChannel;
 use Illuminate\Support\Str;
@@ -39,9 +40,10 @@ class PushWisdom extends Notification
 
     public function toWebPush($notifiable, $notification)
     {
+        Log::debug(request()->id);
         $wisdom = Wisdom::where('id', '=', $this->wisdomId)->first();
-        $body = "Str::limit(wisdom->text, 550, '...')";
-        $url = "https://dralmutawa.com/id/wisdom->id";
+        $body = Str::limit($wisdom->text, 550, '...');
+        $url = "https://dralmutawa.com/id/$wisdom->id";
         return (new WebPushMessage)
             ->title('حكمة اليوم')
             ->icon('/images/logo.png')
