@@ -8,7 +8,6 @@
             {{adjustLineBreaks($displayed, false)}}</p> {{-- show the main wisdom --}}
         <p id="{{$wisdom->id}}" style="display: none">{{$displayed}}</p> {{-- full wisdom text hidden here --}}
         <script>
-            s
             document.querySelectorAll(".displayed_wisdom").forEach(element => {element.innerText = text_truncate(element.innerText);});
         </script> {{-- adjust first element to show only part of the text in big screen --}}
         {{-- categories --}}
