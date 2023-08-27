@@ -75,8 +75,7 @@ class WisdomController extends Controller
     }
     public function getWisdomsForCategory($category)
     {
-        Log::debug($category);
-        $category = Category::where('category_url', '=', $category)->first();
+        $category = Category::where('category_url', '=', $category)->orWhere('id', '=', $category)->first();
         $wisdoms = Wisdom::whereHas('categories', function ($query) use ($category) {
             $query->where('categories.id', $category->id);
         })->paginate(9);

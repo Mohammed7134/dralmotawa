@@ -13,14 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        // Schema::create('category_wisdom', function (Blueprint $table) {
-        //     $table->unsignedBigInteger('wisdom_id');
-        //     $table->unsignedBigInteger('category_id');
-        //     $table->foreign('wisdom_id')->references('id')->on('wisdoms')->onDelete('cascade');
-        //     $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
-        //     $table->primary(['wisdom_id', 'category_id']);
-        //     $table->timestamps();
-        // });
+        Schema::create('category_wisdom', function (Blueprint $table) {
+            $table->unsignedBigInteger('wisdom_id');
+            $table->unsignedBigInteger('category_id');
+            $table->foreign('wisdom_id')->references('id')->on('wisdoms')->onDelete('cascade');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->primary(['wisdom_id', 'category_id']);
+            $table->timestamps();
+        });
     }
 
     /**
