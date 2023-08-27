@@ -15,15 +15,13 @@ use Illuminate\Support\Str;
 class PushWisdom extends Notification
 {
     use Queueable;
-    private $wisdomId;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($wisdomId)
+    public function __construct()
     {
-        $this->wisdomId = $wisdomId;
     }
 
     /**
@@ -41,7 +39,7 @@ class PushWisdom extends Notification
     public function toWebPush($notifiable, $notification)
     {
         Log::debug(request()->id);
-        $wisdom = Wisdom::where('id', '=', $this->wisdomId)->first();
+        $wisdom = Wisdom::where('id', '=', request()->id)->first();
         $body = Str::limit($wisdom->text, 550, '...');
         $url = "https://dralmutawa.com/id/$wisdom->id";
         return (new WebPushMessage)
