@@ -160,7 +160,7 @@ if ('serviceWorker' in navigator && 'PushManager' in window) {
                 } else {
                     // The user is already subscribed
                     const subscribeButton = document.getElementById('subscribe_button');
-                    // subscribeButton.style.display = "none";
+                    subscribeButton.style.display = "none";
                 }
             })
             .catch(function (error) {
