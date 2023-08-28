@@ -15,7 +15,6 @@ function getSelectedOptions(element) {
 
 function logValue(element) {
     const selectedOptions = getSelectedOptions(element);
-    console.dir(selectedOptions);
     if (element.value) {
         data = {
             '_token': $('meta[name=csrf-token]').attr('content'),
