@@ -4,9 +4,11 @@
 <div class="blog_post">
     <div>
         {{-- main text --}}
-        <p onclick="buttonPressed(this)" class="displayed_wisdom" id="wisdom-{{$wisdom->id}}">
+        <p onclick="buttonPressed(this)" class="displayed_wisdom" id="wisdom-{{$wisdom->id}}"
+            style="user-select: none;">
             {{adjustLineBreaks($displayed, false)}}</p> {{-- show the main wisdom --}}
-        <p id="{{$wisdom->id}}" style="display: none">{{$displayed}}</p> {{-- full wisdom text hidden here --}}
+        <p id="{{$wisdom->id}}" style="display:none;user-select:none;">{{$displayed}}</p> {{-- full wisdom text hidden
+        here --}}
         <script>
             document.querySelectorAll(".displayed_wisdom").forEach(element => {element.innerText = text_truncate(element.innerText);});
         </script> {{-- adjust first element to show only part of the text in big screen --}}
