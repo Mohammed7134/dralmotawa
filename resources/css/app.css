@@ -177,8 +177,9 @@ h1.wisdom_title {
     font-size: 30px;
     line-height: 1.2;
     background: white;
-    padding: 20px;
+    padding: 20px 20px 0px 20px;
     border-radius: 10px;
+    user-select: none;
 }
 
 
@@ -674,7 +675,8 @@ blockquote {
 .facebook-button,
 .similar-button,
 .coffee-button,
-.notification-button {
+.notification-button,
+.copy-button {
     font-size: 2rem;
     background: none;
     border: none;

@@ -4,11 +4,12 @@
 <div class="blog_post">
     <div>
         {{-- main text --}}
-        <p onclick="buttonPressed(this)" class="displayed_wisdom" id="wisdom-{{$wisdom->id}}"
-            style="user-select: none;">
+        <p onclick="buttonPressed(this)" class="displayed_wisdom" id="wisdom-{{$wisdom->id}}">
             {{adjustLineBreaks($displayed, false)}}</p> {{-- show the main wisdom --}}
-        <p id="{{$wisdom->id}}" style="display:none;user-select:none;">{{$displayed}}</p> {{-- full wisdom text hidden
-        here --}}
+        <textarea id="{{$wisdom->id}}" rows="1"
+            style="display:none;">{{$displayed . "\n\n" . "د. عبدالعزيز فيصل المطوع"}}</textarea> {{--
+        full wisdom
+        text hidden here --}}
         <script>
             document.querySelectorAll(".displayed_wisdom").forEach(element => {element.innerText = text_truncate(element.innerText);});
         </script> {{-- adjust first element to show only part of the text in big screen --}}
@@ -20,9 +21,11 @@
         </div>
         {{-- toolbar --}}
         <div class="d-flex toolbar" style="padding: 10px">
-            <button id="add_to_basket" class="add-button"><i id="add-{{$wisdom->id;}}"
+            <button id="add_to_basket" class="add-button"><i id="add-{{$wisdom->id}}"
                     class="fas far fa-share-square share-icon black" style="color:black;"></i></button>
-            <button id="like" class="like-button"><i id="like-{{$wisdom->id;}}" class="fa-regular fa-heart like-icon"
+            <button class="copy-button"><i onclick="copyToClipboard(this)" id="copy-{{$wisdom->id}}"
+                    class="fa-regular fa-copy" style="color:black;"></i></button>
+            <button id="like" class="like-button"><i id="like-{{$wisdom->id}}" class="fa-regular fa-heart like-icon"
                     style="color:red;"></i></button>
             <a class="twitter-button"
                 href='https://twitter.com/intent/tweet?text={{adjustLineBreaks($displayed, true)}}%0A@dralmotawaa'><i

@@ -77,7 +77,6 @@ const shareButtonTag = '<i class="fab fa-whatsapp fa-2x" style="color:black" ari
 
 const formElem = document.querySelector("#editForm");
 const deleteElem = document.querySelector("#deleteForm");
-const textarea = document.querySelector("textarea");
 const innerContent = document.querySelector(".inner-content");
 const btnScrollToTopId = document.querySelector("#btnScrollToTopId");
 const menu = document.querySelector("#categories");
