@@ -14,7 +14,8 @@
     <div class="division2">
         <b style="font-size: 164%;">نبذة عن الموقع</b>
         <ul>
-            <p style="font-size: 142%">نشر مفاهيم حياتية إنسانية اجتماعية اخلاقية تربوية.</p>
+            <p style="font-size: 142%">نشر مفاهيم حياتية إنسانية اجتماعية اخلاقية تربوية<a
+                    href="{{ route('login') }}">.</a></p>
         </ul>
     </div>
 

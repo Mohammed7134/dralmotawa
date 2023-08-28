@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [WisdomController::class, "index"])->name('home');
 Route::get('/category/{id}', [WisdomController::class, "getWisdomsForCategory"]);
 Route::get('/search', [WisdomController::class, "searchForWisdom"]);
-Route::get('/login', [UsersController::class, "login"]);
+Route::get('/login', [UsersController::class, "login"])->name('login');
 Route::get('/signout', [UsersController::class, "signout"]);
 Route::post('/signin', [UsersController::class, "signin"]);
 Route::post('/changeCategory', [WisdomController::class, "changeCategory"])->middleware("auth");
