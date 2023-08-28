@@ -9,7 +9,7 @@ function copyToClipboard(e) {
         const message = successful ? 'تم النسخ' : 'لم يتم النسخ';
         showSnackbar(message);
     } catch (err) {
-        console.error('Failed to copy text:', err);
+        console.error('فشل النسخ:', err);
     }
 
 }
