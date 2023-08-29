@@ -6,6 +6,7 @@ function copyToClipboard(e) {
         textarea.select();
         const successful = document.execCommand('copy');
         textarea.style.display = 'none';
+        textarea.blur();
         const message = successful ? 'تم النسخ' : 'لم يتم النسخ';
         showSnackbar(message);
     } catch (err) {
