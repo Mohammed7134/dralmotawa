@@ -22,7 +22,7 @@ class SubscribeController extends Controller
         $endpoint = request()->endpoint;
         $token = request()->keys['auth'];
         $key = request()->keys['p256dh'];
-        $guest = Guest::firstOrCreate([
+        $guest = User::firstOrCreate([
             'endpoint' => $endpoint
         ]);
         // $guest = User::first();
@@ -39,7 +39,7 @@ class SubscribeController extends Controller
     public function push()
     {
         Notification::send(User::all(), new PushWisdom());
-        Notification::send(Guest::all(), new PushWisdom());
+        // Notification::send(Guest::all(), new PushWisdom());
         return redirect()->back();
     }
 }
