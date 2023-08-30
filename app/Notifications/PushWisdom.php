@@ -42,7 +42,7 @@ class PushWisdom extends Notification
         $wisdomId = empty(request()->id) ? 26647 : request()->id;
         $wisdom = Wisdom::where('id', '=', $wisdomId)->first();
         $body = Str::limit($wisdom->text, 550, '...');
-        $url = "https://dralmutawa.com/id/$wisdom->id";
+        $url = "https://dralmutawa.com/id/$wisdom->id?title=حكمة%20اليوم";
         return (new WebPushMessage)
             ->title('حكمة اليوم')
             ->icon('/images/logo.png')

@@ -1,8 +1,15 @@
 @extends("layouts.app")
+@isset($title)
+@section('title',$title)
+@else
 @section('title', isset($q) ? "البحث" : (isset($category) ? $category->category_name : "الرئيسية"))
+@endisset
+@isset($description)
+@section('description',$description)
+@else
 @section('description', isset($q) ? "ابحث عن اي حكمة عن الحياة مع قصص متنوعة وفوائد ممتعة" : (isset($category) ?
 $category->category_name : "الرئيسية"))
-
+@endisset
 @section("content")
 <div>
     @if ($errors->any())

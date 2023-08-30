@@ -11,8 +11,8 @@ use App\Rules\CustomRule;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
+
 
 class WisdomController extends Controller
 {
@@ -49,8 +49,9 @@ class WisdomController extends Controller
     public function getOneWisdom(int $id)
     {
         try {
+            $title = request()->title;
             $wisdom = Wisdom::findOrFail($id);
-            return view('home')->with('wisdoms', [$wisdom])->with("noajax", true);
+            return view('home')->with('wisdoms', [$wisdom])->with("noajax", true)->with("title", empty($title) ? "حكمة" : $title)->with('description', Str::limit($wisdom->text, 120, '...'));
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return redirect('/');
         }
