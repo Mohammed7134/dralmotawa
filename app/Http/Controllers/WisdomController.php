@@ -216,19 +216,19 @@ class WisdomController extends Controller
             $wisdom->text = $this->cleanText($text);
             $wisdom->likes = 0;
             $wisdom->save();
-            $wisdom->categories()->attach($this->autoCategorize($wisdom->text), ['created_at' => now(), 'updated_at' => now()]);
+            $wisdom->categories()->attach(1467, ['created_at' => now(), 'updated_at' => now()]);
         }
-        $category = Category::where('id', '=', 1467)->first();
+        // $category = Category::where('id', '=', 1467)->first();
 
-        $newWisdoms = Wisdom::whereHas('categories', function ($query) use ($category) {
-            $query->where('categories.id', $category->id);
-        })->get();
-        foreach ($newWisdoms as $wisdom) {
-            $wisdom->categories()->sync([$this->autoCategorize($wisdom->text)], ['created_at' => now(), 'updated_at' => now()]);
-            $wisdom->updated_at = now();
-            $wisdom->save();
-            event(new WisdomUpdated($wisdom));
-        }
+        // $newWisdoms = Wisdom::whereHas('categories', function ($query) use ($category) {
+        //     $query->where('categories.id', $category->id);
+        // })->get();
+        // foreach ($newWisdoms as $wisdom) {
+        //     $wisdom->categories()->sync([$this->autoCategorize($wisdom->text)], ['created_at' => now(), 'updated_at' => now()]);
+        //     $wisdom->updated_at = now();
+        //     $wisdom->save();
+        //     event(new WisdomUpdated($wisdom));
+        // }
         $date = now()->format('Y-m-d');
         $wisdoms = Wisdom::whereDate('created_at', '>=', $date)->paginate(7);
         return view('home')->with(compact('wisdoms'));
