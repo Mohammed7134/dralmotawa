@@ -9,8 +9,10 @@ use App\Models\Category;
 use App\Models\Wisdom;
 use App\Rules\CustomRule;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 
@@ -51,7 +53,8 @@ class WisdomController extends Controller
         try {
             $title = request()->title;
             $wisdom = Wisdom::findOrFail($id);
-            return view('home')->with('wisdoms', [$wisdom])->with("noajax", true)->with("title", empty($title) ? "حكمة" : $title)->with('description', Str::limit($wisdom->text, 120, '...'));
+            $wisdoms = $this->getSimilarWisdoms([$wisdom]);
+            return view('home')->with('wisdoms', $wisdoms)->with("noajax", true)->with("title", empty($title) ? "حكمة" : $title)->with('description', Str::limit($wisdom->text, 120, '...'));
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return redirect('/');
         }
@@ -213,7 +216,18 @@ class WisdomController extends Controller
             $wisdom->text = $this->cleanText($text);
             $wisdom->likes = 0;
             $wisdom->save();
-            $wisdom->categories()->attach(1467, ['created_at' => now(), 'updated_at' => now()]);
+            $wisdom->categories()->attach($this->autoCategorize($wisdom->text), ['created_at' => now(), 'updated_at' => now()]);
+        }
+        $category = Category::where('id', '=', 1467)->first();
+
+        $newWisdoms = Wisdom::whereHas('categories', function ($query) use ($category) {
+            $query->where('categories.id', $category->id);
+        })->get();
+        foreach ($newWisdoms as $wisdom) {
+            $wisdom->categories()->sync([$this->autoCategorize($wisdom->text)], ['created_at' => now(), 'updated_at' => now()]);
+            $wisdom->updated_at = now();
+            $wisdom->save();
+            event(new WisdomUpdated($wisdom));
         }
         $date = now()->format('Y-m-d');
         $wisdoms = Wisdom::whereDate('created_at', '>=', $date)->paginate(7);
@@ -432,5 +446,41 @@ class WisdomController extends Controller
             $text = str_replace(' !', '!', $text);
         }
         return $text;
+    }
+    private function autoCategorize($wisdom)
+    {
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://us-central1-aiplatform.googleapis.com/v1/projects/186748023883/locations/us-central1/endpoints/8664716775851556864:predict',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => '{"instances": [{"text": ' . json_encode($wisdom) . '}]}',
+            CURLOPT_HTTPHEADER => array(
+                'Authorization: Bearer ya29.a0AfB_byCqc0iUJYRk-0Qa-hESWOCvkUK_TvZDAVSBmKfah3nqmmW8BiNotFB3UxuJV85j3SLJAbgiOqEUgy2Le-eZFOTxPVe4SbTEHbxs0jOvehP3Cpl0wdZYowu_s3FP09RvqwnFR2tD_bfQWVRO0Mht-4hMxHCNONoaCgYKARoSAQ4SFQGOcNnCRxZiKOHcRaq7nvRkYvXqfA0170',
+                'Content-Type: application/json'
+            ),
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+        $predictions = array();
+        Log::debug($response);
+        foreach (json_decode($response)->predictions[0]->classes as $index => $class) {
+            $row = array();
+            $row['class'] = $class;
+            $row['score'] = json_decode($response)->predictions[0]->scores[$index];
+            $predictions[] = $row;
+        }
+        usort($predictions, function ($a, $b) {
+            return $a['score'] < $b['score'];
+        });
+        return Category::where('category_name', '=', $predictions[0]['class'])->first()->id;
     }
 }
