@@ -38,7 +38,6 @@ class PushWisdom extends Notification
 
     public function toWebPush($notifiable, $notification)
     {
-        Log::debug(request()->id);
         $wisdomId = empty(request()->id) ? 26647 : request()->id;
         $wisdom = Wisdom::where('id', '=', $wisdomId)->first();
         $body = Str::limit($wisdom->text, 550, '...');
