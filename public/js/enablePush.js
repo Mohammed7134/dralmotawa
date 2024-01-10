@@ -46,8 +46,8 @@ notificationButton.addEventListener('click', function () {
     })
         .then((permissionResult) => {
             if (permissionResult !== 'granted') {
-                alert('نأسف٬ لا يمكن تفعيل الإشعارات في هذا المتصفح.');
-                // alert("يجب تثبيت الموقع أولا عن طريق إضافته للصفحة الرئيسية.");
+                // alert('نأسف٬ لا يمكن تفعيل الإشعارات في هذا المتصفح.');
+                alert("يجب تثبيت الموقع أولا عن طريق إضافته للصفحة الرئيسية.");
             }
             subscribeUser();
         })
