@@ -14,5 +14,5 @@
             alt="Connect on RapidAPI">
     </a>
     @endauth
-    <p>موقع فقه الحياة<br> ©<span id="year">2023</span></p>
+    <p>موقع فقه الحياة<br> ©<span id="year">{{ date('Y') }}</span></p>
 </div>

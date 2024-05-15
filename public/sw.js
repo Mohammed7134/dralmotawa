@@ -72,7 +72,7 @@ self.addEventListener('push', function (e) {
         );
     }
 });
-// This function is not functioning
+// This function looks functioning
 self.addEventListener('notificationclick', function (event) {
     event.notification.close();
     // Retrieve the URL from the notification data
