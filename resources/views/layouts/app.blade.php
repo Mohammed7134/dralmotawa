@@ -95,7 +95,7 @@
 
         // Show the install banner if it's iOS and not in standalone mode
         window.addEventListener('load', function() {
-        if (isIOS() &amp;&amp; !isInStandaloneMode()) {
+        if (isIOS() && !isInStandaloneMode()) {
         const installBanner = document.getElementById('installBanner');
         installBanner.classList.add('show');
         }
