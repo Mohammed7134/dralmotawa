@@ -31,6 +31,15 @@
         <!-- End GTM -->
 
         @include('layouts.images')
+        <style>
+            .install-banner {
+                display: none;
+            }
+
+            .install-banner.show {
+                display: flex;
+            }
+        </style>
     </head>
 
     <body lang="ar" dir="rtl">
@@ -60,6 +69,44 @@
                 </footer>
             </div>
         </div>
+        <div id="installBanner" class="install-banner fixed bottom-0 left-0 right-0 p-4 bg-gray-800 text-white flex
+        items-center justify-between">
+            <div>
+                <p>Install this app on your device for a better experience.</p>
+                <p>Tap <span class="inline-block bg-white text-black px-2 py-1 rounded">Share</span> and then
+                    <span class="inline-block bg-white text-black px-2 py-1 rounded">Add to Home
+                        Screen</span>
+                </p>
+            </div>
+            <button id="closeBanner" class="ml-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4
+        rounded">Close</button>
+        </div>
+
+        <script>
+            // Function to detect iOS
+        function isIOS() {
+        return /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
+        }
+
+        // Function to detect if in standalone mode
+        function isInStandaloneMode() {
+        return ('standalone' in window.navigator) && (window.navigator.standalone);
+        }
+
+        // Show the install banner if it's iOS and not in standalone mode
+        window.addEventListener('load', function() {
+        if (isIOS() &amp;&amp; !isInStandaloneMode()) {
+        const installBanner = document.getElementById('installBanner');
+        installBanner.classList.add('show');
+        }
+        });
+
+        // Close the install banner
+        document.getElementById('closeBanner').addEventListener('click', function() {
+        const installBanner = document.getElementById('installBanner');
+        installBanner.classList.remove('show');
+        });
+        </script>
         <!-- Add to home screen prompt -->
         @include('shared.addToHome')
 
