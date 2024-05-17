@@ -68,18 +68,18 @@
                     @include('layouts.footer')
                 </footer>
             </div>
-        </div>
-        <div id="installBanner" class="install-banner fixed bottom-0 left-0 right-0 p-4 bg-gray-800 text-white flex
+            <div id="installBanner" class="install-banner fixed bottom-0 left-0 right-0 p-4 bg-gray-800 text-white flex
         items-center justify-between">
-            <div>
-                <p>Install this app on your device for a better experience.</p>
-                <p>Tap <span class="inline-block bg-white text-black px-2 py-1 rounded">Share</span> and then
-                    <span class="inline-block bg-white text-black px-2 py-1 rounded">Add to Home
-                        Screen</span>
-                </p>
-            </div>
-            <button id="closeBanner" class="ml-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4
+                <div>
+                    <p>Install this app on your device for a better experience.</p>
+                    <p>Tap <span class="inline-block bg-white text-black px-2 py-1 rounded">Share</span> and then
+                        <span class="inline-block bg-white text-black px-2 py-1 rounded">Add to Home
+                            Screen</span>
+                    </p>
+                </div>
+                <button id="closeBanner" class="ml-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4
         rounded">Close</button>
+            </div>
         </div>
 
         <script>
