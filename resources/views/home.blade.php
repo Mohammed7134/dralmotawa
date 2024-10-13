@@ -10,6 +10,39 @@
 @section('description', isset($q) ? "ابحث عن اي حكمة عن الحياة مع قصص متنوعة وفوائد ممتعة" : (isset($category) ?
 $category->category_name : "الرئيسية"))
 @endisset
+@isset($category)
+@section("style")
+<style>
+    .outer {
+        position: relative;
+        background-image: url('/images/{{ $category->category_name }}.jpeg');
+        /* Replace with your image URL */
+        background-size: cover;
+        background-position: center;
+        width: 100%;
+        /* Adjust the height as needed */
+        color: white;
+        padding: 20px;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+    }
+
+    .label,
+    .total {
+        background-color: rgba(0, 0, 0, 0.5);
+        /* Optional: add a semi-transparent background to the text */
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        margin: 10px 0;
+    }
+</style>
+@endsection
+@endisset
+
 @section("content")
 <div>
     @if ($errors->any())
@@ -23,7 +56,11 @@ $category->category_name : "الرئيسية"))
     @endif
 </div>
 @if(isset($q) || isset($category))
-<div class="container-fluid shadow-lg p-3 mx-1 my-3 rounded">
+<div class="container-fluid shadow-lg p-3 mx-1 my-3 rounded outer">
+    {{-- @isset($category)
+    <img src="/images/{{ $category->category_name }}.jpeg" alt="{{ $category->category_name }}"
+        style="position:fixed;display:flex;z-index:0;width:inherit;">
+    @endisset --}}
     <div class="label">
         @isset($q)
         <h1>نص البحث: </h1>

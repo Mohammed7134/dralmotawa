@@ -40,6 +40,8 @@
                 display: flex;
             }
         </style>
+        @yield("style")
+        @show
     </head>
 
     <body lang="ar" dir="rtl">
