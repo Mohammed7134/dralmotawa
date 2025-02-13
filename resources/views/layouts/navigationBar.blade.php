@@ -15,7 +15,8 @@
             </ul>
             <form id="search-form" class="form-inline me-2 me-lg-0" action="/search" method="GET" name="search">
                 <div class="search-form"><input class="form-control ms-sm-2" type="search" placeholder="أدخل كلمة البحث"
-                        aria-label="بحث" name="q"><button class="btn btn-outline-primary " type="submit">بحث</button>
+                        aria-label="بحث" name="q" style="font-size: 1.5rem;"><button class="btn btn-outline-primary "
+                        type="submit">بحث</button>
                     {{-- @auth <a href="/lastAddedWisdom" class="btn btn-outline-secondary">آخر
                         حكمة</a>
                     @endauth --}}
