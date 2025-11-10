@@ -2,6 +2,11 @@
 <html lang="ar" dir="rtl">
 
     <head>
+        <meta property="og:title" content="فقه الحياة">
+        <meta property="og:description" content="مقولات الدكتور عبدالعزيز فيصل المطوع">
+        <meta property="og:image" content="{{ asset('/images/logo.png') }}">
+        <meta property="og:url" content="{{ url()->current() }}">
+
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,6 +26,7 @@
         @include('layouts.googleTool')
         @endisset
 
+        <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
 
         @auth
         <script src="{{ asset('js/gtmLoginEvent.js') }}" defer></script>
@@ -32,12 +38,88 @@
 
         @include('layouts.images')
         <style>
+            body {
+                font-family: 'Tajawal', sans-serif;
+            }
+
+            .site-header {
+                background: linear-gradient(to bottom, #f8f9fa, #ffffff);
+                padding: 20px 10px;
+                margin-bottom: 15px;
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+            }
+
+            .site-title {
+                font-size: 2.2rem;
+                font-weight: 700;
+                margin-bottom: 10px;
+            }
+
+            .site-subtitle {
+                font-size: 1.2rem;
+                font-weight: 400;
+                margin-bottom: 15px;
+                color: #555;
+            }
+
+            .developer-credit {
+                font-size: 0.8rem;
+                color: grey;
+                margin-bottom: 20px;
+            }
+
+            .subscribe-button,
+            .new-wisdom-button {
+                background: #007bff;
+                color: #fff;
+                padding: 8px 16px;
+                margin: 8px 0;
+                border: none;
+                border-radius: 6px;
+                cursor: pointer;
+                transition: 0.3s;
+            }
+
+            .subscribe-button:hover,
+            .new-wisdom-button:hover {
+                background: #0056b3;
+            }
+
+            .subscriber-count {
+                margin-top: 10px;
+                font-size: 0.9rem;
+            }
+
             .install-banner {
                 display: none;
             }
 
             .install-banner.show {
                 display: flex;
+            }
+
+            @media (max-width: 576px) {
+                .site-header {
+                    padding: 15px 12px;
+                }
+
+                .site-title {
+                    font-size: 1.6rem;
+                }
+
+                .site-subtitle {
+                    font-size: 1rem;
+                }
+
+                .developer-credit {
+                    font-size: 0.7rem;
+                }
+
+                .subscribe-button,
+                .new-wisdom-button {
+                    width: 100%;
+                    font-size: 0.9rem;
+                }
             }
         </style>
         @yield("style")
@@ -49,21 +131,35 @@
         <div class="wrapper">
             @include('layouts.sideMenu')
             <div id="content">
-                <header>
-                    <div class="jumbotron text-center" style="margin-bottom: 0px;">
-                        <h1>فقه الحياة</h1>
-                        <b>مقولات الدكتور عبدالعزيز فيصل المطوع</b>
-                        <p style="font-size: 10px; color:grey;">تم تطوير الموقع بواسطة: <a target="_blank"
-                                href="https://bmc.link/mohammed71Q/"> محمد المطوع <i
-                                    class="fa-solid fa-mug-hot"></i></a> </p>
-                        <button class="subscribe-button" id="subscribe_button">اشترك في خدمة الإشعارات</button><br>
+                <header class="site-header">
+                    <div class="jumbotron text-center">
+                        <h1 class="site-title">فقه الحياة</h1>
+                        <h2 class="site-subtitle">مقولات الدكتور عبدالعزيز فيصل المطوع</h2>
+
+                        <p class="developer-credit">
+                            تم تطوير الموقع بواسطة:
+                            <a target="_blank" href="https://bmc.link/mohammed71Q/">محمد المطوع
+                                <i class="fa-solid fa-mug-hot"></i>
+                            </a>
+                        </p>
+
+                        <button class="subscribe-button" id="subscribe_button">
+                            اشترك في خدمة الإشعارات
+                        </button>
+
                         @auth
-                        <p>عدد المشتركين: <span>{{ $numberOfSubscribers }}</span></p>
-                        <a href="/add"><button class="new-wisdom-button" type="submit">إضافة حكمة</button></a><br>
+                        <p class="subscriber-count">
+                            عدد المشتركين: <span>{{ $numberOfSubscribers }}</span>
+                        </p>
+                        <a href="/add">
+                            <button class="new-wisdom-button" type="submit">إضافة حكمة</button>
+                        </a>
                         @endauth
                     </div>
+
                     @include('layouts.navigationBar')
                 </header>
+
                 @yield("content")
                 @show
                 <footer>
