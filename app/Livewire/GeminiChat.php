@@ -96,6 +96,7 @@ PROMPT
 
     public function render()
     {
+        // go to livewire.gemini-chat view
         return view('livewire.gemini-chat');
     }
 }
