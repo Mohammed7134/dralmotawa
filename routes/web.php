@@ -14,6 +14,9 @@ Route::get('/', [WisdomController::class, 'index'])->name('home');
 Route::get('/wisdom/{wisdom}', [WisdomController::class, 'show'])->name('wisdom.show');
 Route::get('/category/{category:category_url}', [WisdomController::class, 'category'])->name('category.show');
 Route::get('/chat', GeminiChat::class)->name('chat');
+Route::get('/about', function () {
+    return view('about');
+})->name('about');
 Route::get('/service-worker.js', fn() => response()->file(public_path('service-worker.js'), ['Content-Type' => 'application/javascript']));
 
 // Push subscription API

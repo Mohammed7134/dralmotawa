@@ -32,6 +32,7 @@
                 <div class="flex gap-4 items-center text-sm">
                     <a href="/" class="hover:text-amber-400 transition">الرئيسية</a>
                     <a href="/chat" class="hover:text-amber-400 transition">الدردشة مع الذكاء الاصطناعي</a>
+                    <a href="/about" class="hover:text-amber-400 transition">عن الموقع</a>
                     <livewire:push-subscribe-button />
                 </div>
             </div>
