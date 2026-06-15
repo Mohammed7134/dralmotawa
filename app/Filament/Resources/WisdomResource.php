@@ -8,6 +8,7 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Tables\Actions\Action; // Imported for the custom header action
 use Filament\Tables\Actions\BulkActionGroup;
 use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Actions\EditAction;
@@ -58,7 +59,52 @@ class WisdomResource extends Resource
                     ->multiple(),
             ])
             ->actions([EditAction::make()])
-            ->bulkActions([BulkActionGroup::make([DeleteBulkAction::make()])]);
+            ->bulkActions([BulkActionGroup::make([DeleteBulkAction::make()])])
+            // Add the header action button here
+            ->headerActions([
+                Action::make('massInsert')
+                    ->label('Mass Insert Wisdoms')
+                    ->icon('heroicon-o-document-plus')
+                    ->form([
+                        Textarea::make('mass_text')
+                            ->label('Wisdoms (separated by ||)')
+                            ->placeholder('Wisdom one || Wisdom two || Wisdom three')
+                            ->required()
+                            ->rows(10),
+                    ])
+                    ->action(function (array $data): void {
+                        // Split the text by || and trim whitespace
+                        $wisdoms = array_map('trim', explode('||', $data['mass_text']));
+
+                        foreach ($wisdoms as $wisdomText) {
+                            if (empty($wisdomText)) {
+                                continue;
+                            }
+                            //remove extra spaces
+                            $wisdomText = self::cleanText($wisdomText);
+                            // Remove all Arabic diacritics and punctuation for search indexing
+                            $remove = array('ِ', 'ُ', 'ٓ', 'ٰ', 'ْ', 'ٌ', 'ٍ', 'ً', 'ّ', 'َ');
+                            $searchText = str_replace($remove, '', $wisdomText);
+                            // Normalize multiple spaces left behind by stripped punctuation
+                            $searchText = preg_replace('/\s+/', ' ', $searchText);
+
+                            // Create the Wisdom record
+                            $wisdom = Wisdom::create([
+                                'text' => $wisdomText,
+                                'search_text' => trim($searchText),
+                                'likes' => 0,
+                            ]);
+
+                            // Attach the category ID 1467
+                            // (Assumes a BelongsToMany relationship named 'categories')
+                            $wisdom->categories()->attach(1467);
+                        }
+
+                        // Clear the cache as you did in your hooks
+                        Cache::forget('gemini_wisdoms_context');
+                    })
+                    ->successNotificationTitle('Mass wisdoms inserted successfully!'),
+            ]);
     }
 
     public static function getPages(): array
@@ -76,5 +122,33 @@ class WisdomResource extends Resource
     public static function afterSave(Wisdom $record): void
     {
         Cache::forget('gemini_wisdoms_context');
+    }
+    private static function cleanText(string $text): string
+    {
+        if (str_contains($text, "  ")) {
+            $text = str_replace('  ', ' ', $text);
+        }
+        if (str_contains($text, " :")) {
+            $text = str_replace(' :', ':', $text);
+        }
+        if (str_contains($text, " ،")) {
+            $text = str_replace(' ،', '،', $text);
+        }
+        if (str_contains($text, " .")) {
+            $text = str_replace(' .', '.', $text);
+        }
+        if (str_contains($text, " ؟")) {
+            $text = str_replace(' ؟', '؟', $text);
+        }
+        if (str_contains($text, " )")) {
+            $text = str_replace(' )', ')', $text);
+        }
+        if (str_contains($text, "( ")) {
+            $text = str_replace('( ', '(', $text);
+        }
+        if (str_contains($text, " !")) {
+            $text = str_replace(' !', '!', $text);
+        }
+        return $text;
     }
 }
