@@ -37,7 +37,7 @@ class WisdomFeed extends Component
             ->when($this->sortBy === 'random',  fn($q) => $q->inRandomOrder());
 
         return view('livewire.wisdom-feed', [
-            'wisdoms'    => $query->paginate(12),
+            'wisdoms'    => $query->paginate(50),
             'categories' => Category::orderBy('category_name')->get(),
         ]);
     }
